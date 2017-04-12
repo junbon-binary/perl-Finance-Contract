@@ -16,17 +16,28 @@ Finance::Contract - represents a contract object for a single bet
         contract_type => 'CALLE',
         duration      => '5t',
     );
-    # Show the current prices (as of now, since an explicit pricing date is not provided)
-    say "Bid for CALLE:  " . $contract->bid_price;
-    say "Ask for CALLE:  " . $contract->ask_price;
-    # Get the contract with the opposite bet type, in this case a PUT
-    my $opposite = $contract->opposite_contract;
-    say "Bid for PUT:    " . $opposite->bid_price;
-    say "Ask for PUT:    " . $opposite->ask_price;
 
 =head1 DESCRIPTION
 
 This is a generic abstraction for financial stock market contracts.
+
+=head2 Construction
+
+You can either construct from a shortcode and currency:
+
+    Finance::Contract->new('CALL_frxUSDJPY_1491965798_1491965808_100_0', 'USD');
+
+or from build parameters:
+
+    Finance::Contract->new({
+        underlying   => 'frxUSDJPY',
+        bet_type     => 'CALL',
+        date_start   => $now,
+        duration     => '5t',
+        currency     => 'USD',
+        payout       => 100,
+        barrier      => 100,
+    });
 
 =cut
 
@@ -40,27 +51,186 @@ use Date::Utility;
 use Format::Util::Numbers qw(to_monetary_number_format roundnear);
 use Time::Duration::Concise;
 
-my $contract_type_config     = LoadFile(File::ShareDir::dist_file('LandingCompany', 'contract_types.yml'));
-
-=head2 get_all_contract_types
-
-Returns a list of all loaded contract types
-
-=cut
-
-sub get_all_contract_types {
-    return $contract_type_config;
-}
-
-
-
 my @date_attribute = (
     isa        => 'date_object',
     lazy_build => 1,
     coerce     => 1,
 );
 
-=head1 ATTRIBUTES - Construction
+around BUILDARGS => sub {
+    my $self = shift;
+	# Single hashref parameter means we have the full set of parameters
+	# defined already, and can construct as-is
+	if(@_ == 1 and ref $_[0]) {
+		return $_[0];
+	} else {
+		# Shortcode needs expansion first, and we also need to pass currency
+		return shortcode_to_parameters(@_);
+	}
+};
+
+=head2 shortcode_to_parameters
+
+Convert a shortcode and currency pair into parameters suitable for creating a BOM::Product::Contract
+
+=cut
+
+sub shortcode_to_parameters {
+    my ($shortcode, $currency) = @_;
+
+	die 'Needs a currency' unless $currency;
+
+    my (
+        $bet_type, $underlying_symbol, $payout,       $date_start,  $date_expiry,    $barrier,
+        $barrier2, $prediction,        $fixed_expiry, $tick_expiry, $how_many_ticks, $forward_start,
+    );
+
+    # legacy shortcode, something to do with bet exchange
+    if ($shortcode =~ /^(.+)_E$/) {
+        $shortcode = $1;
+    }
+
+    my ($test_bet_name, $test_bet_name2) = split /_/, $shortcode;
+
+    # for CLUB, it does not have '_' which will not be captured in code above
+    # we need to handle it separately
+    if ($shortcode =~ /^CLUB/i) {
+        $test_bet_name = 'CLUB';
+    }
+    my %OVERRIDE_LIST = (
+        INTRADU    => 'CALL',
+        INTRADD    => 'PUT',
+        FLASHU     => 'CALL',
+        FLASHD     => 'PUT',
+        DOUBLEUP   => 'CALL',
+        DOUBLEDOWN => 'PUT',
+    );
+    $test_bet_name = $OVERRIDE_LIST{$test_bet_name} if exists $OVERRIDE_LIST{$test_bet_name};
+
+    my $legacy_params = {
+        bet_type   => 'Invalid',    # it doesn't matter what it is if it is a legacy
+        underlying => 'config',
+        currency   => $currency,
+    };
+
+    return $legacy_params if (not exists get_all_contract_types()->{$test_bet_name} or $shortcode =~ /_\d+H\d+/);
+
+    if ($shortcode =~ /^(SPREADU|SPREADD)_([\w\d]+)_(\d*.?\d*)_(\d+)_(\d*.?\d*)_(\d*.?\d*)_(DOLLAR|POINT)/) {
+        return {
+            shortcode        => $shortcode,
+            bet_type         => $1,
+            underlying       => create_underlying($2),
+            amount_per_point => $3,
+            date_start       => $4,
+            stop_loss        => $5,
+            stop_profit      => $6,
+            stop_type        => lc $7,
+            currency         => $currency,
+        };
+    }
+
+    # Legacy shortcode: purchase is a date string e.g. '01-Jan-01'.
+    if ($shortcode =~ /^([^_]+)_([\w\d]+)_(\d+)_(\d\d?)_(\w\w\w)_(\d\d)_(\d\d?)_(\w\w\w)_(\d\d)_(S?-?\d+P?)_(S?-?\d+P?)$/) {
+        $bet_type          = $1;
+        $underlying_symbol = $2;
+        $payout            = $3;
+        $date_start        = uc($4 . '-' . $5 . '-' . $6);
+        $date_expiry       = uc($7 . '-' . $8 . '-' . $9);
+        $barrier           = $10;
+        $barrier2          = $11;
+
+        $date_start = Date::Utility->new($date_start)->epoch;
+    }
+
+    # Both purchase and expiry date are timestamp (e.g. a 30-min bet)
+    elsif ($shortcode =~ /^([^_]+)_([\w\d]+)_(\d*\.?\d*)_(\d+)(?<start_cond>F?)_(\d+)(?<expiry_cond>[FT]?)_(S?-?\d+P?)_(S?-?\d+P?)$/) {
+        $bet_type          = $1;
+        $underlying_symbol = $2;
+        $payout            = $3;
+        $date_start        = $4;
+        $forward_start     = 1 if $+{start_cond} eq 'F';
+        $barrier           = $8;
+        $barrier2          = $9;
+        $fixed_expiry      = 1 if $+{expiry_cond} eq 'F';
+        if ($+{expiry_cond} eq 'T') {
+            $tick_expiry    = 1;
+            $how_many_ticks = $6;
+        } else {
+            $date_expiry = $6;
+        }
+    }
+
+    # Purchase date is timestamp but expiry date is date string
+    elsif ($shortcode =~ /^([^_]+)_([\w\d]+)_(\d*\.?\d{1,2})_(\d+)_(\d\d?)_(\w\w\w)_(\d\d)_(S?-?\d+P?)_(S?-?\d+P?)$/) {
+        $bet_type          = $1;
+        $underlying_symbol = $2;
+        $payout            = $3;
+        $date_start        = $4;
+        $date_expiry       = uc($5 . '-' . $6 . '-' . $7);
+        $barrier           = $8;
+        $barrier2          = $9;
+        $fixed_expiry      = 1;                              # This automatically defaults to fixed expiry
+    }
+
+    # Contract without barrier
+    elsif ($shortcode =~ /^([^_]+)_(R?_?[^_\W]+)_(\d*\.?\d*)_(\d+)_(\d+)(?<expiry_cond>[T]?)$/) {
+        $bet_type          = $1;
+        $underlying_symbol = $2;
+        $payout            = $3;
+        $date_start        = $4;
+        if ($+{expiry_cond} eq 'T') {
+            $tick_expiry    = 1;
+            $how_many_ticks = $5;
+        }
+    } else {
+        return $legacy_params;
+    }
+
+    my $underlying = create_underlying($underlying_symbol);
+    if (Date::Utility::is_ddmmmyy($date_expiry)) {
+        my $calendar = $underlying->calendar;
+        $date_expiry = Date::Utility->new($date_expiry);
+        if (my $closing = $calendar->closing_on($date_expiry)) {
+            $date_expiry = $closing->epoch;
+        } else {
+            my $regular_close = $calendar->closing_on($calendar->regular_trading_day_after($date_expiry));
+            $date_expiry = Date::Utility->new($date_expiry->date_yyyymmdd . ' ' . $regular_close->time_hhmmss);
+        }
+    }
+    $barrier = BOM::Product::Contract::Strike->strike_string($barrier, $underlying, $bet_type, $date_start)
+        if defined $barrier;
+    $barrier2 = BOM::Product::Contract::Strike->strike_string($barrier2, $underlying, $bet_type, $date_start)
+        if defined $barrier2;
+    my %barriers =
+        ($barrier and $barrier2)
+        ? (
+        high_barrier => $barrier,
+        low_barrier  => $barrier2
+        )
+        : (defined $barrier) ? (barrier => $barrier)
+        :                      ();
+
+    my $bet_parameters = {
+        shortcode    => $shortcode,
+        bet_type     => $bet_type,
+        underlying   => $underlying,
+        amount_type  => 'payout',
+        amount       => $payout,
+        date_start   => $date_start,
+        date_expiry  => $date_expiry,
+        prediction   => $prediction,
+        currency     => $currency,
+        fixed_expiry => $fixed_expiry,
+        tick_expiry  => $tick_expiry,
+        tick_count   => $how_many_ticks,
+        ($forward_start) ? (starts_as_forward_starting => $forward_start) : (),
+        %barriers,
+    };
+
+    return $bet_parameters;
+}
+
+=head1 ATTRIBUTES
 
 These are the parameters we expect to be passed when constructing a new contract.
 
@@ -448,6 +618,23 @@ sub _build_timeindays {
 =head1 METHODS - Other
 
 =cut
+
+my $contract_type_config     = LoadFile(
+    File::ShareDir::dist_file(
+        'Finance-Contract',
+        'contract_types.yml'
+    )
+);
+
+=head2 get_all_contract_types
+
+Returns a list of all loaded contract types
+
+=cut
+
+sub get_all_contract_types {
+    return $contract_type_config;
+}
 
 =head2 ticks_to_expiry
 
