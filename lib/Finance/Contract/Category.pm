@@ -18,6 +18,7 @@ This class represents available contract categories.
 
 use Moose;
 use namespace::autoclean;
+use File::ShareDir ();
 
 my $category_config = LoadFile(
     File::ShareDir::dist_file(
