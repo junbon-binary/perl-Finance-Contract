@@ -250,17 +250,6 @@ has is_forward_starting => (
     lazy_build => 1,
 );
 
-=head2 fixed_expiry
-
-A Boolean to determine if this bet has fixed or flexible expiries.
-
-=cut
-
-has fixed_expiry => (
-    is      => 'ro',
-    default => 0,
-);
-
 has remaining_time => (
     is         => 'ro',
     isa        => 'Time::Duration::Concise',
@@ -279,17 +268,25 @@ has _date_pricing_milliseconds => (
     is => 'rw',
 );
 
+=head2 supplied_barrier_type
+
+Either 'relative' or 'absolute'. Relative barriers need market data in order to be calculated.
+
+=cut
+
+has [qw(supplied_barrier_type)] => (is => 'ro');
+
 =head2 supplied_high_barrier
 
-For a 2-barrier contract, this is the original supplied high barrier string.
+For a 2-barrier contract, this is the high barrier string.
 
 =head2 supplied_low_barrier
 
-For a 2-barrier contract, this is the original supplied low barrier string.
+For a 2-barrier contract, this is the low barrier string.
 
 =head2 supplied_barrier
 
-For a single-barrier contract, this is the original supplied barrier string.
+For a single-barrier contract, this is the barrier string.
 
 =cut
 
