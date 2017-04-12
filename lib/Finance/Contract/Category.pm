@@ -50,7 +50,7 @@ Returns a list of all loaded contract categories
 =cut
 
 sub get_all_contract_categories {
-    return $contract_category_config;
+    return $category_config;
 }
 
 
