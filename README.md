@@ -157,10 +157,6 @@ Which expiry durations we allow. Values can be:
 - daily
 - tick
 
-## supported\_start\_types
-
-(removed)
-
 ## is\_path\_dependent
 
 True if this is a path-dependent contract.
@@ -181,8 +177,6 @@ The starting barrier value.
 
 The code for this category.
 
-# METHODS - Time-related
-
 ## timeinyears
 
 Contract duration in years.
@@ -190,8 +184,6 @@ Contract duration in years.
 ## timeindays
 
 Contract duration in days.
-
-# METHODS - Other
 
 ## get\_all\_contract\_types
 
@@ -218,4 +210,4 @@ If you want to get the contract life time, use:
 
 ## \_shortcode\_to\_parameters
 
-Convert a shortcode and currency pair into parameters suitable for creating a BOM::Product::Contract
+Convert a shortcode and currency pair into parameters suitable for creating a Finance::Contract
