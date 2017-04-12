@@ -200,17 +200,6 @@ Examples would be C< 5t > for 5 ticks, C< 3h > for 3 hours.
 
 has duration => (is => 'ro');
 
-=head2 tick_expiry
-
-A boolean that indicates if a contract expires after a pre-specified number of ticks.
-
-=cut
-
-has tick_expiry => (
-    is      => 'ro',
-    default => 0,
-);
-
 =head2 prediction
 
 Prediction (for tick trades) is what client predicted would happen.
