@@ -142,16 +142,12 @@ For a single-barrier contract, this is the original supplied barrier string.
 
 ## payouttime
 
-# METHODS - Boolean checks
+# METHODS
 
 ## is\_atm\_bet
 
 Is this contract meant to be ATM or non ATM at start?
 The status will not change throughout the lifetime of the contract due to differences in offerings for ATM and non ATM contracts.
-
-# METHODS - Proxied to [Finance::Contract::Category](https://metacpan.org/pod/Finance::Contract::Category)
-
-Our `category` attribute provides several helper methods:
 
 ## supported\_expiries
 
