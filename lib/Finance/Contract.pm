@@ -75,10 +75,18 @@ use Time::Duration::Concise;
 
 # Types used for date+time-related handling
 
-subtype 'time_interval', as 'Time::Duration::Concise';
-coerce 'time_interval',  from 'Str', via { Time::Duration::Concise->new(interval => $_) };
-subtype 'date_object',   as 'Date::Utility';
-coerce 'date_object', from 'Str', via { Date::Utility->new($_) };
+use Finance::Contract::Category;
+
+unless(find_type_constraint('time_interval')) {
+    subtype 'time_interval', as 'Time::Duration::Concise';
+    coerce 'time_interval',  from 'Str', via { Time::Duration::Concise->new(interval => $_) };
+}
+
+unless(find_type_constraint('date_object')) {
+    subtype 'date_object',   as 'Date::Utility';
+    coerce 'date_object', from 'Str', via { Date::Utility->new($_) };
+}
+
 my @date_attribute = (
     isa        => 'date_object',
     lazy_build => 1,
