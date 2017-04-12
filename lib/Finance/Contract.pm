@@ -61,6 +61,9 @@ or L<Date::Utility> objects.
 =cut
 
 use Moose;
+use MooseX::Types::Moose qw(Int Num Str);
+use MooseX::Types -declare => [ 'contract_category' ];
+use Moose::Util::TypeConstraints;
 
 use Time::HiRes qw(time);
 use List::Util qw(min max first);
