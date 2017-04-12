@@ -318,7 +318,7 @@ has [qw(id pricing_code display_name sentiment other_side_code payout_type payou
     default => undef,
 );
 
-=head1 METHODS - Boolean checks
+=head1 METHODS
 
 =cut
 
@@ -339,15 +339,9 @@ sub is_atm_bet {
     return 1;
 }
 
-=head1 METHODS - Proxied to L<Finance::Contract::Category>
-
-Our C<category> attribute provides several helper methods:
-
-=cut
-
 has category => (
     is      => 'ro',
-    isa     => 'bom_contract_category',
+    isa     => 'finance_contract_category',
     coerce  => 1,
     handles => [qw(supported_expiries is_path_dependent allow_forward_starting two_barriers barrier_at_start)],
 );
