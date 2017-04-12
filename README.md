@@ -93,10 +93,6 @@ The unit is provided as a single character suffix:
 
 Examples would be ` 5t ` for 5 ticks, ` 3h ` for 3 hours.
 
-## tick\_expiry
-
-A boolean that indicates if a contract expires after a pre-specified number of ticks.
-
 ## prediction
 
 Prediction (for tick trades) is what client predicted would happen.
