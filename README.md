@@ -110,21 +110,21 @@ Number of ticks in this trade.
 This attribute tells us if this contract was initially bought as a forward starting contract.
 This should not be mistaken for ["is\_forward\_starting"](#is_forward_starting) attribute as that could change over time.
 
-## fixed\_expiry
+## supplied\_barrier\_type
 
-A Boolean to determine if this bet has fixed or flexible expiries.
+Either 'relative' or 'absolute'. Relative barriers need market data in order to be calculated.
 
 ## supplied\_high\_barrier
 
-For a 2-barrier contract, this is the original supplied high barrier string.
+For a 2-barrier contract, this is the high barrier string.
 
 ## supplied\_low\_barrier
 
-For a 2-barrier contract, this is the original supplied low barrier string.
+For a 2-barrier contract, this is the low barrier string.
 
 ## supplied\_barrier
 
-For a single-barrier contract, this is the original supplied barrier string.
+For a single-barrier contract, this is the barrier string.
 
 # ATTRIBUTES - From contract\_types.yml
 
