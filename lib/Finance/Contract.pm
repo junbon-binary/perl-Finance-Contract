@@ -587,7 +587,7 @@ sub _build_shortcode {
     my @shortcode_elements = ($self->code, $self->underlying->symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
-        push @shortcode_elements, ($self->high_barrier->for_shortcode, $self->low_barrier->for_shortcode);
+        push @shortcode_elements, ($self->supplied_high_barrier->for_shortcode, $self->supplied_low_barrier->for_shortcode);
     } elsif ($self->barrier and $self->barrier_at_start) {
         # Having a hardcoded 0 for single barrier is dumb.
         # We should get rid of this legacy
