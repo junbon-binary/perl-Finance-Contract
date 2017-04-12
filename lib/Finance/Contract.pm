@@ -339,9 +339,12 @@ sub is_atm_bet {
     return 1;
 }
 
+subtype 'contract_category', as 'Finance::Contract::Category';
+coerce 'contract_category', from 'Str', via { Finance::Contract::Category->new($_) };
+
 has category => (
     is      => 'ro',
-    isa     => 'finance_contract_category',
+    isa     => 'contract_category',
     coerce  => 1,
     handles => [qw(supported_expiries is_path_dependent allow_forward_starting two_barriers barrier_at_start)],
 );
