@@ -626,7 +626,7 @@ sub _build_barrier_category {
 
 =head2 _shortcode_to_parameters
 
-Convert a shortcode and currency pair into parameters suitable for creating a BOM::Product::Contract
+Convert a shortcode and currency pair into parameters suitable for creating a Finance::Contract
 
 =cut
 
