@@ -365,12 +365,6 @@ Which expiry durations we allow. Values can be:
 
 =cut
 
-=head2 supported_start_types
-
-(removed)
-
-=cut
-
 =head2 is_path_dependent
 
 True if this is a path-dependent contract.
@@ -405,10 +399,6 @@ sub category_code {
     my $self = shift;
     return $self->category->code;
 }
-
-=head1 METHODS - Time-related
-
-=cut
 
 =head2 timeinyears
 
@@ -473,10 +463,6 @@ sub _build_timeindays {
 
     return $tid;
 }
-
-=head1 METHODS - Other
-
-=cut
 
 my $contract_type_config     = LoadFile(
     File::ShareDir::dist_file(
