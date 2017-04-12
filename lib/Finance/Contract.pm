@@ -73,6 +73,10 @@ use Date::Utility;
 use Format::Util::Numbers qw(to_monetary_number_format roundnear);
 use Time::Duration::Concise;
 
+subtype 'time_interval', as 'Time::Duration::Concise';
+coerce 'time_interval', from 'Str', via { Time::Duration::Concise->new(interval => $_) };
+subtype 'date_object', as 'Date::Utility';
+coerce 'date_object', from 'Str', via { Date::Utility->new($_) };
 my @date_attribute = (
     isa        => 'date_object',
     lazy_build => 1,
