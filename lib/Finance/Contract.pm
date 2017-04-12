@@ -94,7 +94,7 @@ my @date_attribute = (
 );
 
 around BUILDARGS => sub {
-    my $self = shift;
+    my ($code, $class) = splice @_, 0, 2;
     # Single hashref parameter means we have the full set of parameters
     # defined already, and can construct as-is
     if (@_ == 1 and ref $_[0]) {
