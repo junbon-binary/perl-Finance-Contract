@@ -3,6 +3,8 @@ package Finance::Contract;
 use strict;
 use warnings;
 
+our $VERSION = '0.001';
+
 =head1 NAME
 
 Finance::Contract - represents a contract object for a single bet
