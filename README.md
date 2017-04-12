@@ -167,7 +167,7 @@ True if the contract has two barriers.
 
 ## barrier\_at\_start
 
-The starting barrier value.
+Boolean which will false if we don't know what the barrier is at the start of the contract (Asian contracts).
 
 ## category\_code
 
@@ -180,10 +180,6 @@ Contract duration in years.
 ## timeindays
 
 Contract duration in days.
-
-## get\_all\_contract\_types
-
-Returns a list of all loaded contract types
 
 ## ticks\_to\_expiry
 
