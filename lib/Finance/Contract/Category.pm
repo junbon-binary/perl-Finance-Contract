@@ -26,6 +26,23 @@ my $category_config = LoadFile(
     )
 );
 
+my $contract_type_config     = LoadFile(
+    File::ShareDir::dist_file(
+        'Finance-Contract',
+        'contract_types.yml'
+    )
+);
+
+=head2 get_all_contract_types
+
+Returns a list of all loaded contract types
+
+=cut
+
+sub get_all_contract_types {
+    return $contract_type_config;
+}
+
 =head2 get_all_contract_categories
 
 Returns a list of all loaded contract categories

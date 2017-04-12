@@ -450,23 +450,6 @@ sub _build_timeindays {
     return $tid;
 }
 
-my $contract_type_config     = LoadFile(
-    File::ShareDir::dist_file(
-        'Finance-Contract',
-        'contract_types.yml'
-    )
-);
-
-=head2 get_all_contract_types
-
-Returns a list of all loaded contract types
-
-=cut
-
-sub get_all_contract_types {
-    return $contract_type_config;
-}
-
 =head2 ticks_to_expiry
 
 Number of ticks until expiry of this contract. Defaults to one more than tick_count,
@@ -654,7 +637,7 @@ sub _shortcode_to_parameters {
         currency   => $currency,
     };
 
-    return $legacy_params if (not exists get_all_contract_types()->{$test_bet_name} or $shortcode =~ /_\d+H\d+/);
+    return $legacy_params if (not exists Finance::Contract::Category::get_all_contract_types()->{$test_bet_name} or $shortcode =~ /_\d+H\d+/);
 
     if ($shortcode =~ /^(SPREADU|SPREADD)_([\w\d]+)_(\d*.?\d*)_(\d+)_(\d*.?\d*)_(\d*.?\d*)_(DOLLAR|POINT)/) {
         return {
