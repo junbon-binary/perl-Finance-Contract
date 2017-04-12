@@ -176,18 +176,6 @@ RANGE:
   payouttime: end
   pricing_code: RANGE
   sentiment: low_vol
-SPREADD:
-  id: 260
-  category: spreads
-  display_name: spread down
-  other_side_code: SPREADU
-  sentiment: down
-SPREADU:
-  id: 250
-  category: spreads
-  display_name: spread up
-  other_side_code: SPREADD
-  sentiment: up
 UPORDOWN:
   id: 160
   category: staysinout

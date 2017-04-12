@@ -72,13 +72,6 @@ asian:
     available_types:
       - ASIANU
       - ASIAND
-spreads:
-    display_order: 7
-    display_name: "Spreads"
-    explanation: ""
-    available_types:
-      - SPREADU
-      - SPREADD
 vanilla:
     offer: 0
     display_order: 0
