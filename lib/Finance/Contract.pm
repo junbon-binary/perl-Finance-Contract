@@ -332,7 +332,7 @@ has category => (
     is      => 'ro',
     isa     => 'contract_category',
     coerce  => 1,
-    handles => [qw(supported_expiries is_path_dependent allow_forward_starting two_barriers barrier_at_start)],
+    handles => [qw(is_path_dependent allow_forward_starting two_barriers barrier_at_start)],
 );
 
 =head2 supported_expiries
@@ -371,7 +371,7 @@ True if the contract has two barriers.
 
 =head2 barrier_at_start
 
-The starting barrier value.
+Boolean which will false if we don't know what the barrier is at the start of the contract (Asian contracts).
 
 =cut
 
