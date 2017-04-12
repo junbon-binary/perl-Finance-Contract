@@ -73,6 +73,8 @@ use Date::Utility;
 use Format::Util::Numbers qw(to_monetary_number_format roundnear);
 use Time::Duration::Concise;
 
+# Types used for date+time-related handling
+
 subtype 'time_interval', as 'Time::Duration::Concise';
 coerce 'time_interval',  from 'Str', via { Time::Duration::Concise->new(interval => $_) };
 subtype 'date_object',   as 'Date::Utility';
