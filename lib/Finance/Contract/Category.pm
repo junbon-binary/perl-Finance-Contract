@@ -21,19 +21,9 @@ use namespace::autoclean;
 use File::ShareDir ();
 use YAML qw(LoadFile);
 
-my $category_config = LoadFile(
-    File::ShareDir::dist_file(
-        'Finance-Contract',
-        'contract_categories.yml'
-    )
-);
+my $category_config = LoadFile(File::ShareDir::dist_file('Finance-Contract', 'contract_categories.yml'));
 
-my $contract_type_config     = LoadFile(
-    File::ShareDir::dist_file(
-        'Finance-Contract',
-        'contract_types.yml'
-    )
-);
+my $contract_type_config = LoadFile(File::ShareDir::dist_file('Finance-Contract', 'contract_types.yml'));
 
 =head2 get_all_contract_types
 
@@ -54,7 +44,6 @@ Returns a list of all loaded contract categories
 sub get_all_contract_categories {
     return $category_config;
 }
-
 
 has code => (
     is       => 'ro',

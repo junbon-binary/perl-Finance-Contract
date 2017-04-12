@@ -62,7 +62,7 @@ or L<Date::Utility> objects.
 
 use Moose;
 use MooseX::Types::Moose qw(Int Num Str);
-use MooseX::Types -declare => [ 'contract_category' ];
+use MooseX::Types -declare => ['contract_category'];
 use Moose::Util::TypeConstraints;
 
 use Time::HiRes qw(time);
@@ -74,8 +74,8 @@ use Format::Util::Numbers qw(to_monetary_number_format roundnear);
 use Time::Duration::Concise;
 
 subtype 'time_interval', as 'Time::Duration::Concise';
-coerce 'time_interval', from 'Str', via { Time::Duration::Concise->new(interval => $_) };
-subtype 'date_object', as 'Date::Utility';
+coerce 'time_interval',  from 'Str', via { Time::Duration::Concise->new(interval => $_) };
+subtype 'date_object',   as 'Date::Utility';
 coerce 'date_object', from 'Str', via { Date::Utility->new($_) };
 my @date_attribute = (
     isa        => 'date_object',
@@ -85,14 +85,14 @@ my @date_attribute = (
 
 around BUILDARGS => sub {
     my $self = shift;
-	# Single hashref parameter means we have the full set of parameters
-	# defined already, and can construct as-is
-	if(@_ == 1 and ref $_[0]) {
-		return $_[0];
-	} else {
-		# Shortcode needs expansion first, and we also need to pass currency
-		return _shortcode_to_parameters(@_);
-	}
+    # Single hashref parameter means we have the full set of parameters
+    # defined already, and can construct as-is
+    if (@_ == 1 and ref $_[0]) {
+        return $_[0];
+    } else {
+        # Shortcode needs expansion first, and we also need to pass currency
+        return _shortcode_to_parameters(@_);
+    }
 };
 
 =head1 ATTRIBUTES
@@ -145,8 +145,8 @@ The underlying asset, as a string (for example, C< frxUSDJPY >).
 =cut
 
 has underlying_symbol => (
-    is      => 'ro',
-    isa     => 'Str',
+    is  => 'ro',
+    isa => 'Str',
 );
 
 =head2 date_expiry
@@ -611,7 +611,7 @@ Convert a shortcode and currency pair into parameters suitable for creating a Fi
 sub _shortcode_to_parameters {
     my ($shortcode, $currency) = @_;
 
-	die 'Needs a currency' unless $currency;
+    die 'Needs a currency' unless $currency;
 
     my (
         $bet_type, $underlying_symbol, $payout,       $date_start,  $date_expiry,    $barrier,
