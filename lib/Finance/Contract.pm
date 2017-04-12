@@ -97,12 +97,10 @@ around BUILDARGS => sub {
     my ($code, $class) = splice @_, 0, 2;
     # Single hashref parameter means we have the full set of parameters
     # defined already, and can construct as-is
-    if (@_ == 1 and ref $_[0]) {
-        return $_[0];
-    } else {
         # Shortcode needs expansion first, and we also need to pass currency
-        return _shortcode_to_parameters(@_);
-    }
+    my $args = (@_ == 1 and ref $_[0]) ? $_[0] : _shortcode_to_parameters(@_);
+    $args->{fixed_expiry} //= exists $args->{date_expiry} ? 1 : 0;
+    return $args;
 };
 
 =head1 ATTRIBUTES
@@ -343,6 +341,17 @@ sub is_atm_bet {
     return 0 if $self->supplied_barrier ne 'S0P';
     return 1;
 }
+
+=head2 fixed_expiry
+
+A Boolean to determine if this bet has fixed or flexible expiries.
+
+=cut
+
+has fixed_expiry => (
+    is      => 'ro',
+    default => 0,
+);
 
 subtype 'contract_category', as 'Finance::Contract::Category';
 coerce 'contract_category', from 'Str', via { Finance::Contract::Category->new($_) };
