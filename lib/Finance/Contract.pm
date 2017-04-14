@@ -15,8 +15,8 @@ Finance::Contract - represents a contract object for a single bet
     use Finance::Contract;
     # Create a simple contract
     my $contract = Finance::Contract->new(
-        code       => 'CALLE',
-        duration   => '5t',
+        contract_type => 'CALLE',
+        duration      => '5t',
     );
 
 =head1 DESCRIPTION
@@ -32,13 +32,13 @@ You can either construct L<from a shortcode and currency|/new_from_shortcode>:
 or from build parameters:
 
     Finance::Contract->new({
-        underlying   => 'frxUSDJPY',
-        code         => 'CALL',
-        date_start   => $now,
-        duration     => '5t',
-        currency     => 'USD',
-        payout       => 100,
-        barrier      => 100,
+        underlying    => 'frxUSDJPY',
+        contract_type => 'CALL',
+        date_start    => $now,
+        duration      => '5t',
+        currency      => 'USD',
+        payout        => 100,
+        barrier       => 100,
     });
 
 =head2 Dates
@@ -576,12 +576,12 @@ sub shortcode {
         : ($self->fixed_expiry) ? $self->date_expiry->epoch . 'F'
         :                         $self->date_expiry->epoch;
 
-    my @shortcode_elements = ($self->code, $self->underlying_symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
+    my @shortcode_elements = ($self->contract_type, $self->underlying_symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
-        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->code) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
+        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
     } elsif ($self->barrier and $self->barrier_at_start) {
-        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->code) } ($self->barrier, 0);
+        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->contract_type) } ($self->barrier, 0);
     }
 
     return uc join '_', @shortcode_elements;
@@ -714,7 +714,7 @@ sub _shortcode_to_parameters {
     die 'Needs a currency' unless $currency;
 
     my (
-        $code, $underlying_symbol, $payout,       $date_start,  $date_expiry,    $barrier,
+        $contract_type, $underlying_symbol, $payout,       $date_start,  $date_expiry,    $barrier,
         $barrier2, $prediction,        $fixed_expiry, $tick_expiry, $how_many_ticks, $forward_start,
     );
 
@@ -731,7 +731,7 @@ sub _shortcode_to_parameters {
     $test_bet_name = $OVERRIDE_LIST{$test_bet_name} if exists $OVERRIDE_LIST{$test_bet_name};
 
     my $legacy_params = {
-        code              => 'Invalid',    # it doesn't matter what it is if it is a legacy
+        contract_type     => 'Invalid',    # it doesn't matter what it is if it is a legacy
         underlying_symbol => 'config',
         currency          => $currency,
     };
@@ -740,7 +740,7 @@ sub _shortcode_to_parameters {
 
     # Both purchase and expiry date are timestamp (e.g. a 30-min bet)
     if ($shortcode =~ /^([^_]+)_([\w\d]+)_(\d*\.?\d*)_(\d+)(?<start_cond>F?)_(\d+)(?<expiry_cond>[FT]?)_(S?-?\d+P?)_(S?-?\d+P?)$/) {
-        $code          = $1;
+        $contract_type          = $1;
         $underlying_symbol = $2;
         $payout            = $3;
         $date_start        = $4;
@@ -758,7 +758,7 @@ sub _shortcode_to_parameters {
 
     # Contract without barrier
     elsif ($shortcode =~ /^([^_]+)_(R?_?[^_\W]+)_(\d*\.?\d*)_(\d+)_(\d+)(?<expiry_cond>[T]?)$/) {
-        $code          = $1;
+        $contract_type          = $1;
         $underlying_symbol = $2;
         $payout            = $3;
         $date_start        = $4;
@@ -770,9 +770,9 @@ sub _shortcode_to_parameters {
         return $legacy_params;
     }
 
-    $barrier = _barrier_from_shortcode_string($barrier, $code)
+    $barrier = _barrier_from_shortcode_string($barrier, $contract_type)
         if defined $barrier;
-    $barrier2 = _barrier_from_shortcode_string($barrier2, $code)
+    $barrier2 = _barrier_from_shortcode_string($barrier2, $contract_type)
         if defined $barrier2;
     my %barriers =
         ($barrier and $barrier2)
@@ -785,7 +785,7 @@ sub _shortcode_to_parameters {
 
     my $bet_parameters = {
         shortcode         => $shortcode,
-        code     => $code,
+        contract_type     => $contract_type,
         underlying_symbol => $underlying_symbol,
         amount_type       => 'payout',
         amount            => $payout,
@@ -805,18 +805,18 @@ sub _shortcode_to_parameters {
 
 # Generates a barrier value from the string used in a shortcode
 sub _barrier_from_shortcode_string {
-    my ($string, $contract_type_code) = @_;
+    my ($string, $contract_type) = @_;
 
-    $string /= FOREX_BARRIER_MULTIPLIER if $contract_type_code !~ /^DIGIT/ and $string and looks_like_number($string);
+    $string /= FOREX_BARRIER_MULTIPLIER if $contract_type !~ /^DIGIT/ and $string and looks_like_number($string);
 
     return $string;
 }
 
 # Generates a string version of a barrier by multiplying the actual barrier to remove the decimal point
 sub _barrier_for_shortcode_string {
-    my ($string, $contract_type_code) = @_;
+    my ($string, $contract_type) = @_;
 
-    $string *= FOREX_BARRIER_MULTIPLIER if $contract_type_code !~ /^DIGIT/ and $string and looks_like_number($string);
+    $string *= FOREX_BARRIER_MULTIPLIER if $contract_type !~ /^DIGIT/ and $string and looks_like_number($string);
 
     return $string;
 }
