@@ -353,6 +353,17 @@ Boolean which will false if we don't know what the barrier is at the start of th
 
 =cut
 
+=head2 category_code
+
+The code for this category.
+
+=cut
+
+sub category_code {
+    my $self = shift;
+    return $self->category->code;
+}
+
 =head2 is_path_dependent
 
 True if this is a path-dependent contract.
@@ -384,34 +395,6 @@ True if the contract has two barriers.
 =head1 METHODS
 
 =cut
-
-=head2 fixed_expiry
-
-A Boolean to determine if this bet has fixed or flexible expiries.
-
-=cut
-
-has fixed_expiry => (
-    is      => 'ro',
-    default => 0,
-);
-
-=head2 is_atm_bet
-
-Is this contract meant to be ATM or non ATM at start?
-The status will not change throughout the lifetime of the contract due to differences in offerings for ATM and non ATM contracts.
-
-=cut
-
-sub is_atm_bet {
-    my $self = shift;
-
-    return 0 if $self->two_barriers;
-    # if not defined, it is non ATM
-    return 0 if not defined $self->supplied_barrier;
-    return 0 if $self->supplied_barrier ne 'S0P';
-    return 1;
-}
 
 our $BARRIER_CATEGORIES = {
     callput      => ['euro_atm', 'euro_non_atm'],
@@ -457,15 +440,32 @@ sub barrier_category {
     return $barrier_category;
 }
 
-=head2 category_code
+=head2 fixed_expiry
 
-The code for this category.
+A Boolean to determine if this bet has fixed or flexible expiries.
 
 =cut
 
-sub category_code {
+has fixed_expiry => (
+    is      => 'ro',
+    default => 0,
+);
+
+=head2 is_atm_bet
+
+Is this contract meant to be ATM or non ATM at start?
+The status will not change throughout the lifetime of the contract due to differences in offerings for ATM and non ATM contracts.
+
+=cut
+
+sub is_atm_bet {
     my $self = shift;
-    return $self->category->code;
+
+    return 0 if $self->two_barriers;
+    # if not defined, it is non ATM
+    return 0 if not defined $self->supplied_barrier;
+    return 0 if $self->supplied_barrier ne 'S0P';
+    return 1;
 }
 
 =head2 shortcode
