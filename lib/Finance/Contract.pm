@@ -321,9 +321,80 @@ has [qw(id pricing_code display_name sentiment other_side_code payout_type payou
     default => undef,
 );
 
+=head1 ATTRIBUTES - From contract_categories.yml
+
+=cut
+
+subtype 'contract_category', as 'Finance::Contract::Category';
+coerce 'contract_category', from 'Str', via { Finance::Contract::Category->new($_) };
+
+has category => (
+    is      => 'ro',
+    isa     => 'contract_category',
+    coerce  => 1,
+    handles => [qw(
+        allow_forward_starting
+        barrier_at_start
+        is_path_dependent
+        supported_expiries
+        two_barriers
+    )],
+);
+
+=head2 allow_forward_starting
+
+True if we allow forward starting for this contract type.
+
+=cut
+
+=head2 barrier_at_start
+
+Boolean which will false if we don't know what the barrier is at the start of the contract (Asian contracts).
+
+=cut
+
+=head2 is_path_dependent
+
+True if this is a path-dependent contract.
+
+=cut
+
+=head2 supported_expiries
+
+Which expiry durations we allow for this category. Values can be:
+
+=over 4
+
+=item * intraday
+
+=item * daily
+
+=item * tick
+
+=back
+
+=cut
+
+=head2 two_barriers
+
+True if the contract has two barriers.
+
+=cut
+
 =head1 METHODS
 
 =cut
+
+=head2 fixed_expiry
+
+A Boolean to determine if this bet has fixed or flexible expiries.
+
+=cut
+
+has fixed_expiry => (
+    is      => 'ro',
+    default => 0,
+);
 
 =head2 is_atm_bet
 
@@ -341,67 +412,6 @@ sub is_atm_bet {
     return 0 if $self->supplied_barrier ne 'S0P';
     return 1;
 }
-
-=head2 fixed_expiry
-
-A Boolean to determine if this bet has fixed or flexible expiries.
-
-=cut
-
-has fixed_expiry => (
-    is      => 'ro',
-    default => 0,
-);
-
-subtype 'contract_category', as 'Finance::Contract::Category';
-coerce 'contract_category', from 'Str', via { Finance::Contract::Category->new($_) };
-
-has category => (
-    is      => 'ro',
-    isa     => 'contract_category',
-    coerce  => 1,
-    handles => [qw(is_path_dependent allow_forward_starting two_barriers barrier_at_start)],
-);
-
-=head2 supported_expiries
-
-Which expiry durations we allow. Values can be:
-
-=over 4
-
-=item * intraday
-
-=item * daily
-
-=item * tick
-
-=back
-
-=cut
-
-=head2 is_path_dependent
-
-True if this is a path-dependent contract.
-
-=cut
-
-=head2 allow_forward_starting
-
-True if we allow forward starting for this contract type.
-
-=cut
-
-=head2 two_barriers
-
-True if the contract has two barriers.
-
-=cut
-
-=head2 barrier_at_start
-
-Boolean which will false if we don't know what the barrier is at the start of the contract (Asian contracts).
-
-=cut
 
 our $BARRIER_CATEGORIES = {
     callput      => ['euro_atm', 'euro_non_atm'],
