@@ -26,7 +26,7 @@ or from build parameters:
 
     Finance::Contract->new({
         underlying   => 'frxUSDJPY',
-        bet_type     => 'CALL',
+        contract_type     => 'CALL',
         date_start   => $now,
         duration     => '5t',
         currency     => 'USD',
