@@ -8,8 +8,8 @@ Finance::Contract - represents a contract object for a single bet
     use Finance::Contract;
     # Create a simple contract
     my $contract = Finance::Contract->new(
-        contract_type => 'CALLE',
-        duration      => '5t',
+        code       => 'CALLE',
+        duration   => '5t',
     );
 
 # DESCRIPTION
@@ -26,7 +26,7 @@ or from build parameters:
 
     Finance::Contract->new({
         underlying   => 'frxUSDJPY',
-        contract_type     => 'CALL',
+        code         => 'CALL',
         date_start   => $now,
         duration     => '5t',
         currency     => 'USD',
