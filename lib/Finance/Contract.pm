@@ -335,17 +335,32 @@ has _date_pricing_milliseconds => (
 
 =head2 id
 
+A unique numeric ID.
+
 =head2 pricing_code
+
+Used to determine the pricing engine that should be used for this contract. Examples
+include 'PUT' or 'CALL'.
 
 =head2 display_name
 
+This is a human-readable name for the contract type, brief description of what it does.
+
 =head2 sentiment
+
+Indicates whether we are speculating on market rise or fall.
 
 =head2 other_side_code
 
+Opposite type for this contract - PUT for CALL, etc.
+
 =head2 payout_type
 
+Either C< binary > or C< non-binary >.
+
 =head2 payouttime
+
+Indicates when the contract pays out. Can be C< end > or C< hit >.
 
 =cut
 
