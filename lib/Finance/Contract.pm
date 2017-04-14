@@ -15,8 +15,8 @@ Finance::Contract - represents a contract object for a single bet
     use Finance::Contract;
     # Create a simple contract
     my $contract = Finance::Contract->new(
-        contract_type => 'CALLE',
-        duration      => '5t',
+        code       => 'CALLE',
+        duration   => '5t',
     );
 
 =head1 DESCRIPTION
@@ -33,7 +33,7 @@ or from build parameters:
 
     Finance::Contract->new({
         underlying   => 'frxUSDJPY',
-        contract_type     => 'CALL',
+        code         => 'CALL',
         date_start   => $now,
         duration     => '5t',
         currency     => 'USD',
@@ -118,7 +118,7 @@ These are the parameters we expect to be passed when constructing a new contract
 
 =cut
 
-=head2 contract_type
+=head2 code
 
 The type of this contract as an upper-case string.
 
@@ -144,7 +144,7 @@ Current types include:
 
 =cut
 
-has contract_type => (
+has code => (
     is  => 'ro',
     isa => 'Str',
 );
@@ -564,9 +564,9 @@ sub shortcode {
     my @shortcode_elements = ($self->code, $self->underlying_symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
-        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
+        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->code) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
     } elsif ($self->barrier and $self->barrier_at_start) {
-        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->contract_type) } ($self->barrier, 0);
+        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->code) } ($self->barrier, 0);
     }
 
     return uc join '_', @shortcode_elements;
@@ -699,7 +699,7 @@ sub _shortcode_to_parameters {
     die 'Needs a currency' unless $currency;
 
     my (
-        $contract_type, $underlying_symbol, $payout,       $date_start,  $date_expiry,    $barrier,
+        $code, $underlying_symbol, $payout,       $date_start,  $date_expiry,    $barrier,
         $barrier2, $prediction,        $fixed_expiry, $tick_expiry, $how_many_ticks, $forward_start,
     );
 
@@ -716,7 +716,7 @@ sub _shortcode_to_parameters {
     $test_bet_name = $OVERRIDE_LIST{$test_bet_name} if exists $OVERRIDE_LIST{$test_bet_name};
 
     my $legacy_params = {
-        contract_type          => 'Invalid',    # it doesn't matter what it is if it is a legacy
+        code              => 'Invalid',    # it doesn't matter what it is if it is a legacy
         underlying_symbol => 'config',
         currency          => $currency,
     };
@@ -725,7 +725,7 @@ sub _shortcode_to_parameters {
 
     # Both purchase and expiry date are timestamp (e.g. a 30-min bet)
     if ($shortcode =~ /^([^_]+)_([\w\d]+)_(\d*\.?\d*)_(\d+)(?<start_cond>F?)_(\d+)(?<expiry_cond>[FT]?)_(S?-?\d+P?)_(S?-?\d+P?)$/) {
-        $contract_type          = $1;
+        $code          = $1;
         $underlying_symbol = $2;
         $payout            = $3;
         $date_start        = $4;
@@ -743,7 +743,7 @@ sub _shortcode_to_parameters {
 
     # Contract without barrier
     elsif ($shortcode =~ /^([^_]+)_(R?_?[^_\W]+)_(\d*\.?\d*)_(\d+)_(\d+)(?<expiry_cond>[T]?)$/) {
-        $contract_type          = $1;
+        $code          = $1;
         $underlying_symbol = $2;
         $payout            = $3;
         $date_start        = $4;
@@ -755,9 +755,9 @@ sub _shortcode_to_parameters {
         return $legacy_params;
     }
 
-    $barrier = _barrier_from_shortcode_string($barrier, $contract_type)
+    $barrier = _barrier_from_shortcode_string($barrier, $code)
         if defined $barrier;
-    $barrier2 = _barrier_from_shortcode_string($barrier2, $contract_type)
+    $barrier2 = _barrier_from_shortcode_string($barrier2, $code)
         if defined $barrier2;
     my %barriers =
         ($barrier and $barrier2)
@@ -770,7 +770,7 @@ sub _shortcode_to_parameters {
 
     my $bet_parameters = {
         shortcode         => $shortcode,
-        contract_type     => $contract_type,
+        code     => $code,
         underlying_symbol => $underlying_symbol,
         amount_type       => 'payout',
         amount            => $payout,
