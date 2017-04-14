@@ -188,6 +188,11 @@ Examples would be C< 5t > for 5 ticks, C< 3h > for 3 hours.
 
 has duration => (is => 'ro');
 
+has is_forward_starting => (
+    is         => 'ro',
+    lazy_build => 1,
+);
+
 =head2 payout
 
 Payout amount value, see L</currency>. Optional - only applies to binaries.
@@ -221,46 +226,6 @@ This should not be mistaken for L</is_forward_starting> attribute as that could 
 has starts_as_forward_starting => (
     is      => 'ro',
     default => 0,
-);
-
-=head2 tick_count
-
-Number of ticks in this trade.
-
-=cut
-
-has tick_count => (
-    is  => 'ro',
-    isa => 'Maybe[Num]',
-);
-
-has is_forward_starting => (
-    is         => 'ro',
-    lazy_build => 1,
-);
-
-has remaining_time => (
-    is         => 'ro',
-    isa        => 'Time::Duration::Concise',
-    lazy_build => 1,
-);
-
-=head2 underlying_symbol
-
-The underlying asset, as a string (for example, C< frxUSDJPY >).
-
-=cut
-
-has underlying_symbol => (
-    is  => 'ro',
-    isa => 'Str',
-);
-
-# This is needed to determine if a contract is newly priced
-# or it is repriced from an existing contract.
-# Milliseconds matters since UI is reacting much faster now.
-has _date_pricing_milliseconds => (
-    is => 'rw',
 );
 
 =head2 supplied_barrier_type
@@ -297,6 +262,41 @@ For a single-barrier contract, this is the barrier string.
 =cut
 
 has [qw(supplied_barrier supplied_high_barrier supplied_low_barrier)] => (is => 'ro');
+
+=head2 tick_count
+
+Number of ticks in this trade.
+
+=cut
+
+has tick_count => (
+    is  => 'ro',
+    isa => 'Maybe[Num]',
+);
+
+has remaining_time => (
+    is         => 'ro',
+    isa        => 'Time::Duration::Concise',
+    lazy_build => 1,
+);
+
+=head2 underlying_symbol
+
+The underlying asset, as a string (for example, C< frxUSDJPY >).
+
+=cut
+
+has underlying_symbol => (
+    is  => 'ro',
+    isa => 'Str',
+);
+
+# This is needed to determine if a contract is newly priced
+# or it is repriced from an existing contract.
+# Milliseconds matters since UI is reacting much faster now.
+has _date_pricing_milliseconds => (
+    is => 'rw',
+);
 
 =head1 ATTRIBUTES - From contract_types.yml
 
