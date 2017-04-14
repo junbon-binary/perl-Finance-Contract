@@ -637,18 +637,8 @@ sub _shortcode_to_parameters {
         $barrier2, $prediction,        $fixed_expiry, $tick_expiry, $how_many_ticks, $forward_start,
     );
 
-    # legacy shortcode, something to do with bet exchange
-    if ($shortcode =~ /^(.+)_E$/) {
-        $shortcode = $1;
-    }
-
     my ($test_bet_name, $test_bet_name2) = split /_/, $shortcode;
 
-    # for CLUB, it does not have '_' which will not be captured in code above
-    # we need to handle it separately
-    if ($shortcode =~ /^CLUB/i) {
-        $test_bet_name = 'CLUB';
-    }
     my %OVERRIDE_LIST = (
         INTRADU    => 'CALL',
         INTRADD    => 'PUT',
@@ -660,42 +650,15 @@ sub _shortcode_to_parameters {
     $test_bet_name = $OVERRIDE_LIST{$test_bet_name} if exists $OVERRIDE_LIST{$test_bet_name};
 
     my $legacy_params = {
-        bet_type   => 'Invalid',    # it doesn't matter what it is if it is a legacy
-        underlying => 'config',
-        currency   => $currency,
+        bet_type          => 'Invalid',    # it doesn't matter what it is if it is a legacy
+        underlying_symbol => 'config',
+        currency          => $currency,
     };
 
     return $legacy_params if (not exists Finance::Contract::Category::get_all_contract_types()->{$test_bet_name} or $shortcode =~ /_\d+H\d+/);
 
-    if ($shortcode =~ /^(SPREADU|SPREADD)_([\w\d]+)_(\d*.?\d*)_(\d+)_(\d*.?\d*)_(\d*.?\d*)_(DOLLAR|POINT)/) {
-        return {
-            shortcode        => $shortcode,
-            bet_type         => $1,
-            underlying       => create_underlying($2),
-            amount_per_point => $3,
-            date_start       => $4,
-            stop_loss        => $5,
-            stop_profit      => $6,
-            stop_type        => lc $7,
-            currency         => $currency,
-        };
-    }
-
-    # Legacy shortcode: purchase is a date string e.g. '01-Jan-01'.
-    if ($shortcode =~ /^([^_]+)_([\w\d]+)_(\d+)_(\d\d?)_(\w\w\w)_(\d\d)_(\d\d?)_(\w\w\w)_(\d\d)_(S?-?\d+P?)_(S?-?\d+P?)$/) {
-        $bet_type          = $1;
-        $underlying_symbol = $2;
-        $payout            = $3;
-        $date_start        = uc($4 . '-' . $5 . '-' . $6);
-        $date_expiry       = uc($7 . '-' . $8 . '-' . $9);
-        $barrier           = $10;
-        $barrier2          = $11;
-
-        $date_start = Date::Utility->new($date_start)->epoch;
-    }
-
     # Both purchase and expiry date are timestamp (e.g. a 30-min bet)
-    elsif ($shortcode =~ /^([^_]+)_([\w\d]+)_(\d*\.?\d*)_(\d+)(?<start_cond>F?)_(\d+)(?<expiry_cond>[FT]?)_(S?-?\d+P?)_(S?-?\d+P?)$/) {
+    if ($shortcode =~ /^([^_]+)_([\w\d]+)_(\d*\.?\d*)_(\d+)(?<start_cond>F?)_(\d+)(?<expiry_cond>[FT]?)_(S?-?\d+P?)_(S?-?\d+P?)$/) {
         $bet_type          = $1;
         $underlying_symbol = $2;
         $payout            = $3;
@@ -712,18 +675,6 @@ sub _shortcode_to_parameters {
         }
     }
 
-    # Purchase date is timestamp but expiry date is date string
-    elsif ($shortcode =~ /^([^_]+)_([\w\d]+)_(\d*\.?\d{1,2})_(\d+)_(\d\d?)_(\w\w\w)_(\d\d)_(S?-?\d+P?)_(S?-?\d+P?)$/) {
-        $bet_type          = $1;
-        $underlying_symbol = $2;
-        $payout            = $3;
-        $date_start        = $4;
-        $date_expiry       = uc($5 . '-' . $6 . '-' . $7);
-        $barrier           = $8;
-        $barrier2          = $9;
-        $fixed_expiry      = 1;                              # This automatically defaults to fixed expiry
-    }
-
     # Contract without barrier
     elsif ($shortcode =~ /^([^_]+)_(R?_?[^_\W]+)_(\d*\.?\d*)_(\d+)_(\d+)(?<expiry_cond>[T]?)$/) {
         $bet_type          = $1;
@@ -738,17 +689,6 @@ sub _shortcode_to_parameters {
         return $legacy_params;
     }
 
-    my $underlying = create_underlying($underlying_symbol);
-    if (Date::Utility::is_ddmmmyy($date_expiry)) {
-        my $calendar = $underlying->calendar;
-        $date_expiry = Date::Utility->new($date_expiry);
-        if (my $closing = $calendar->closing_on($date_expiry)) {
-            $date_expiry = $closing->epoch;
-        } else {
-            my $regular_close = $calendar->closing_on($calendar->regular_trading_day_after($date_expiry));
-            $date_expiry = Date::Utility->new($date_expiry->date_yyyymmdd . ' ' . $regular_close->time_hhmmss);
-        }
-    }
     $barrier = BOM::Product::Contract::Strike->strike_string($barrier, $underlying, $bet_type, $date_start)
         if defined $barrier;
     $barrier2 = BOM::Product::Contract::Strike->strike_string($barrier2, $underlying, $bet_type, $date_start)
