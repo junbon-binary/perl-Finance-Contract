@@ -276,7 +276,18 @@ has _date_pricing_milliseconds => (
 
 =head2 supplied_barrier_type
 
-Either 'relative' or 'absolute'. Relative barriers need market data in order to be calculated.
+One of:
+
+=over 4
+
+=item * C<relative> - this is of the form C<< S10P >> or C<< S-4P >>, which would be 10 pips above the spot
+or 4 pips below the spot.
+
+=item * C<absolute> - this is a number that can be compared directly with the spot, e.g. C<< 103.45 >>.
+
+=item * C<difference> - a numerical difference from the spot, can be negative, e.g. C<< -0.035 >>.
+
+=back
 
 =cut
 
@@ -284,7 +295,7 @@ has [qw(supplied_barrier_type)] => (is => 'ro');
 
 =head2 supplied_high_barrier
 
-For a 2-barrier contract, this is the high barrier string.
+For a 2-barrier contract, this is the high barrier string. The meaning of these barrier values is controlled by L</supplied_barrier_type>.
 
 =head2 supplied_low_barrier
 
