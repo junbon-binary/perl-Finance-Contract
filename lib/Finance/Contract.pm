@@ -211,17 +211,6 @@ has prediction => (
     isa => 'Maybe[Num]',
 );
 
-=head2 tick_count
-
-Number of ticks in this trade.
-
-=cut
-
-has tick_count => (
-    is  => 'ro',
-    isa => 'Maybe[Num]',
-);
-
 =head2 starts_as_forward_starting
 
 This attribute tells us if this contract was initially bought as a forward starting contract.
@@ -232,6 +221,17 @@ This should not be mistaken for L</is_forward_starting> attribute as that could 
 has starts_as_forward_starting => (
     is      => 'ro',
     default => 0,
+);
+
+=head2 tick_count
+
+Number of ticks in this trade.
+
+=cut
+
+has tick_count => (
+    is  => 'ro',
+    isa => 'Maybe[Num]',
 );
 
 has is_forward_starting => (
