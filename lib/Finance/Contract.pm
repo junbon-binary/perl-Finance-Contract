@@ -440,6 +440,29 @@ sub barrier_category {
     return $barrier_category;
 }
 
+=head2 effective_start
+
+=over 4
+
+=item * For backpricing, this is L</date_start>.
+
+=item * For a forward-starting contract, this is L</date_start>.
+
+=item * For all other states - i.e. active, non-expired contracts - this is L</date_pricing>.
+
+=back
+
+=cut
+
+sub effective_start {
+    my $self = shift;
+
+    return
+          ($self->date_pricing->is_after($self->date_expiry)) ? $self->date_start
+        : ($self->date_pricing->is_after($self->date_start))  ? $self->date_pricing
+        :                                                       $self->date_start;
+}
+
 =head2 fixed_expiry
 
 A Boolean to determine if this bet has fixed or flexible expiries.
@@ -450,6 +473,24 @@ has fixed_expiry => (
     is      => 'ro',
     default => 0,
 );
+
+=head2 get_time_to_expiry
+
+Returns a TimeInterval to expiry of the bet. For a forward start bet, it will NOT return the bet lifetime, but the time till the bet expires.
+
+If you want to get the contract life time, use:
+
+    $contract->get_time_to_expiry({from => $contract->date_start})
+
+=cut
+
+sub get_time_to_expiry {
+    my ($self, $attributes) = @_;
+
+    $attributes->{'to'} = $self->date_expiry;
+
+    return $self->_get_time_to_end($attributes);
+}
 
 =head2 is_atm_bet
 
@@ -571,47 +612,6 @@ TODO JB - this is overridden in the digit/Asian contracts, any idea why?
 
 sub ticks_to_expiry {
     return shift->tick_count + 1;
-}
-
-=head2 effective_start
-
-=over 4
-
-=item * For backpricing, this is L</date_start>.
-
-=item * For a forward-starting contract, this is L</date_start>.
-
-=item * For all other states - i.e. active, non-expired contracts - this is L</date_pricing>.
-
-=back
-
-=cut
-
-sub effective_start {
-    my $self = shift;
-
-    return
-          ($self->date_pricing->is_after($self->date_expiry)) ? $self->date_start
-        : ($self->date_pricing->is_after($self->date_start))  ? $self->date_pricing
-        :                                                       $self->date_start;
-}
-
-=head2 get_time_to_expiry
-
-Returns a TimeInterval to expiry of the bet. For a forward start bet, it will NOT return the bet lifetime, but the time till the bet expires.
-
-If you want to get the contract life time, use:
-
-    $contract->get_time_to_expiry({from => $contract->date_start})
-
-=cut
-
-sub get_time_to_expiry {
-    my ($self, $attributes) = @_;
-
-    $attributes->{'to'} = $self->date_expiry;
-
-    return $self->_get_time_to_end($attributes);
 }
 
 # INTERNAL METHODS
