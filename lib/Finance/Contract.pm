@@ -722,9 +722,9 @@ sub _shortcode_to_parameters {
         return $legacy_params;
     }
 
-    $barrier = BOM::Product::Contract::Strike->strike_string($barrier, $underlying, $bet_type, $date_start)
+    $barrier = $self->_strike_string($barrier, $self->contract_type)
         if defined $barrier;
-    $barrier2 = BOM::Product::Contract::Strike->strike_string($barrier2, $underlying, $bet_type, $date_start)
+    $barrier2 = $self->_strike_string($barrier2, $self->contract_type)
         if defined $barrier2;
     my %barriers =
         ($barrier and $barrier2)
@@ -757,9 +757,9 @@ sub _shortcode_to_parameters {
 
 # Generates a string version of a barrier by multiplying the actual barrier to remove the decimal point
 sub _strike_string {
-    my ($self, $string, $contract_type_code, $when) = @_;
+    my ($self, $string, $contract_type_code) = @_;
 
-    $string /= $self->_forex_barrier_multiplier if ($bet_type_code !~ /^DIGIT/ and $string and looks_like_number($string);
+    $string /= $self->_forex_barrier_multiplier if ($contract_type_code !~ /^DIGIT/ and $string and looks_like_number($string);
 
     return $string;
 }
