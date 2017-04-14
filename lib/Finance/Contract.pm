@@ -77,6 +77,8 @@ use Time::Duration::Concise;
 
 use Finance::Contract::Category;
 
+use constant FOREX_BARRIER_MULTIPLIER => 1e6;
+
 unless(find_type_constraint('time_interval')) {
     subtype 'time_interval', as 'Time::Duration::Concise';
     coerce 'time_interval',  from 'Str', via { Time::Duration::Concise->new(interval => $_) };
@@ -531,9 +533,9 @@ sub shortcode {
     my @shortcode_elements = ($self->code, $self->underlying_symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
-        push @shortcode_elements, ($self->supplied_high_barrier, $self->supplied_low_barrier);
+        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
     } elsif ($self->barrier and $self->barrier_at_start) {
-        push @shortcode_elements, ($self->barrier, 0);
+        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->contract_type) } ($self->barrier, 0);
     }
 
     return uc join '_', @shortcode_elements;
@@ -722,9 +724,9 @@ sub _shortcode_to_parameters {
         return $legacy_params;
     }
 
-    $barrier = $self->_strike_string($barrier, $self->contract_type)
+    $barrier = _barrier_from_shortcode_string($barrier, $contract_type)
         if defined $barrier;
-    $barrier2 = $self->_strike_string($barrier2, $self->contract_type)
+    $barrier2 = _barrier_from_shortcode_string($barrier2, $contract_type)
         if defined $barrier2;
     my %barriers =
         ($barrier and $barrier2)
@@ -755,18 +757,22 @@ sub _shortcode_to_parameters {
     return $bet_parameters;
 }
 
-# Generates a string version of a barrier by multiplying the actual barrier to remove the decimal point
-sub _strike_string {
-    my ($self, $string, $contract_type_code) = @_;
+# Generates a barrier value from the string used in a shortcode
+sub _barrier_from_shortcode_string {
+    my ($string, $contract_type_code) = @_;
 
-    $string /= $self->_forex_barrier_multiplier if ($contract_type_code !~ /^DIGIT/ and $string and looks_like_number($string);
+    $string /= FOREX_BARRIER_MULTIPLIER if $contract_type_code !~ /^DIGIT/ and $string and looks_like_number($string);
 
     return $string;
 }
 
-# This should be overridden whenever we need custom logic for determining decimal places
-sub _forex_barrier_multiplier {
-    return 1e6;
+# Generates a string version of a barrier by multiplying the actual barrier to remove the decimal point
+sub _barrier_for_shortcode_string {
+    my ($string, $contract_type_code) = @_;
+
+    $string *= FOREX_BARRIER_MULTIPLIER if $contract_type_code !~ /^DIGIT/ and $string and looks_like_number($string);
+
+    return $string;
 }
 
 no Moose;
