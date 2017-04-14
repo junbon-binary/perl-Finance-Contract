@@ -53,6 +53,20 @@ Instantiates a new Finance::Contract from the given shortcode and currency.
 
 These are the parameters we expect to be passed when constructing a new contract.
 
+## contract\_type
+
+The type of this contract as an upper-case string.
+
+Current types include:
+
+- `CALL`
+- `PUT`
+- `CALLE`
+- `EXPIRYRANGE`
+- `EXPIRYMISS`
+- `DIGITMATCH`
+- `DIGITOVER`
+
 ## currency
 
 The currency in which this contract is bought/sold, e.g. `USD`.
