@@ -144,17 +144,32 @@ The underlying asset, as a string (for example, ` frxUSDJPY `).
 
 ## id
 
+A unique numeric ID.
+
 ## pricing\_code
+
+Used to determine the pricing engine that should be used for this contract. Examples
+include 'PUT' or 'CALL'.
 
 ## display\_name
 
+This is a human-readable name for the contract type, brief description of what it does.
+
 ## sentiment
+
+Indicates whether we are speculating on market rise or fall.
 
 ## other\_side\_code
 
+Opposite type for this contract - PUT for CALL, etc.
+
 ## payout\_type
 
+Either ` binary ` or ` non-binary `.
+
 ## payouttime
+
+Indicates when the contract pays out. Can be ` end ` or ` hit `.
 
 # ATTRIBUTES - From contract\_categories.yml
 
