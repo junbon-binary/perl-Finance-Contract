@@ -722,6 +722,20 @@ sub _shortcode_to_parameters {
     return $bet_parameters;
 }
 
+# Generates a string version of a barrier by multiplying the actual barrier to remove the decimal point
+sub _strike_string {
+    my ($self, $string, $contract_type_code, $when) = @_;
+
+    $string /= $self->_forex_barrier_multiplier if ($bet_type_code !~ /^DIGIT/ and $string and looks_like_number($string);
+
+    return $string;
+}
+
+# This should be overridden whenever we need custom logic for determining decimal places
+sub _forex_barrier_multiplier {
+    return 1e6;
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 
