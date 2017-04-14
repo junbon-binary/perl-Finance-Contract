@@ -18,9 +18,9 @@ This is a generic abstraction for financial stock market contracts.
 
 ## Construction
 
-You can either construct from a shortcode and currency:
+You can either construct [from a shortcode and currency](#new_from_shortcode):
 
-    Finance::Contract->new('CALL_frxUSDJPY_1491965798_1491965808_100_0', 'USD');
+    Finance::Contract->new_from_shortcode('CALL_frxUSDJPY_1491965798_1491965808_100000000_0', 'USD');
 
 or from build parameters:
 
@@ -45,6 +45,10 @@ All date-related parameters:
 are [Date::Utility](https://metacpan.org/pod/Date::Utility) instances. You can provide them as epoch values
 or [Date::Utility](https://metacpan.org/pod/Date::Utility) objects.
 
+## new\_from\_shortcode
+
+Instantiates a new Finance::Contract from the given shortcode and currency.
+
 # ATTRIBUTES
 
 These are the parameters we expect to be passed when constructing a new contract.
@@ -52,19 +56,6 @@ These are the parameters we expect to be passed when constructing a new contract
 ## currency
 
 The currency in which this contract is bought/sold, e.g. `USD`.
-
-## payout
-
-Payout amount value, see ["currency"](#currency). Optional - only applies to binaries.
-
-## shortcode
-
-(optional) This can be provided when creating a contract from a shortcode. If not, it will
-be populated from the contract parameters.
-
-## underlying\_symbol
-
-The underlying asset, as a string (for example, ` frxUSDJPY `).
 
 ## date\_expiry
 
@@ -93,6 +84,10 @@ The unit is provided as a single character suffix:
 
 Examples would be ` 5t ` for 5 ticks, ` 3h ` for 3 hours.
 
+## payout
+
+Payout amount value, see ["currency"](#currency). Optional - only applies to binaries.
+
 ## prediction
 
 Prediction (for tick trades) is what client predicted would happen.
@@ -105,6 +100,10 @@ Number of ticks in this trade.
 
 This attribute tells us if this contract was initially bought as a forward starting contract.
 This should not be mistaken for ["is\_forward\_starting"](#is_forward_starting) attribute as that could change over time.
+
+## underlying\_symbol
+
+The underlying asset, as a string (for example, ` frxUSDJPY `).
 
 ## supplied\_barrier\_type
 
@@ -178,9 +177,26 @@ True if the contract has two barriers.
 
 Boolean which will false if we don't know what the barrier is at the start of the contract (Asian contracts).
 
+## barrier\_category
+
+Type of barriers we have for this contract, depends on the contract type.
+
+Possible values are:
+
+- `american` - barrier for American-style contract
+- `asian` - Asian-style contract
+- `euro_atm` - at-the-money European contract
+- `euro_non_atm` - non-at-the-money European contract
+- `non_financial` - digits
+
 ## category\_code
 
 The code for this category.
+
+## shortcode
+
+This is a compact string representation of a [Finance::Contract](https://metacpan.org/pod/Finance::Contract) object. It includes all data needed to
+reconstruct a contract, with the exception of ["currency"](#currency).
 
 ## timeinyears
 
