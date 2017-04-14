@@ -140,19 +140,6 @@ has payout => (
     lazy_build => 1,
 );
 
-=head2 shortcode
-
-(optional) This can be provided when creating a contract from a shortcode. If not, it will
-be populated from the contract parameters.
-
-=cut
-
-has shortcode => (
-    is         => 'ro',
-    isa        => 'Str',
-    lazy_build => 1,
-);
-
 =head2 underlying_symbol
 
 The underlying asset, as a string (for example, C< frxUSDJPY >).
@@ -432,6 +419,36 @@ sub category_code {
     return $self->category->code;
 }
 
+=head2 shortcode
+
+This is a compact string representation of a L<Finance::Contract> object. It includes all data needed to
+reconstruct a contract, with the exception of L</currency>.
+
+=cut
+
+sub shortcode {
+    my $self = shift;
+
+    my $shortcode_date_start = (
+               $self->is_forward_starting
+            or $self->starts_as_forward_starting
+    ) ? $self->date_start->epoch . 'F' : $self->date_start->epoch;
+    my $shortcode_date_expiry =
+          ($self->tick_expiry)  ? $self->tick_count . 'T'
+        : ($self->fixed_expiry) ? $self->date_expiry->epoch . 'F'
+        :                         $self->date_expiry->epoch;
+
+    my @shortcode_elements = ($self->code, $self->underlying_symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
+
+    if ($self->two_barriers) {
+        push @shortcode_elements, ($self->supplied_high_barrier, $self->supplied_low_barrier);
+    } elsif ($self->barrier and $self->barrier_at_start) {
+        push @shortcode_elements, ($self->barrier, 0);
+    }
+
+    return uc join '_', @shortcode_elements;
+}
+
 =head2 timeinyears
 
 Contract duration in years.
@@ -585,29 +602,6 @@ sub _build_remaining_time {
     return $self->get_time_to_expiry({
         from => $when,
     });
-}
-
-sub _build_shortcode {
-    my $self = shift;
-
-    my $shortcode_date_start = (
-               $self->is_forward_starting
-            or $self->starts_as_forward_starting
-    ) ? $self->date_start->epoch . 'F' : $self->date_start->epoch;
-    my $shortcode_date_expiry =
-          ($self->tick_expiry)  ? $self->tick_count . 'T'
-        : ($self->fixed_expiry) ? $self->date_expiry->epoch . 'F'
-        :                         $self->date_expiry->epoch;
-
-    my @shortcode_elements = ($self->code, $self->underlying_symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
-
-    if ($self->two_barriers) {
-        push @shortcode_elements, ($self->supplied_high_barrier, $self->supplied_low_barrier);
-    } elsif ($self->barrier and $self->barrier_at_start) {
-        push @shortcode_elements, ($self->barrier, 0);
-    }
-
-    return uc join '_', @shortcode_elements;
 }
 
 sub _build_date_start {
