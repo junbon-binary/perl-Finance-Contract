@@ -142,40 +142,42 @@ The underlying asset, as a string (for example, ` frxUSDJPY `).
 
 ## payouttime
 
-# METHODS
-
-## is\_atm\_bet
-
-Is this contract meant to be ATM or non ATM at start?
-The status will not change throughout the lifetime of the contract due to differences in offerings for ATM and non ATM contracts.
-
-## fixed\_expiry
-
-A Boolean to determine if this bet has fixed or flexible expiries.
-
-## supported\_expiries
-
-Which expiry durations we allow. Values can be:
-
-- intraday
-- daily
-- tick
-
-## is\_path\_dependent
-
-True if this is a path-dependent contract.
+# ATTRIBUTES - From contract\_categories.yml
 
 ## allow\_forward\_starting
 
 True if we allow forward starting for this contract type.
 
+## barrier\_at\_start
+
+Boolean which will false if we don't know what the barrier is at the start of the contract (Asian contracts).
+
+## is\_path\_dependent
+
+True if this is a path-dependent contract.
+
+## supported\_expiries
+
+Which expiry durations we allow for this category. Values can be:
+
+- intraday
+- daily
+- tick
+
 ## two\_barriers
 
 True if the contract has two barriers.
 
-## barrier\_at\_start
+# METHODS
 
-Boolean which will false if we don't know what the barrier is at the start of the contract (Asian contracts).
+## fixed\_expiry
+
+A Boolean to determine if this bet has fixed or flexible expiries.
+
+## is\_atm\_bet
+
+Is this contract meant to be ATM or non ATM at start?
+The status will not change throughout the lifetime of the contract due to differences in offerings for ATM and non ATM contracts.
 
 ## barrier\_category
 
