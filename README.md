@@ -92,18 +92,10 @@ Payout amount value, see ["currency"](#currency). Optional - only applies to bin
 
 Prediction (for tick trades) is what client predicted would happen.
 
-## tick\_count
-
-Number of ticks in this trade.
-
 ## starts\_as\_forward\_starting
 
 This attribute tells us if this contract was initially bought as a forward starting contract.
 This should not be mistaken for ["is\_forward\_starting"](#is_forward_starting) attribute as that could change over time.
-
-## underlying\_symbol
-
-The underlying asset, as a string (for example, ` frxUSDJPY `).
 
 ## supplied\_barrier\_type
 
@@ -125,6 +117,14 @@ For a 2-barrier contract, this is the low barrier string.
 ## supplied\_barrier
 
 For a single-barrier contract, this is the barrier string.
+
+## tick\_count
+
+Number of ticks in this trade.
+
+## underlying\_symbol
+
+The underlying asset, as a string (for example, ` frxUSDJPY `).
 
 # ATTRIBUTES - From contract\_types.yml
 
