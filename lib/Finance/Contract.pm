@@ -25,9 +25,9 @@ This is a generic abstraction for financial stock market contracts.
 
 =head2 Construction
 
-You can either construct from a shortcode and currency:
+You can either construct L<from a shortcode and currency|/new_from_shortcode>:
 
-    Finance::Contract->new('CALL_frxUSDJPY_1491965798_1491965808_100_0', 'USD');
+    Finance::Contract->new_from_shortcode('CALL_frxUSDJPY_1491965798_1491965808_100000000_0', 'USD');
 
 or from build parameters:
 
@@ -94,14 +94,21 @@ my @date_attribute = (
 );
 
 around BUILDARGS => sub {
-    my ($code, $class) = splice @_, 0, 2;
-    # Single hashref parameter means we have the full set of parameters
-    # defined already, and can construct as-is
-        # Shortcode needs expansion first, and we also need to pass currency
-    my $args = (@_ == 1 and ref $_[0]) ? $_[0] : _shortcode_to_parameters(@_);
+    my ($code, $class, $args) = @_;
     $args->{fixed_expiry} //= exists $args->{date_expiry} ? 1 : 0;
     return $args;
 };
+
+=head2 new_from_shortcode
+
+Instantiates a new Finance::Contract from the given shortcode and currency.
+
+=cut
+
+sub new_from_shortcode {
+    my ($class) = shift;
+    return $class->new(_shortcode_to_parameters(@_));
+}
 
 =head1 ATTRIBUTES
 
