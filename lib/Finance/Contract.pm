@@ -118,6 +118,37 @@ These are the parameters we expect to be passed when constructing a new contract
 
 =cut
 
+=head2 contract_type
+
+The type of this contract as an upper-case string.
+
+Current types include:
+
+=over 4
+
+=item * C<CALL>
+
+=item * C<PUT>
+
+=item * C<CALLE>
+
+=item * C<EXPIRYRANGE>
+
+=item * C<EXPIRYMISS>
+
+=item * C<DIGITMATCH>
+
+=item * C<DIGITOVER>
+
+=back
+
+=cut
+
+has contract_type => (
+    is  => 'ro',
+    isa => 'Str',
+);
+
 =head2 currency
 
 The currency in which this contract is bought/sold, e.g. C<USD>.
