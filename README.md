@@ -152,6 +152,10 @@ True if we allow forward starting for this contract type.
 
 Boolean which will false if we don't know what the barrier is at the start of the contract (Asian contracts).
 
+## category\_code
+
+The code for this category.
+
 ## is\_path\_dependent
 
 True if this is a path-dependent contract.
@@ -170,15 +174,6 @@ True if the contract has two barriers.
 
 # METHODS
 
-## fixed\_expiry
-
-A Boolean to determine if this bet has fixed or flexible expiries.
-
-## is\_atm\_bet
-
-Is this contract meant to be ATM or non ATM at start?
-The status will not change throughout the lifetime of the contract due to differences in offerings for ATM and non ATM contracts.
-
 ## barrier\_category
 
 Type of barriers we have for this contract, depends on the contract type.
@@ -191,9 +186,14 @@ Possible values are:
 - `euro_non_atm` - non-at-the-money European contract
 - `non_financial` - digits
 
-## category\_code
+## fixed\_expiry
 
-The code for this category.
+A Boolean to determine if this bet has fixed or flexible expiries.
+
+## is\_atm\_bet
+
+Is this contract meant to be ATM or non ATM at start?
+The status will not change throughout the lifetime of the contract due to differences in offerings for ATM and non ATM contracts.
 
 ## shortcode
 
@@ -226,7 +226,3 @@ Returns a TimeInterval to expiry of the bet. For a forward start bet, it will NO
 If you want to get the contract life time, use:
 
     $contract->get_time_to_expiry({from => $contract->date_start})
-
-## \_shortcode\_to\_parameters
-
-Convert a shortcode and currency pair into parameters suitable for creating a Finance::Contract
