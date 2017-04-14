@@ -128,29 +128,6 @@ has currency => (
     required => 1,
 );
 
-=head2 payout
-
-Payout amount value, see L</currency>. Optional - only applies to binaries.
-
-=cut
-
-has payout => (
-    is         => 'ro',
-    isa        => 'Num',
-    lazy_build => 1,
-);
-
-=head2 underlying_symbol
-
-The underlying asset, as a string (for example, C< frxUSDJPY >).
-
-=cut
-
-has underlying_symbol => (
-    is  => 'ro',
-    isa => 'Str',
-);
-
 =head2 date_expiry
 
 When the contract expires.
@@ -211,6 +188,18 @@ Examples would be C< 5t > for 5 ticks, C< 3h > for 3 hours.
 
 has duration => (is => 'ro');
 
+=head2 payout
+
+Payout amount value, see L</currency>. Optional - only applies to binaries.
+
+=cut
+
+has payout => (
+    is         => 'ro',
+    isa        => 'Num',
+    lazy_build => 1,
+);
+
 =head2 prediction
 
 Prediction (for tick trades) is what client predicted would happen.
@@ -256,9 +245,15 @@ has remaining_time => (
     lazy_build => 1,
 );
 
-has barrier_category => (
-    is         => 'ro',
-    lazy_build => 1,
+=head2 underlying_symbol
+
+The underlying asset, as a string (for example, C< frxUSDJPY >).
+
+=cut
+
+has underlying_symbol => (
+    is  => 'ro',
+    isa => 'Str',
 );
 
 # This is needed to determine if a contract is newly priced
@@ -407,6 +402,50 @@ True if the contract has two barriers.
 Boolean which will false if we don't know what the barrier is at the start of the contract (Asian contracts).
 
 =cut
+
+our $BARRIER_CATEGORIES = {
+    callput      => ['euro_atm', 'euro_non_atm'],
+    endsinout    => ['euro_non_atm'],
+    touchnotouch => ['american'],
+    staysinout   => ['american'],
+    digits       => ['non_financial'],
+    asian        => ['asian'],
+};
+
+=head2 barrier_category
+
+Type of barriers we have for this contract, depends on the contract type.
+
+Possible values are:
+
+=over 4
+
+=item * C<american> - barrier for American-style contract
+
+=item * C<asian> - Asian-style contract
+
+=item * C<euro_atm> - at-the-money European contract
+
+=item * C<euro_non_atm> - non-at-the-money European contract
+
+=item * C<non_financial> - digits
+
+=back
+
+=cut
+
+sub barrier_category {
+    my $self = shift;
+
+    my $barrier_category;
+    if ($self->category->code eq 'callput') {
+        $barrier_category = ($self->is_atm_bet) ? 'euro_atm' : 'euro_non_atm';
+    } else {
+        $barrier_category = $BARRIER_CATEGORIES->{$self->category->code}->[0];
+    }
+
+    return $barrier_category;
+}
 
 =head2 category_code
 
@@ -606,29 +645,6 @@ sub _build_remaining_time {
 
 sub _build_date_start {
     return Date::Utility->new;
-}
-
-our $BARRIER_CATEGORIES = {
-    callput      => ['euro_atm', 'euro_non_atm'],
-    endsinout    => ['euro_non_atm'],
-    touchnotouch => ['american'],
-    staysinout   => ['american'],
-    digits       => ['non_financial'],
-    asian        => ['asian'],
-    spreads      => ['spreads'],
-};
-
-sub _build_barrier_category {
-    my $self = shift;
-
-    my $barrier_category;
-    if ($self->category->code eq 'callput') {
-        $barrier_category = ($self->is_atm_bet) ? 'euro_atm' : 'euro_non_atm';
-    } else {
-        $barrier_category = $BARRIER_CATEGORIES->{$self->category->code}->[0];
-    }
-
-    return $barrier_category;
 }
 
 =head2 _shortcode_to_parameters
