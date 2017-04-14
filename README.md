@@ -186,9 +186,23 @@ Possible values are:
 - `euro_non_atm` - non-at-the-money European contract
 - `non_financial` - digits
 
+## effective\_start
+
+- For backpricing, this is ["date\_start"](#date_start).
+- For a forward-starting contract, this is ["date\_start"](#date_start).
+- For all other states - i.e. active, non-expired contracts - this is ["date\_pricing"](#date_pricing).
+
 ## fixed\_expiry
 
 A Boolean to determine if this bet has fixed or flexible expiries.
+
+## get\_time\_to\_expiry
+
+Returns a TimeInterval to expiry of the bet. For a forward start bet, it will NOT return the bet lifetime, but the time till the bet expires.
+
+If you want to get the contract life time, use:
+
+    $contract->get_time_to_expiry({from => $contract->date_start})
 
 ## is\_atm\_bet
 
@@ -212,17 +226,3 @@ Contract duration in days.
 
 Number of ticks until expiry of this contract. Defaults to one more than tick\_count,
 TODO JB - this is overridden in the digit/Asian contracts, any idea why?
-
-## effective\_start
-
-- For backpricing, this is ["date\_start"](#date_start).
-- For a forward-starting contract, this is ["date\_start"](#date_start).
-- For all other states - i.e. active, non-expired contracts - this is ["date\_pricing"](#date_pricing).
-
-## get\_time\_to\_expiry
-
-Returns a TimeInterval to expiry of the bet. For a forward start bet, it will NOT return the bet lifetime, but the time till the bet expires.
-
-If you want to get the contract life time, use:
-
-    $contract->get_time_to_expiry({from => $contract->date_start})
