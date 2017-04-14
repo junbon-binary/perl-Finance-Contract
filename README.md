@@ -108,11 +108,16 @@ This should not be mistaken for ["is\_forward\_starting"](#is_forward_starting) 
 
 ## supplied\_barrier\_type
 
-Either 'relative' or 'absolute'. Relative barriers need market data in order to be calculated.
+One of:
+
+- `relative` - this is of the form `S10P` or `S-4P`, which would be 10 pips above the spot
+or 4 pips below the spot.
+- `absolute` - this is a number that can be compared directly with the spot, e.g. `103.45`.
+- `difference` - a numerical difference from the spot, can be negative, e.g. `-0.035`.
 
 ## supplied\_high\_barrier
 
-For a 2-barrier contract, this is the high barrier string.
+For a 2-barrier contract, this is the high barrier string. The meaning of these barrier values is controlled by ["supplied\_barrier\_type"](#supplied_barrier_type).
 
 ## supplied\_low\_barrier
 
@@ -144,6 +149,10 @@ For a single-barrier contract, this is the barrier string.
 
 Is this contract meant to be ATM or non ATM at start?
 The status will not change throughout the lifetime of the contract due to differences in offerings for ATM and non ATM contracts.
+
+## fixed\_expiry
+
+A Boolean to determine if this bet has fixed or flexible expiries.
 
 ## supported\_expiries
 
