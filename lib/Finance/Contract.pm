@@ -657,11 +657,8 @@ sub _build_date_start {
     return Date::Utility->new;
 }
 
-=head2 _shortcode_to_parameters
 
-Convert a shortcode and currency pair into parameters suitable for creating a Finance::Contract
-
-=cut
+# Convert a shortcode and currency pair into parameters suitable for creating a Finance::Contract
 
 sub _shortcode_to_parameters {
     my ($shortcode, $currency) = @_;
