@@ -144,7 +144,7 @@ Current types include:
 
 =cut
 
-has contract_type => (
+has xxx_contract_type => (
     is  => 'ro',
     isa => 'Str',
 );
@@ -219,9 +219,9 @@ Examples would be C< 5t > for 5 ticks, C< 3h > for 3 hours.
 
 =cut
 
-has duration => (is => 'ro');
+has xxx_duration => (is => 'ro');
 
-has is_forward_starting => (
+has xxx_is_forward_starting => (
     is         => 'ro',
     lazy_build => 1,
 );
@@ -232,7 +232,7 @@ Payout amount value, see L</currency>. Optional - only applies to binaries.
 
 =cut
 
-has payout => (
+has xxx_payout => (
     is         => 'ro',
     isa        => 'Num',
     lazy_build => 1,
@@ -244,7 +244,7 @@ Prediction (for tick trades) is what client predicted would happen.
 
 =cut
 
-has prediction => (
+has xxx_prediction => (
     is  => 'ro',
     isa => 'Maybe[Num]',
 );
@@ -278,7 +278,7 @@ or 4 pips below the spot.
 
 =cut
 
-has [qw(supplied_barrier_type)] => (is => 'ro');
+has xxx_supplied_barrier_type => (is => 'ro');
 
 =head2 supplied_high_barrier
 
@@ -294,7 +294,7 @@ For a single-barrier contract, this is the barrier string.
 
 =cut
 
-has [qw(supplied_barrier supplied_high_barrier supplied_low_barrier)] => (is => 'ro');
+has [qw(xxx_supplied_barrier xxx_supplied_high_barrier xxx_supplied_low_barrier)] => (is => 'ro');
 
 =head2 tick_count
 
@@ -302,12 +302,12 @@ Number of ticks in this trade.
 
 =cut
 
-has tick_count => (
+has xxx_tick_count => (
     is  => 'ro',
     isa => 'Maybe[Num]',
 );
 
-has remaining_time => (
+has xxx_remaining_time => (
     is         => 'ro',
     isa        => 'Time::Duration::Concise',
     lazy_build => 1,
@@ -319,7 +319,7 @@ The underlying asset, as a string (for example, C< frxUSDJPY >).
 
 =cut
 
-has underlying_symbol => (
+has xxx_underlying_symbol => (
     is  => 'ro',
     isa => 'Str',
 );
@@ -327,7 +327,7 @@ has underlying_symbol => (
 # This is needed to determine if a contract is newly priced
 # or it is repriced from an existing contract.
 # Milliseconds matters since UI is reacting much faster now.
-has _date_pricing_milliseconds => (
+has xxx__date_pricing_milliseconds => (
     is => 'rw',
 );
 
@@ -364,7 +364,7 @@ Indicates when the contract pays out. Can be C< end > or C< hit >.
 
 =cut
 
-has [qw(id pricing_code display_name sentiment other_side_code payout_type payouttime)] => (
+has [qw(xxx_id xxx_pricing_code xxx_display_name xxx_sentiment xxx_other_side_code xxx_payout_type xxx_payouttime)] => (
     is      => 'ro',
     default => undef,
 );
@@ -376,18 +376,18 @@ has [qw(id pricing_code display_name sentiment other_side_code payout_type payou
 subtype 'contract_category', as 'Finance::Contract::Category';
 coerce 'contract_category', from 'Str', via { Finance::Contract::Category->new($_) };
 
-has category => (
-    is      => 'ro',
-    isa     => 'contract_category',
-    coerce  => 1,
-    handles => [qw(
-        allow_forward_starting
-        barrier_at_start
-        is_path_dependent
-        supported_expiries
-        two_barriers
-    )],
-);
+#has category => (
+#    is      => 'ro',
+#    isa     => 'contract_category',
+#    coerce  => 1,
+#    handles => [qw(
+#        allow_forward_starting
+#        barrier_at_start
+#        is_path_dependent
+#        supported_expiries
+#        two_barriers
+#    )],
+#);
 
 =head2 allow_forward_starting
 
@@ -407,7 +407,7 @@ The code for this category.
 
 =cut
 
-sub category_code {
+sub xxx_category_code {
     my $self = shift;
     return $self->category->code;
 }
@@ -475,7 +475,7 @@ Possible values are:
 
 =cut
 
-sub barrier_category {
+sub xxx_barrier_category {
     my $self = shift;
 
     my $barrier_category;
@@ -502,7 +502,7 @@ sub barrier_category {
 
 =cut
 
-sub effective_start {
+sub xxx_effective_start {
     my $self = shift;
 
     return
@@ -517,7 +517,7 @@ A Boolean to determine if this bet has fixed or flexible expiries.
 
 =cut
 
-has fixed_expiry => (
+has xxx_fixed_expiry => (
     is      => 'ro',
     default => 0,
 );
@@ -532,7 +532,7 @@ If you want to get the contract life time, use:
 
 =cut
 
-sub get_time_to_expiry {
+sub xxx_get_time_to_expiry {
     my ($self, $attributes) = @_;
 
     $attributes->{'to'} = $self->date_expiry;
@@ -547,7 +547,7 @@ The status will not change throughout the lifetime of the contract due to differ
 
 =cut
 
-sub is_atm_bet {
+sub xxx_is_atm_bet {
     my $self = shift;
 
     return 0 if $self->two_barriers;
@@ -564,7 +564,7 @@ reconstruct a contract, with the exception of L</currency>.
 
 =cut
 
-sub shortcode {
+sub xxx_shortcode {
     my $self = shift;
 
     my $shortcode_date_start = (
@@ -598,8 +598,8 @@ Contract duration in days.
 =cut
 
 has [qw(
-        timeinyears
-        timeindays
+        xxx_timeinyears
+        xxx_timeindays
         )
     ] => (
     is         => 'ro',
@@ -608,7 +608,7 @@ has [qw(
     lazy_build => 1,
     );
 
-sub _build_timeinyears {
+sub xxx__build_timeinyears {
     my $self = shift;
 
     my $tiy = Math::Util::CalculatedValue::Validatable->new({
@@ -632,7 +632,7 @@ sub _build_timeinyears {
     return $tiy;
 }
 
-sub _build_timeindays {
+sub xxx__build_timeindays {
     my $self = shift;
 
     my $atid = $self->get_time_to_expiry({
@@ -658,14 +658,14 @@ TODO JB - this is overridden in the digit/Asian contracts, any idea why?
 
 =cut
 
-sub ticks_to_expiry {
+sub xxx_ticks_to_expiry {
     return shift->tick_count + 1;
 }
 
 # INTERNAL METHODS
 
 # Send in the correct 'to'
-sub _get_time_to_end {
+sub xxx__get_time_to_end {
     my ($self, $attributes) = @_;
 
     my $end_point = $attributes->{to};
@@ -681,17 +681,17 @@ sub _get_time_to_end {
 
 #== BUILDERS =====================
 
-sub _build_date_pricing {
+sub xxx__build_date_pricing {
     return Date::Utility->new;
 }
 
-sub _build_is_forward_starting {
+sub xxx__build_is_forward_starting {
     my $self = shift;
 
     return ($self->allow_forward_starting and $self->date_pricing->is_before($self->date_start)) ? 1 : 0;
 }
 
-sub _build_remaining_time {
+sub xxx__build_remaining_time {
     my $self = shift;
 
     my $when = ($self->date_pricing->is_after($self->date_start)) ? $self->date_pricing : $self->date_start;
@@ -701,14 +701,14 @@ sub _build_remaining_time {
     });
 }
 
-sub _build_date_start {
+sub xxx__build_date_start {
     return Date::Utility->new;
 }
 
 
 # Convert a shortcode and currency pair into parameters suitable for creating a Finance::Contract
 
-sub _shortcode_to_parameters {
+sub xxx__shortcode_to_parameters {
     my ($shortcode, $currency) = @_;
 
     die 'Needs a currency' unless $currency;
@@ -804,7 +804,7 @@ sub _shortcode_to_parameters {
 }
 
 # Generates a barrier value from the string used in a shortcode
-sub _barrier_from_shortcode_string {
+sub xxx__barrier_from_shortcode_string {
     my ($string, $contract_type) = @_;
 
     $string /= FOREX_BARRIER_MULTIPLIER if $contract_type !~ /^DIGIT/ and $string and looks_like_number($string);
@@ -813,7 +813,7 @@ sub _barrier_from_shortcode_string {
 }
 
 # Generates a string version of a barrier by multiplying the actual barrier to remove the decimal point
-sub _barrier_for_shortcode_string {
+sub xxx__barrier_for_shortcode_string {
     my ($string, $contract_type) = @_;
 
     $string *= FOREX_BARRIER_MULTIPLIER if $contract_type !~ /^DIGIT/ and $string and looks_like_number($string);
