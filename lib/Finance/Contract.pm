@@ -99,7 +99,7 @@ These are the parameters we expect to be passed when constructing a new contract
 
 =cut
 
-=head2 contract_type
+=head2 bet_type
 
 The type of this contract as an upper-case string.
 
@@ -125,14 +125,14 @@ Current types include:
 
 =cut
 
-has xxx_contract_type => (
+has bet_type => (
     is  => 'ro',
     isa => 'Str',
 );
 
 =head2 currency
 
-The currency in which this contract is bought/sold, e.g. C<USD>.
+The currency of the payout for this contract, e.g. C<USD>.
 
 =cut
 
@@ -265,7 +265,7 @@ or 4 pips below the spot.
 
 =cut
 
-has xxx_supplied_barrier_type => (is => 'ro');
+has supplied_barrier_type => (is => 'ro');
 
 =head2 supplied_high_barrier
 
@@ -281,7 +281,7 @@ For a single-barrier contract, this is the barrier string.
 
 =cut
 
-has [qw(xxx_supplied_barrier xxx_supplied_high_barrier xxx_supplied_low_barrier)] => (is => 'ro');
+has [qw(supplied_barrier supplied_high_barrier supplied_low_barrier)] => (is => 'ro');
 
 =head2 tick_count
 
@@ -374,18 +374,18 @@ has [qw(id pricing_code display_name sentiment other_side_code payout_type payou
 subtype 'contract_category', as 'Finance::Contract::Category';
 coerce 'contract_category', from 'Str', via { Finance::Contract::Category->new($_) };
 
-#has category => (
-#    is      => 'ro',
-#    isa     => 'contract_category',
-#    coerce  => 1,
-#    handles => [qw(
-#        allow_forward_starting
-#        barrier_at_start
-#        is_path_dependent
-#        supported_expiries
-#        two_barriers
-#    )],
-#);
+has category => (
+    is      => 'ro',
+    isa     => 'contract_category',
+    coerce  => 1,
+    handles => [qw(
+        allow_forward_starting
+        barrier_at_start
+        is_path_dependent
+        supported_expiries
+        two_barriers
+    )],
+);
 
 =head2 allow_forward_starting
 
@@ -574,12 +574,14 @@ sub shortcode {
         : ($self->fixed_expiry) ? $self->date_expiry->epoch . 'F'
         :                         $self->date_expiry->epoch;
 
-    my @shortcode_elements = ($self->contract_type, $self->underlying_symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
+    # TODO We expect to have a valid bet_type, but there may be codepaths which don't set this correctly yet.
+    my $contract_type = $self->bet_type // $self->code;
+    my @shortcode_elements = ($contract_type, $self->underlying->symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
-        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
-    } elsif ($self->barrier and $self->barrier_at_start) {
-        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->contract_type) } ($self->barrier, 0);
+        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
+    } elsif ($self->supplied_barrier and $self->barrier_at_start) {
+        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_barrier, 0);
     }
 
     return uc join '_', @shortcode_elements;
