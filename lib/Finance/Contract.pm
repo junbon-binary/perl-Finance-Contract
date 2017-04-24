@@ -296,12 +296,12 @@ Number of ticks in this trade.
 
 =cut
 
-has xxx_tick_count => (
+has tick_count => (
     is  => 'ro',
     isa => 'Maybe[Num]',
 );
 
-has xxx_remaining_time => (
+has remaining_time => (
     is         => 'ro',
     isa        => 'Time::Duration::Concise',
     lazy_build => 1,
