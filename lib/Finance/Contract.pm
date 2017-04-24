@@ -9,6 +9,10 @@ our $VERSION = '0.001';
 
 Finance::Contract - represents a contract object for a single bet
 
+=head1 VERSION
+
+version 0.001
+
 =head1 SYNOPSIS
 
     use feature qw(say);
