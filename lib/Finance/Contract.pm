@@ -95,12 +95,6 @@ my @date_attribute = (
     coerce     => 1,
 );
 
-around BUILDARGS => sub {
-    my ($code, $class, $args) = @_;
-    $args->{fixed_expiry} //= exists $args->{date_expiry} ? 1 : 0;
-    return $args;
-};
-
 =head2 new_from_shortcode
 
 Instantiates a new Finance::Contract from the given shortcode and currency.
