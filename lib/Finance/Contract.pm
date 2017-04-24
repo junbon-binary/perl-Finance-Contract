@@ -68,7 +68,7 @@ use List::Util qw(min max first);
 use Scalar::Util qw(looks_like_number);
 use Math::Util::CalculatedValue::Validatable;
 use Date::Utility;
-use Format::Util::Numbers qw(to_monetary_number_format roundnear);
+use Format::Util::Numbers qw(roundnear);
 use Time::Duration::Concise;
 
 # Types used for date+time-related handling
