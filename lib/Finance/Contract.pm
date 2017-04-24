@@ -265,7 +265,7 @@ or 4 pips below the spot.
 
 =cut
 
-has xxx_supplied_barrier_type => (is => 'ro');
+has supplied_barrier_type => (is => 'ro');
 
 =head2 supplied_high_barrier
 
@@ -281,7 +281,7 @@ For a single-barrier contract, this is the barrier string.
 
 =cut
 
-has [qw(xxx_supplied_barrier xxx_supplied_high_barrier xxx_supplied_low_barrier)] => (is => 'ro');
+has [qw(supplied_barrier supplied_high_barrier supplied_low_barrier)] => (is => 'ro');
 
 =head2 tick_count
 
@@ -580,8 +580,8 @@ sub shortcode {
 
     if ($self->two_barriers) {
         push @shortcode_elements, map { _barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
-    } elsif ($self->barrier and $self->barrier_at_start) {
-        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $contract_type) } ($self->barrier, 0);
+    } elsif ($self->supplied_barrier and $self->barrier_at_start) {
+        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_barrier, 0);
     }
 
     return uc join '_', @shortcode_elements;
