@@ -99,7 +99,7 @@ These are the parameters we expect to be passed when constructing a new contract
 
 =cut
 
-=head2 contract_type
+=head2 bet_type
 
 The type of this contract as an upper-case string.
 
@@ -125,7 +125,7 @@ Current types include:
 
 =cut
 
-has xxx_contract_type => (
+has bet_type => (
     is  => 'ro',
     isa => 'Str',
 );
@@ -574,7 +574,8 @@ sub shortcode {
         : ($self->fixed_expiry) ? $self->date_expiry->epoch . 'F'
         :                         $self->date_expiry->epoch;
 
-    my @shortcode_elements = ($self->contract_type, $self->underlying_symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
+    # TODO We expect to have a valid bet_type, but there may be codepaths which don't set this correctly yet.
+    my @shortcode_elements = ($self->bet_type // $self->code, $self->underlying_symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
         push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
