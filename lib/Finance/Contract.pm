@@ -248,14 +248,13 @@ has starts_as_forward_starting => (
     default => 0,
 );
 
-=head2 barrier_pip_size
+=head2 pip_size
 
 Barrier pip size the minimum fluctuation amount for type of market. It is normally fraction.
-It must be supplier on initialization or packge which is using this package must have a builder to build this value.
 
 =cut
 
-has barrier_pip_size => (
+has pip_size => (
     is         => 'ro',
     isa        => 'Num',
     lazy_build => 1
@@ -732,7 +731,7 @@ sub _barrier_from_shortcode_string {
 sub _barrier_for_shortcode_string {
     my ($self, $string, $contract_type) = @_;
 
-    # Do not manipulate relatvie barriers.
+    # Do not manipulate relative barriers.
     return $string if not looks_like_number($string);
 
     $string = $self->_pipsized_value($string);
@@ -746,7 +745,7 @@ sub _barrier_for_shortcode_string {
 sub _pipsized_value {
     my ($self, $value) = @_;
 
-    my $display_decimals = log(1 / ($self->barrier_pip_size/10))) / log(10);
+    my $display_decimals = log(1 / $self->pip_size) / log(10);
     $value = sprintf '%.' . $display_decimals . 'f', $value;
     return $value;
 }
