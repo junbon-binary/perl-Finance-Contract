@@ -25,12 +25,6 @@ This is a generic abstraction for financial stock market contracts.
 
 =head2 Construction
 
-You can either construct L<from a shortcode and currency|/new_from_shortcode>:
-
-    Finance::Contract->new_from_shortcode('CALL_frxUSDJPY_1491965798_1491965808_100000000_0', 'USD');
-
-or from build parameters:
-
     Finance::Contract->new({
         underlying    => 'frxUSDJPY',
         contract_type => 'CALL',
@@ -94,17 +88,6 @@ my @date_attribute = (
     lazy_build => 1,
     coerce     => 1,
 );
-
-=head2 new_from_shortcode
-
-Instantiates a new Finance::Contract from the given shortcode and currency.
-
-=cut
-
-sub new_from_shortcode {
-    my ($class) = shift;
-    return $class->new(_shortcode_to_parameters(@_));
-}
 
 =head1 ATTRIBUTES
 
@@ -708,104 +691,6 @@ sub _build_remaining_time {
 
 sub _build_date_start {
     return Date::Utility->new;
-}
-
-
-# Convert a shortcode and currency pair into parameters suitable for creating a Finance::Contract
-
-sub _shortcode_to_parameters {
-    my ($shortcode, $currency) = @_;
-
-    die 'Needs a currency' unless $currency;
-
-    my (
-        $contract_type, $underlying_symbol, $payout,       $date_start,  $date_expiry,    $barrier,
-        $barrier2, $prediction,        $fixed_expiry, $tick_expiry, $how_many_ticks, $forward_start,
-    );
-
-    my ($test_bet_name, $test_bet_name2) = split /_/, $shortcode;
-
-    my %OVERRIDE_LIST = (
-        INTRADU    => 'CALL',
-        INTRADD    => 'PUT',
-        FLASHU     => 'CALL',
-        FLASHD     => 'PUT',
-        DOUBLEUP   => 'CALL',
-        DOUBLEDOWN => 'PUT',
-    );
-    $test_bet_name = $OVERRIDE_LIST{$test_bet_name} if exists $OVERRIDE_LIST{$test_bet_name};
-
-    my $legacy_params = {
-        contract_type     => 'Invalid',    # it doesn't matter what it is if it is a legacy
-        underlying_symbol => 'config',
-        currency          => $currency,
-    };
-
-    return $legacy_params if (not exists Finance::Contract::Category::get_all_contract_types()->{$test_bet_name} or $shortcode =~ /_\d+H\d+/);
-
-    # Both purchase and expiry date are timestamp (e.g. a 30-min bet)
-    if ($shortcode =~ /^([^_]+)_([\w\d]+)_(\d*\.?\d*)_(\d+)(?<start_cond>F?)_(\d+)(?<expiry_cond>[FT]?)_(S?-?\d+P?)_(S?-?\d+P?)$/) {
-        $contract_type          = $1;
-        $underlying_symbol = $2;
-        $payout            = $3;
-        $date_start        = $4;
-        $forward_start     = 1 if $+{start_cond} eq 'F';
-        $barrier           = $8;
-        $barrier2          = $9;
-        $fixed_expiry      = 1 if $+{expiry_cond} eq 'F';
-        if ($+{expiry_cond} eq 'T') {
-            $tick_expiry    = 1;
-            $how_many_ticks = $6;
-        } else {
-            $date_expiry = $6;
-        }
-    }
-
-    # Contract without barrier
-    elsif ($shortcode =~ /^([^_]+)_(R?_?[^_\W]+)_(\d*\.?\d*)_(\d+)_(\d+)(?<expiry_cond>[T]?)$/) {
-        $contract_type          = $1;
-        $underlying_symbol = $2;
-        $payout            = $3;
-        $date_start        = $4;
-        if ($+{expiry_cond} eq 'T') {
-            $tick_expiry    = 1;
-            $how_many_ticks = $5;
-        }
-    } else {
-        return $legacy_params;
-    }
-
-    $barrier = _barrier_from_shortcode_string($barrier, $contract_type)
-        if defined $barrier;
-    $barrier2 = _barrier_from_shortcode_string($barrier2, $contract_type)
-        if defined $barrier2;
-    my %barriers =
-        ($barrier and $barrier2)
-        ? (
-        high_barrier => $barrier,
-        low_barrier  => $barrier2
-        )
-        : (defined $barrier) ? (barrier => $barrier)
-        :                      ();
-
-    my $bet_parameters = {
-        shortcode         => $shortcode,
-        contract_type     => $contract_type,
-        underlying_symbol => $underlying_symbol,
-        amount_type       => 'payout',
-        amount            => $payout,
-        date_start        => $date_start,
-        date_expiry       => $date_expiry,
-        prediction        => $prediction,
-        currency          => $currency,
-        fixed_expiry      => $fixed_expiry,
-        tick_expiry       => $tick_expiry,
-        tick_count        => $how_many_ticks,
-        ($forward_start) ? (starts_as_forward_starting => $forward_start) : (),
-        %barriers,
-    };
-
-    return $bet_parameters;
 }
 
 # Generates a barrier value from the string used in a shortcode
