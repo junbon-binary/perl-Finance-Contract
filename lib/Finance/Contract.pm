@@ -575,7 +575,7 @@ sub shortcode {
         :                         $self->date_expiry->epoch;
 
     # TODO We expect to have a valid bet_type, but there may be codepaths which don't set this correctly yet.
-    my @shortcode_elements = ($self->bet_type // $self->code, $self->underlying_symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
+    my @shortcode_elements = ($self->bet_type // $self->code, $self->underlying->symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
         push @shortcode_elements, map { _barrier_for_shortcode_string($_, $self->contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
