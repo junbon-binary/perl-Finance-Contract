@@ -2,6 +2,10 @@
 
 Finance::Contract - represents a contract object for a single bet
 
+# VERSION
+
+version 0.001
+
 # SYNOPSIS
 
     use feature qw(say);
@@ -17,12 +21,6 @@ Finance::Contract - represents a contract object for a single bet
 This is a generic abstraction for financial stock market contracts.
 
 ## Construction
-
-You can either construct [from a shortcode and currency](#new_from_shortcode):
-
-    Finance::Contract->new_from_shortcode('CALL_frxUSDJPY_1491965798_1491965808_100000000_0', 'USD');
-
-or from build parameters:
 
     Finance::Contract->new({
         underlying    => 'frxUSDJPY',
@@ -44,10 +42,6 @@ All date-related parameters:
 
 are [Date::Utility](https://metacpan.org/pod/Date::Utility) instances. You can provide them as epoch values
 or [Date::Utility](https://metacpan.org/pod/Date::Utility) objects.
-
-## new\_from\_shortcode
-
-Instantiates a new Finance::Contract from the given shortcode and currency.
 
 # ATTRIBUTES
 
@@ -98,6 +92,10 @@ The unit is provided as a single character suffix:
 
 Examples would be ` 5t ` for 5 ticks, ` 3h ` for 3 hours.
 
+## is\_forward\_starting
+
+True if this contract is considered as forward-starting at ["date\_pricing"](#date_pricing).
+
 ## payout
 
 Payout amount value, see ["currency"](#currency). Optional - only applies to binaries.
@@ -135,6 +133,10 @@ For a single-barrier contract, this is the barrier string.
 ## tick\_count
 
 Number of ticks in this trade.
+
+## tick\_expiry
+
+A boolean that indicates if a contract expires after a pre-specified number of ticks.
 
 ## underlying\_symbol
 

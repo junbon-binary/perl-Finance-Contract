@@ -374,18 +374,18 @@ has [qw(id pricing_code display_name sentiment other_side_code payout_type payou
 subtype 'contract_category', as 'Finance::Contract::Category';
 coerce 'contract_category', from 'Str', via { Finance::Contract::Category->new($_) };
 
-#has category => (
-#    is      => 'ro',
-#    isa     => 'contract_category',
-#    coerce  => 1,
-#    handles => [qw(
-#        allow_forward_starting
-#        barrier_at_start
-#        is_path_dependent
-#        supported_expiries
-#        two_barriers
-#    )],
-#);
+has category => (
+    is      => 'ro',
+    isa     => 'contract_category',
+    coerce  => 1,
+    handles => [qw(
+        allow_forward_starting
+        barrier_at_start
+        is_path_dependent
+        supported_expiries
+        two_barriers
+    )],
+);
 
 =head2 allow_forward_starting
 
