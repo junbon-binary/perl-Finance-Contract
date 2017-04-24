@@ -132,7 +132,7 @@ has xxx_contract_type => (
 
 =head2 currency
 
-The currency in which this contract is bought/sold, e.g. C<USD>.
+The currency of the payout for this contract, e.g. C<USD>.
 
 =cut
 
