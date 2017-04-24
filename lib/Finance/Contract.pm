@@ -77,7 +77,7 @@ use Time::Duration::Concise;
 
 use Finance::Contract::Category;
 
-use constant FOREX_BARRIER_MULTIPLIER => 1e6;
+use constant _FOREX_BARRIER_MULTIPLIER => 1e6;
 
 unless(find_type_constraint('time_interval')) {
     subtype 'time_interval', as 'Time::Duration::Concise';
@@ -812,7 +812,7 @@ sub _shortcode_to_parameters {
 sub _barrier_from_shortcode_string {
     my ($string, $contract_type) = @_;
 
-    $string /= FOREX_BARRIER_MULTIPLIER if $contract_type !~ /^DIGIT/ and $string and looks_like_number($string);
+    $string /= _FOREX_BARRIER_MULTIPLIER if $contract_type !~ /^DIGIT/ and $string and looks_like_number($string);
 
     return $string;
 }
@@ -821,7 +821,7 @@ sub _barrier_from_shortcode_string {
 sub _barrier_for_shortcode_string {
     my ($string, $contract_type) = @_;
 
-    $string *= FOREX_BARRIER_MULTIPLIER if $contract_type !~ /^DIGIT/ and $string and looks_like_number($string);
+    $string *= _FOREX_BARRIER_MULTIPLIER if $contract_type !~ /^DIGIT/ and $string and looks_like_number($string);
 
     return $string;
 }
