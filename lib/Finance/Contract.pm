@@ -198,6 +198,12 @@ Examples would be C< 5t > for 5 ticks, C< 3h > for 3 hours.
 
 has duration => (is => 'ro');
 
+=head2 is_forward_starting
+
+True if this contract is considered as forward-starting at L</date_pricing>.
+
+=cut
+
 has is_forward_starting => (
     is         => 'ro',
     lazy_build => 1,
