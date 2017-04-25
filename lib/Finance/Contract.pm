@@ -202,6 +202,19 @@ Examples would be C< 5t > for 5 ticks, C< 3h > for 3 hours.
 
 has duration => (is => 'ro');
 
+=head2 is_after_expiry
+
+Returns true if the contract is already past the expiry time.
+
+=cut
+
+sub is_after_expiry {
+    my $self = shift;
+
+    return ($self->get_time_to_expiry->seconds == 0) ? 1 : 0;
+}
+
+
 =head2 is_forward_starting
 
 True if this contract is considered as forward-starting at L</date_pricing>.
