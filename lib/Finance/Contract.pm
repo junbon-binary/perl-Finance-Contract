@@ -68,7 +68,7 @@ use List::Util qw(min max first);
 use Scalar::Util qw(looks_like_number);
 use Math::Util::CalculatedValue::Validatable;
 use Date::Utility;
-use Format::Util::Numbers qw(to_monetary_number_format roundnear);
+use Format::Util::Numbers qw(roundnear);
 use Time::Duration::Concise;
 
 # Types used for date+time-related handling
@@ -247,6 +247,19 @@ has starts_as_forward_starting => (
     is      => 'ro',
     default => 0,
 );
+
+=head2 pip_size
+
+Barrier pip size the minimum fluctuation amount for type of market. It is normally fraction.
+
+=cut
+
+has pip_size => (
+    is         => 'ro',
+    isa        => 'Num',
+    lazy_build => 1
+);
+
 
 =head2 supplied_barrier_type
 
@@ -579,9 +592,9 @@ sub shortcode {
     my @shortcode_elements = ($contract_type, $self->underlying->symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
-        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
+        push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
     } elsif ($self->supplied_barrier and $self->barrier_at_start) {
-        push @shortcode_elements, map { _barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_barrier, 0);
+        push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_barrier, 0);
     }
 
     return uc join '_', @shortcode_elements;
@@ -716,11 +729,25 @@ sub _barrier_from_shortcode_string {
 
 # Generates a string version of a barrier by multiplying the actual barrier to remove the decimal point
 sub _barrier_for_shortcode_string {
-    my ($string, $contract_type) = @_;
+    my ($self, $string, $contract_type) = @_;
 
+    # Do not manipulate relative barriers.
+    return $string if not looks_like_number($string);
+
+    $string = $self->_pipsized_value($string);
     $string *= _FOREX_BARRIER_MULTIPLIER if $contract_type !~ /^DIGIT/ and $string and looks_like_number($string);
 
+    # Make sure it's an integer
+    $string = roundnear(1, $string);
     return $string;
+}
+
+sub _pipsized_value {
+    my ($self, $value) = @_;
+
+    my $display_decimals = log(1 / $self->pip_size) / log(10);
+    $value = sprintf '%.' . $display_decimals . 'f', $value;
+    return $value;
 }
 
 no Moose;
