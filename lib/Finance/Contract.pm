@@ -3,7 +3,7 @@ package Finance::Contract;
 use strict;
 use warnings;
 
-our $VERSION = '0.001';
+our $VERSION = '0.003';
 
 =head1 NAME
 
