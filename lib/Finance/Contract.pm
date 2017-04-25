@@ -711,17 +711,6 @@ sub _build_timeindays {
     return $tid;
 }
 
-=head2 ticks_to_expiry
-
-Number of ticks until expiry of this contract. Defaults to one more than tick_count,
-TODO JB - this is overridden in the digit/Asian contracts, any idea why?
-
-=cut
-
-sub ticks_to_expiry {
-    return shift->tick_count + 1;
-}
-
 # INTERNAL METHODS
 
 # Send in the correct 'to'
