@@ -220,18 +220,6 @@ sub is_after_expiry {
     return ($self->get_time_to_expiry->seconds == 0) ? 1 : 0;
 }
 
-
-=head2 is_forward_starting
-
-True if this contract is considered as forward-starting at L</date_pricing>.
-
-=cut
-
-has is_forward_starting => (
-    is         => 'ro',
-    lazy_build => 1,
-);
-
 =head2 payout
 
 Payout amount value, see L</currency>. Optional - only applies to binaries.
@@ -258,7 +246,7 @@ has prediction => (
 =head2 starts_as_forward_starting
 
 This attribute tells us if this contract was initially bought as a forward starting contract.
-This should not be mistaken for L</is_forward_starting> attribute as that could change over time.
+This should not be mistaken for the L</is_forward_starting> method, as that could change over time.
 
 =cut
 
@@ -563,6 +551,19 @@ sub is_atm_bet {
     return 1;
 }
 
+=head2 is_forward_starting
+
+True if this contract is considered as forward-starting at L</date_pricing>.
+
+=cut
+
+sub is_forward_starting {
+    my $self = shift;
+
+    return ($self->allow_forward_starting and $self->date_pricing->is_before($self->date_start)) ? 1 : 0;
+}
+
+
 =head2 shortcode
 
 This is a compact string representation of a L<Finance::Contract> object. It includes all data needed to
@@ -702,12 +703,6 @@ sub _get_time_to_end {
 
 sub _build_date_pricing {
     return Date::Utility->new;
-}
-
-sub _build_is_forward_starting {
-    my $self = shift;
-
-    return ($self->allow_forward_starting and $self->date_pricing->is_before($self->date_start)) ? 1 : 0;
 }
 
 sub _build_remaining_time {
