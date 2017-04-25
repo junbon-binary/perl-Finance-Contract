@@ -79,7 +79,6 @@ vanilla:
     supported_expiries:
       - intraday
       - daily
-      - tick
     available_types:
       - VANILLA_CALL
       - VANILLA_PUT
