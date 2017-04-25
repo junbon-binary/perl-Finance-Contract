@@ -107,19 +107,45 @@ Current types include:
 
 =over 4
 
-=item * C<CALL>
+=item * ASIAND
 
-=item * C<PUT>
+=item * ASIANU
 
-=item * C<CALLE>
+=item * CALL
 
-=item * C<EXPIRYRANGE>
+=item * CALLE
 
-=item * C<EXPIRYMISS>
+=item * DIGITDIFF
 
-=item * C<DIGITMATCH>
+=item * DIGITEVEN
 
-=item * C<DIGITOVER>
+=item * DIGITMATCH
+
+=item * DIGITODD
+
+=item * DIGITOVER
+
+=item * DIGITUNDER
+
+=item * EXPIRYMISS
+
+=item * EXPIRYMISSE
+
+=item * EXPIRYRANGE
+
+=item * EXPIRYRANGEE
+
+=item * NOTOUCH
+
+=item * ONETOUCH
+
+=item * PUT
+
+=item * PUTE
+
+=item * RANGE
+
+=item * UPORDOWN
 
 =back
 
