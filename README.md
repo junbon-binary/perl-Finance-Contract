@@ -96,10 +96,6 @@ Examples would be ` 5t ` for 5 ticks, ` 3h ` for 3 hours.
 
 One of ["date\_expiry"](#date_expiry) or `duration` must be provided.
 
-## is\_after\_expiry
-
-Returns true if the contract is already past the expiry time.
-
 ## payout
 
 Payout amount value, see ["currency"](#currency). Optional - only applies to binaries.
@@ -238,6 +234,10 @@ Returns a TimeInterval to expiry of the bet. For a forward start bet, it will NO
 If you want to get the contract life time, use:
 
     $contract->get_time_to_expiry({from => $contract->date_start})
+
+## is\_after\_expiry
+
+Returns true if the contract is already past the expiry time.
 
 ## is\_atm\_bet
 
