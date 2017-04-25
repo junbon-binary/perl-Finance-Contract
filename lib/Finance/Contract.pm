@@ -206,20 +206,6 @@ One of L</date_expiry> or C<duration> must be provided.
 
 has duration => (is => 'ro');
 
-=head2 is_after_expiry
-
-Returns true if the contract is already past the expiry time.
-
-=cut
-
-sub is_after_expiry {
-    my $self = shift;
-
-    die "Not supported for tick expiry contracts" if $self->tick_expiry;
-
-    return ($self->get_time_to_expiry->seconds == 0) ? 1 : 0;
-}
-
 =head2 payout
 
 Payout amount value, see L</currency>. Optional - only applies to binaries.
@@ -545,6 +531,20 @@ sub get_time_to_expiry {
     $attributes->{'to'} = $self->date_expiry;
 
     return $self->_get_time_to_end($attributes);
+}
+
+=head2 is_after_expiry
+
+Returns true if the contract is already past the expiry time.
+
+=cut
+
+sub is_after_expiry {
+    my $self = shift;
+
+    die "Not supported for tick expiry contracts" if $self->tick_expiry;
+
+    return ($self->get_time_to_expiry->seconds == 0) ? 1 : 0;
 }
 
 =head2 is_atm_bet
