@@ -3,7 +3,7 @@ package Finance::Contract;
 use strict;
 use warnings;
 
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 
 =head1 NAME
 
@@ -101,7 +101,7 @@ These are the parameters we expect to be passed when constructing a new contract
 
 =head2 bet_type
 
-The type of this contract as an upper-case string.
+(required) The type of this contract as an upper-case string.
 
 Current types include:
 
@@ -132,7 +132,7 @@ has bet_type => (
 
 =head2 currency
 
-The currency of the payout for this contract, e.g. C<USD>.
+(required) The currency of the payout for this contract, e.g. C<USD>.
 
 =cut
 
@@ -144,7 +144,9 @@ has currency => (
 
 =head2 date_expiry
 
-When the contract expires.
+(optional) When the contract expires.
+
+One of C<date_expiry> or L</duration> must be provided.
 
 =cut
 
@@ -155,7 +157,7 @@ has date_expiry => (
 
 =head2 date_pricing
 
-The date at which we're pricing the contract. Provide C< undef > to indicate "now".
+(optional) The date at which we're pricing the contract. Provide C< undef > to indicate "now".
 
 =cut
 
@@ -179,7 +181,7 @@ has date_start => (
 
 =head2 duration
 
-The requested contract duration, specified as a string indicating value with units.
+(optional) The requested contract duration, specified as a string indicating value with units.
 The unit is provided as a single character suffix:
 
 =over 4
@@ -198,6 +200,8 @@ The unit is provided as a single character suffix:
 
 Examples would be C< 5t > for 5 ticks, C< 3h > for 3 hours.
 
+One of L</date_expiry> or C<duration> must be provided.
+
 =cut
 
 has duration => (is => 'ro');
@@ -208,6 +212,8 @@ True if this contract is considered as forward-starting at L</date_pricing>.
 
 =cut
 
+# TODO This should be a method, but will cause test failures since there are
+# places where we set this explicitly.
 has is_forward_starting => (
     is         => 'ro',
     lazy_build => 1,
@@ -305,17 +311,6 @@ Number of ticks in this trade.
 has tick_count => (
     is  => 'ro',
     isa => 'Maybe[Num]',
-);
-
-=head2 tick_expiry
-
-A boolean that indicates if a contract expires after a pre-specified number of ticks.
-
-=cut
-
-has tick_expiry => (
-    is      => 'ro',
-    default => 0,
 );
 
 has remaining_time => (
@@ -551,6 +546,20 @@ sub get_time_to_expiry {
     return $self->_get_time_to_end($attributes);
 }
 
+=head2 is_after_expiry
+
+Returns true if the contract is already past the expiry time.
+
+=cut
+
+sub is_after_expiry {
+    my $self = shift;
+
+    die "Not supported for tick expiry contracts" if $self->tick_expiry;
+
+    return ($self->get_time_to_expiry->seconds == 0) ? 1 : 0;
+}
+
 =head2 is_atm_bet
 
 Is this contract meant to be ATM or non ATM at start?
@@ -598,6 +607,17 @@ sub shortcode {
     }
 
     return uc join '_', @shortcode_elements;
+}
+
+=head2 tick_expiry
+
+A boolean that indicates if a contract expires after a pre-specified number of ticks.
+
+=cut
+
+sub tick_expiry {
+    my ($self) = @_;
+    return $self->tick_count ? 1 : 0;
 }
 
 =head2 timeinyears

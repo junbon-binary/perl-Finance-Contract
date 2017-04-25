@@ -47,9 +47,9 @@ or [Date::Utility](https://metacpan.org/pod/Date::Utility) objects.
 
 These are the parameters we expect to be passed when constructing a new contract.
 
-## contract\_type
+## bet\_type
 
-The type of this contract as an upper-case string.
+(required) The type of this contract as an upper-case string.
 
 Current types include:
 
@@ -63,15 +63,17 @@ Current types include:
 
 ## currency
 
-The currency in which this contract is bought/sold, e.g. `USD`.
+(required) The currency of the payout for this contract, e.g. `USD`.
 
 ## date\_expiry
 
-When the contract expires.
+(optional) When the contract expires.
+
+One of `date_expiry` or ["duration"](#duration) must be provided.
 
 ## date\_pricing
 
-The date at which we're pricing the contract. Provide ` undef ` to indicate "now".
+(optional) The date at which we're pricing the contract. Provide ` undef ` to indicate "now".
 
 ## date\_start
 
@@ -81,7 +83,7 @@ For Europeans, this is used to determine the barrier when the requested barrier 
 
 ## duration
 
-The requested contract duration, specified as a string indicating value with units.
+(optional) The requested contract duration, specified as a string indicating value with units.
 The unit is provided as a single character suffix:
 
 - t - ticks
@@ -91,6 +93,8 @@ The unit is provided as a single character suffix:
 - d - days
 
 Examples would be ` 5t ` for 5 ticks, ` 3h ` for 3 hours.
+
+One of ["date\_expiry"](#date_expiry) or `duration` must be provided.
 
 ## is\_forward\_starting
 
@@ -108,6 +112,10 @@ Prediction (for tick trades) is what client predicted would happen.
 
 This attribute tells us if this contract was initially bought as a forward starting contract.
 This should not be mistaken for ["is\_forward\_starting"](#is_forward_starting) attribute as that could change over time.
+
+## pip\_size
+
+Barrier pip size the minimum fluctuation amount for type of market. It is normally fraction.
 
 ## supplied\_barrier\_type
 
@@ -133,10 +141,6 @@ For a single-barrier contract, this is the barrier string.
 ## tick\_count
 
 Number of ticks in this trade.
-
-## tick\_expiry
-
-A boolean that indicates if a contract expires after a pre-specified number of ticks.
 
 ## underlying\_symbol
 
@@ -235,6 +239,10 @@ If you want to get the contract life time, use:
 
     $contract->get_time_to_expiry({from => $contract->date_start})
 
+## is\_after\_expiry
+
+Returns true if the contract is already past the expiry time.
+
 ## is\_atm\_bet
 
 Is this contract meant to be ATM or non ATM at start?
@@ -244,6 +252,10 @@ The status will not change throughout the lifetime of the contract due to differ
 
 This is a compact string representation of a [Finance::Contract](https://metacpan.org/pod/Finance::Contract) object. It includes all data needed to
 reconstruct a contract, with the exception of ["currency"](#currency).
+
+## tick\_expiry
+
+A boolean that indicates if a contract expires after a pre-specified number of ticks.
 
 ## timeinyears
 
