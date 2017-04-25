@@ -96,10 +96,6 @@ Examples would be ` 5t ` for 5 ticks, ` 3h ` for 3 hours.
 
 One of ["date\_expiry"](#date_expiry) or `duration` must be provided.
 
-## is\_after\_expiry
-
-Returns true if the contract is already past the expiry time.
-
 ## is\_forward\_starting
 
 True if this contract is considered as forward-starting at ["date\_pricing"](#date_pricing).
