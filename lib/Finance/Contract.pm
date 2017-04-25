@@ -309,17 +309,6 @@ has tick_count => (
     isa => 'Maybe[Num]',
 );
 
-=head2 tick_expiry
-
-A boolean that indicates if a contract expires after a pre-specified number of ticks.
-
-=cut
-
-has tick_expiry => (
-    is      => 'ro',
-    default => 0,
-);
-
 has remaining_time => (
     is         => 'ro',
     isa        => 'Time::Duration::Concise',
@@ -600,6 +589,17 @@ sub shortcode {
     }
 
     return uc join '_', @shortcode_elements;
+}
+
+=head2 tick_expiry
+
+A boolean that indicates if a contract expires after a pre-specified number of ticks.
+
+=cut
+
+sub tick_expiry {
+    my ($self) = @_;
+    return $self->tick_count ? 1 : 0;
 }
 
 =head2 timeinyears
