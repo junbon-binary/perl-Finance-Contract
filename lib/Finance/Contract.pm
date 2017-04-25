@@ -152,8 +152,9 @@ Current types include:
 =cut
 
 has bet_type => (
-    is  => 'ro',
-    isa => 'Str',
+    is       => 'ro',
+    isa      => 'Str',
+    required => 1,
 );
 
 =head2 currency
