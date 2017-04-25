@@ -96,6 +96,14 @@ Examples would be ` 5t ` for 5 ticks, ` 3h ` for 3 hours.
 
 One of ["date\_expiry"](#date_expiry) or `duration` must be provided.
 
+## is\_after\_expiry
+
+Returns true if the contract is already past the expiry time.
+
+## is\_forward\_starting
+
+True if this contract is considered as forward-starting at ["date\_pricing"](#date_pricing).
+
 ## payout
 
 Payout amount value, see ["currency"](#currency). Optional - only applies to binaries.
@@ -107,7 +115,7 @@ Prediction (for tick trades) is what client predicted would happen.
 ## starts\_as\_forward\_starting
 
 This attribute tells us if this contract was initially bought as a forward starting contract.
-This should not be mistaken for the ["is\_forward\_starting"](#is_forward_starting) method, as that could change over time.
+This should not be mistaken for ["is\_forward\_starting"](#is_forward_starting) attribute as that could change over time.
 
 ## pip\_size
 
@@ -243,10 +251,6 @@ Returns true if the contract is already past the expiry time.
 
 Is this contract meant to be ATM or non ATM at start?
 The status will not change throughout the lifetime of the contract due to differences in offerings for ATM and non ATM contracts.
-
-## is\_forward\_starting
-
-True if this contract is considered as forward-starting at ["date\_pricing"](#date_pricing).
 
 ## shortcode
 
