@@ -211,6 +211,8 @@ Returns true if the contract is already past the expiry time.
 sub is_after_expiry {
     my $self = shift;
 
+    die "Not supported for tick expiry contracts" if $self->tick_expiry;
+
     return ($self->get_time_to_expiry->seconds == 0) ? 1 : 0;
 }
 
