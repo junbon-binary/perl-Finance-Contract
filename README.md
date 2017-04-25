@@ -53,13 +53,26 @@ These are the parameters we expect to be passed when constructing a new contract
 
 Current types include:
 
-- `CALL`
-- `PUT`
-- `CALLE`
-- `EXPIRYRANGE`
-- `EXPIRYMISS`
-- `DIGITMATCH`
-- `DIGITOVER`
+- ASIAND
+- ASIANU
+- CALL
+- CALLE
+- DIGITDIFF
+- DIGITEVEN
+- DIGITMATCH
+- DIGITODD
+- DIGITOVER
+- DIGITUNDER
+- EXPIRYMISS
+- EXPIRYMISSE
+- EXPIRYRANGE
+- EXPIRYRANGEE
+- NOTOUCH
+- ONETOUCH
+- PUT
+- PUTE
+- RANGE
+- UPORDOWN
 
 ## currency
 
