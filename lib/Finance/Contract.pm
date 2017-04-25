@@ -101,7 +101,7 @@ These are the parameters we expect to be passed when constructing a new contract
 
 =head2 bet_type
 
-The type of this contract as an upper-case string.
+(required) The type of this contract as an upper-case string.
 
 Current types include:
 
@@ -132,7 +132,7 @@ has bet_type => (
 
 =head2 currency
 
-The currency of the payout for this contract, e.g. C<USD>.
+(required) The currency of the payout for this contract, e.g. C<USD>.
 
 =cut
 
@@ -144,7 +144,9 @@ has currency => (
 
 =head2 date_expiry
 
-When the contract expires.
+(optional) When the contract expires.
+
+One of C<date_expiry> or L</duration> must be provided.
 
 =cut
 
@@ -155,7 +157,7 @@ has date_expiry => (
 
 =head2 date_pricing
 
-The date at which we're pricing the contract. Provide C< undef > to indicate "now".
+(optional) The date at which we're pricing the contract. Provide C< undef > to indicate "now".
 
 =cut
 
@@ -179,7 +181,7 @@ has date_start => (
 
 =head2 duration
 
-The requested contract duration, specified as a string indicating value with units.
+(optional) The requested contract duration, specified as a string indicating value with units.
 The unit is provided as a single character suffix:
 
 =over 4
@@ -197,6 +199,8 @@ The unit is provided as a single character suffix:
 =back
 
 Examples would be C< 5t > for 5 ticks, C< 3h > for 3 hours.
+
+One of L</date_expiry> or C<duration> must be provided.
 
 =cut
 
