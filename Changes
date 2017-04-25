@@ -1,6 +1,7 @@
 Revision history for Date-Utility
 
 {{$NEXT}}
+    Moving shortcode generation logic to Financial::Contract
 
 0.001     2017-04-24 02:54:03+00:00 UTC
     Initial Finance::Contract implementation
