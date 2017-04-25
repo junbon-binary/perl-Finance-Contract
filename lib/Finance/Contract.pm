@@ -227,6 +227,8 @@ True if this contract is considered as forward-starting at L</date_pricing>.
 
 =cut
 
+# TODO This should be a method, but will cause test failures since there are
+# places where we set this explicitly.
 has is_forward_starting => (
     is         => 'ro',
     lazy_build => 1,
