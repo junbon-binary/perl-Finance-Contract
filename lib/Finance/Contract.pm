@@ -3,7 +3,7 @@ package Finance::Contract;
 use strict;
 use warnings;
 
-our $VERSION = '0.004';
+our $VERSION = '0.005';
 
 =head1 NAME
 
@@ -107,27 +107,54 @@ Current types include:
 
 =over 4
 
-=item * C<CALL>
+=item * ASIAND
 
-=item * C<PUT>
+=item * ASIANU
 
-=item * C<CALLE>
+=item * CALL
 
-=item * C<EXPIRYRANGE>
+=item * CALLE
 
-=item * C<EXPIRYMISS>
+=item * DIGITDIFF
 
-=item * C<DIGITMATCH>
+=item * DIGITEVEN
 
-=item * C<DIGITOVER>
+=item * DIGITMATCH
+
+=item * DIGITODD
+
+=item * DIGITOVER
+
+=item * DIGITUNDER
+
+=item * EXPIRYMISS
+
+=item * EXPIRYMISSE
+
+=item * EXPIRYRANGE
+
+=item * EXPIRYRANGEE
+
+=item * NOTOUCH
+
+=item * ONETOUCH
+
+=item * PUT
+
+=item * PUTE
+
+=item * RANGE
+
+=item * UPORDOWN
 
 =back
 
 =cut
 
 has bet_type => (
-    is  => 'ro',
-    isa => 'Str',
+    is       => 'ro',
+    isa      => 'Str',
+    required => 1,
 );
 
 =head2 currency
@@ -682,17 +709,6 @@ sub _build_timeindays {
     });
 
     return $tid;
-}
-
-=head2 ticks_to_expiry
-
-Number of ticks until expiry of this contract. Defaults to one more than tick_count,
-TODO JB - this is overridden in the digit/Asian contracts, any idea why?
-
-=cut
-
-sub ticks_to_expiry {
-    return shift->tick_count + 1;
 }
 
 # INTERNAL METHODS

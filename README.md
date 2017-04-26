@@ -53,13 +53,26 @@ These are the parameters we expect to be passed when constructing a new contract
 
 Current types include:
 
-- `CALL`
-- `PUT`
-- `CALLE`
-- `EXPIRYRANGE`
-- `EXPIRYMISS`
-- `DIGITMATCH`
-- `DIGITOVER`
+- ASIAND
+- ASIANU
+- CALL
+- CALLE
+- DIGITDIFF
+- DIGITEVEN
+- DIGITMATCH
+- DIGITODD
+- DIGITOVER
+- DIGITUNDER
+- EXPIRYMISS
+- EXPIRYMISSE
+- EXPIRYRANGE
+- EXPIRYRANGEE
+- NOTOUCH
+- ONETOUCH
+- PUT
+- PUTE
+- RANGE
+- UPORDOWN
 
 ## currency
 
@@ -264,8 +277,3 @@ Contract duration in years.
 ## timeindays
 
 Contract duration in days.
-
-## ticks\_to\_expiry
-
-Number of ticks until expiry of this contract. Defaults to one more than tick\_count,
-TODO JB - this is overridden in the digit/Asian contracts, any idea why?

@@ -2,6 +2,16 @@ Revision history for Date-Utility
 
 {{$NEXT}}
 
+0.005     2017-04-26 01:45:40+00:00 UTC
+    API changes:
+
+    * ->bet_type is now required
+    * ->ticks_to_expiry has been removed, it's not useful for a generic contract
+
+    Documentation changes:
+
+    * Added remaining contract types
+
 0.004     2017-04-25 09:16:16+00:00 UTC
     ->is_forward_starting support
 
