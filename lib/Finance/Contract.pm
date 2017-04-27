@@ -776,7 +776,7 @@ sub _barrier_from_shortcode_string {
 
 # Generates a string version of a barrier by multiplying the actual barrier to remove the decimal point
 sub _barrier_for_shortcode_string {
-    my ($self, $string, $contract_type) = @_;
+    my ($self, $string) = @_;
 
     # Do not manipulate relative barriers.
     return $string if not looks_like_number($string);
