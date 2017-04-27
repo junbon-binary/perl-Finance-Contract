@@ -765,15 +765,6 @@ sub _build_date_start {
     return Date::Utility->new;
 }
 
-# Generates a barrier value from the string used in a shortcode
-sub _barrier_from_shortcode_string {
-    my ($string, $contract_type) = @_;
-
-    $string /= _FOREX_BARRIER_MULTIPLIER if $contract_type !~ /^DIGIT/ and $string and looks_like_number($string);
-
-    return $string;
-}
-
 # Generates a string version of a barrier by multiplying the actual barrier to remove the decimal point
 sub _barrier_for_shortcode_string {
     my ($self, $string) = @_;
