@@ -69,6 +69,7 @@ use Scalar::Util qw(looks_like_number);
 use Math::Util::CalculatedValue::Validatable;
 use Date::Utility;
 use Format::Util::Numbers qw(roundnear);
+use POSIX qw( floor );
 use Time::Duration::Concise;
 
 # Types used for date+time-related handling
@@ -293,6 +294,16 @@ has pip_size => (
     lazy_build => 1
 );
 
+=head2 absolute_barrier_multiplier
+
+Should barrier multiplier be applied for absolute barried on this market
+
+=cut
+
+has 'absolute_barrier_multiplier' => (
+    is  => 'ro',
+    isa => 'Bool',
+);
 
 =head2 supplied_barrier_type
 
@@ -771,10 +782,15 @@ sub _barrier_for_shortcode_string {
     return $string if not looks_like_number($string);
 
     $string = $self->_pipsized_value($string);
-    $string *= _FOREX_BARRIER_MULTIPLIER if $contract_type !~ /^DIGIT/ and $string and looks_like_number($string);
+    if ($self->absolute_barrier_multiplier) {
+        $string *= _FOREX_BARRIER_MULTIPLIER;
+    } else {
+        $string = floor($string);
+    }
 
     # Make sure it's an integer
     $string = roundnear(1, $string);
+
     return $string;
 }
 
