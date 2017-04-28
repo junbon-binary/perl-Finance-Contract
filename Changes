@@ -1,8 +1,10 @@
-Revision history for Date-Utility
+Revision history for Finance-Contract
 
 {{$NEXT}}
+    API changes:
 
-    Now shortcode is identical to original one
+    * absolute_barrier_multiplier flag to control whether the _FOREX_BARRIER_MULTIPLIER
+    factor should be applied
 
 0.005     2017-04-26 01:45:40+00:00 UTC
     API changes:
