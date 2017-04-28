@@ -654,9 +654,9 @@ sub shortcode {
     my @shortcode_elements = ($contract_type, $self->underlying->symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
-        push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
+        push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
     } elsif ($self->supplied_barrier and $self->barrier_at_start) {
-        push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_barrier, 0);
+        push @shortcode_elements, ($self->_barrier_for_shortcode_string($self->supplied_barrier), 0);
     }
 
     return uc join '_', @shortcode_elements;
