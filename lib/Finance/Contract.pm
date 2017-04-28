@@ -294,18 +294,6 @@ has pip_size => (
     lazy_build => 1
 );
 
-=head2 basis_tick_quote
-
-Basis tick quote is a number to convert relative barrier to absolute barrier and vice versa.
-
-=cut
-
-has basis_tick_quote => (
-    is         => 'ro',
-    isa        => 'Num',
-    lazy_build => 1,
-);
-
 =head2 absolute_barrier_multiplier
 
 Should barrier multiplier be applied for absolute barried on this market
