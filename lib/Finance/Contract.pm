@@ -294,6 +294,18 @@ has pip_size => (
     lazy_build => 1
 );
 
+=head2 basis_tick_quote
+
+Basis tick quote is a number to convert relative barrier to absolute barrier and vice versa.
+
+=cut
+
+has basis_tick_quote => (
+    is         => 'ro',
+    isa        => 'Num',
+    lazy_build => 1,
+);
+
 =head2 absolute_barrier_multiplier
 
 Should barrier multiplier be applied for absolute barried on this market
@@ -322,7 +334,10 @@ or 4 pips below the spot.
 
 =cut
 
-has supplied_barrier_type => (is => 'ro');
+has supplied_barrier_type => (
+    is         => 'ro',
+    lazy_build => 1,
+);
 
 =head2 supplied_high_barrier
 
@@ -765,12 +780,30 @@ sub _build_date_start {
     return Date::Utility->new;
 }
 
+
+sub _barrier_as_relative {
+    my $self    = shift;
+    my $string  = shift;
+
+    return $string if ($self->supplied_barrier_type eq 'relative');
+
+    my $relative_to = $self->basis_tick_quote;
+    my $diff        = ($self->supplied_barrier_type eq 'absolute') ? $string - $relative_to : $string;
+    my $pip_diff    = roundnear(1, $diff / $self->pip_size);
+
+    return 'S' . $pip_diff . 'P';
+
+}
+
 # Generates a string version of a barrier by multiplying the actual barrier to remove the decimal point
 sub _barrier_for_shortcode_string {
     my ($self, $string) = @_;
 
-    # Do not manipulate relative barriers.
-    return $string if not looks_like_number($string);
+    # # Do not manipulate relative barriers.
+    # return $string if not looks_like_number($string);
+
+    return $self->_barrier_as_relative($string) if ($self->supplied_barrier_type eq 'relative' or $self->supplied_barrier_type eq 'difference');
+
 
     $string = $self->_pipsized_value($string);
     if ($self->absolute_barrier_multiplier) {
