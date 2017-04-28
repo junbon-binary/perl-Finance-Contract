@@ -1,6 +1,8 @@
 Revision history for Finance-Contract
 
 {{$NEXT}}
+
+0.006     2017-04-28 04:32:48+00:00 UTC
     API changes:
 
     * absolute_barrier_multiplier flag to control whether the _FOREX_BARRIER_MULTIPLIER
