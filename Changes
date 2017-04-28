@@ -1,6 +1,12 @@
-Revision history for Date-Utility
+Revision history for Finance-Contract
 
 {{$NEXT}}
+
+0.006     2017-04-28 04:32:48+00:00 UTC
+    API changes:
+
+    * absolute_barrier_multiplier flag to control whether the _FOREX_BARRIER_MULTIPLIER
+    factor should be applied
 
 0.005     2017-04-26 01:45:40+00:00 UTC
     API changes:
