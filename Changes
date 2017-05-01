@@ -2,6 +2,10 @@ Revision history for Finance-Contract
 
 {{$NEXT}}
 
+0.007     2017-05-01 06:40:01+00:00 UTC
+
+    check if barrier is defined
+
 0.006     2017-04-28 04:32:48+00:00 UTC
     API changes:
 
