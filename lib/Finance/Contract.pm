@@ -3,7 +3,7 @@ package Finance::Contract;
 use strict;
 use warnings;
 
-our $VERSION = '0.006';
+our $VERSION = '0.007';
 
 =head1 NAME
 
@@ -640,7 +640,7 @@ sub shortcode {
 
     if ($self->two_barriers) {
         push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
-    } elsif ($self->supplied_barrier and $self->barrier_at_start) {
+    } elsif (defined $self->supplied_barrier and $self->barrier_at_start) {
         push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_barrier, 0);
     }
 
