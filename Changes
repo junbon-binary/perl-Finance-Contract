@@ -1,6 +1,8 @@
 Revision history for Finance-Contract
 
 {{$NEXT}}
+
+0.008     2017-05-02 06:22:04+00:00 UTC
     Bug fixes:
 
     * Proper handling for pipsized barriers
