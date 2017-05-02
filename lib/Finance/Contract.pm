@@ -775,7 +775,7 @@ sub _barrier_for_shortcode_string {
     return 'S' . roundnear(1, $string / $self->pip_size) . 'P' if $self->supplied_barrier_type eq 'difference';
 
     $string = $self->_pipsized_value($string);
-    if ($self->absolute_barrier_multiplier) {
+    if ($self->bet_type !~ /^DIGIT/ && $self->absolute_barrier_multiplier) {
         $string *= _FOREX_BARRIER_MULTIPLIER;
     } else {
         $string = floor($string);
