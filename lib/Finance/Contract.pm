@@ -3,7 +3,7 @@ package Finance::Contract;
 use strict;
 use warnings;
 
-our $VERSION = '0.007';
+our $VERSION = '0.008';
 
 =head1 NAME
 
@@ -322,7 +322,9 @@ or 4 pips below the spot.
 
 =cut
 
-has supplied_barrier_type => (is => 'ro');
+has supplied_barrier_type => (
+    is         => 'ro',
+);
 
 =head2 supplied_high_barrier
 
@@ -639,9 +641,9 @@ sub shortcode {
     my @shortcode_elements = ($contract_type, $self->underlying->symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
-        push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
+        push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
     } elsif (defined $self->supplied_barrier and $self->barrier_at_start) {
-        push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_, $contract_type) } ($self->supplied_barrier, 0);
+        push @shortcode_elements, ($self->_barrier_for_shortcode_string($self->supplied_barrier), 0);
     }
 
     return uc join '_', @shortcode_elements;
@@ -769,8 +771,8 @@ sub _build_date_start {
 sub _barrier_for_shortcode_string {
     my ($self, $string) = @_;
 
-    # Do not manipulate relative barriers.
-    return $string if not looks_like_number($string);
+    return $string if $self->supplied_barrier_type eq 'relative';
+    return 'S' . roundnear(1, $string / $self->pip_size) . 'P' if $self->supplied_barrier_type eq 'difference';
 
     $string = $self->_pipsized_value($string);
     if ($self->absolute_barrier_multiplier) {
