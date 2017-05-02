@@ -23,6 +23,11 @@ $params->{absolute_barrier_multiplier} = 1;
 $obj = new_ok( 'Finance::Contract', [$params] );
 cmp_ok $obj->_barrier_for_shortcode_string('0.12'),'eq', '120000', 'A absolute barrier will be multiplied in 1e6 if absolute_barrier_multiplier=1';
 
+$params->{bet_type} = 'DIGITMATCH';
+$obj = new_ok( 'Finance::Contract', [$params] );
+cmp_ok $obj->_barrier_for_shortcode_string('1'),'eq', '1',  'Even if absolute_barrier_multiplier is set there wont be any multiplication for ^DIGIT.*';
+
+$params->{bet_type} = 'test';
 $params->{supplied_barrier_type} = 'difference';
 $obj = new_ok( 'Finance::Contract', [$params] );
 cmp_ok $obj->_barrier_for_shortcode_string('+0.12'),'eq', 'S120P', 'A differnce barrier will manipulated to correct format depending on pipsize';
@@ -32,5 +37,3 @@ cmp_ok $obj->_barrier_for_shortcode_string('+0'),'eq', 'S0P', 'A differnce barri
 cmp_ok $obj->_barrier_for_shortcode_string('0'),'eq', 'S0P',  'A differnce barrier that is  0 will be  manipulated to correct format';
 
 done_testing;
-
-
