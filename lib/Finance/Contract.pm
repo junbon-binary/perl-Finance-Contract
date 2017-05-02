@@ -324,7 +324,6 @@ or 4 pips below the spot.
 
 has supplied_barrier_type => (
     is         => 'ro',
-    lazy_build => 1,
 );
 
 =head2 supplied_high_barrier
