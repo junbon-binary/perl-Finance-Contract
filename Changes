@@ -1,6 +1,8 @@
 Revision history for Finance-Contract
 
 {{$NEXT}}
+
+0.009     2017-05-03 01:54:55+00:00 UTC
     Bug fixes:
 
     * Support digit barriers correctly
