@@ -553,7 +553,7 @@ sub effective_start {
     my $self = shift;
 
     my $condition1 = $self->date_pricing->is_after($self->date_expiry)
-        or ($self->date_pricing->epoch == $self->date_expiry->epoch);
+        or $self->date_pricing->epoch == $self->date_expiry->epoch;
     my $condition2 = $self->date_pricing->is_after($self->date_start);
 
     return
