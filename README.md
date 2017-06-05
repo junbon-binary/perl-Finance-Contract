@@ -130,6 +130,10 @@ This should not be mistaken for ["is\_forward\_starting"](#is_forward_starting) 
 
 Barrier pip size the minimum fluctuation amount for type of market. It is normally fraction.
 
+## absolute\_barrier\_multiplier
+
+Should barrier multiplier be applied for absolute barried on this market
+
 ## supplied\_barrier\_type
 
 One of:
