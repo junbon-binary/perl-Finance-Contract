@@ -132,7 +132,7 @@ Barrier pip size the minimum fluctuation amount for type of market. It is normal
 
 ## absolute\_barrier\_multiplier
 
-Should barrier multiplier be applied for absolute barried on this market
+True if barrier multiplier should be applied for absolute barrier(s) on this market
 
 ## supplied\_barrier\_type
 
