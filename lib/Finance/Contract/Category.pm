@@ -35,6 +35,16 @@ sub get_all_contract_types {
     return $contract_type_config;
 }
 
+=head2 get_all_barrier_categories
+
+Returns a list of all available barrier categories
+
+=cut
+
+sub get_all_barrier_categories {
+    return qw(euro_atm euro_non_atm american non_financial asian);
+}
+
 =head2 get_all_contract_categories
 
 Returns a list of all loaded contract categories

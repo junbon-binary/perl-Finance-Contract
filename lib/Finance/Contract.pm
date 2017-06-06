@@ -296,7 +296,7 @@ has pip_size => (
 
 =head2 absolute_barrier_multiplier
 
-Should barrier multiplier be applied for absolute barried on this market
+True if barrier multiplier should be applied for absolute barrier(s) on this market
 
 =cut
 
