@@ -5,4 +5,5 @@ tidy:
 
 doc:
 	pod2markdown lib/Finance/Contract.pm > README.md
+	for i in lib/Finance/Contract/*.pm; do echo; echo '---'; echo; pod2markdown $$i; done >> README.md
 
