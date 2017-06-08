@@ -83,3 +83,13 @@ vanilla:
       - VANILLA_CALL
       - VANILLA_PUT
     explanation: "Plain vanilla options"
+coinauction:
+    display_order: 7
+    display_name: "Binary ICO auction"
+    supported_expiries:
+      - intraday
+    available_types:
+      - BINARYICO 
+    explanation: "Binary ICO auction"
+
+
