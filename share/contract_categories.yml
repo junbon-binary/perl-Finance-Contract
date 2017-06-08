@@ -91,5 +91,3 @@ coinauction:
     available_types:
       - BINARYICO 
     explanation: "Binary ICO auction"
-
-
