@@ -68,7 +68,7 @@ use List::Util qw(min max first);
 use Scalar::Util qw(looks_like_number);
 use Math::Util::CalculatedValue::Validatable;
 use Date::Utility;
-use Format::Util::Numbers qw(roundnear);
+use Format::Util::Numbers qw(roundcommon);
 use POSIX qw( floor );
 use Time::Duration::Concise;
 
@@ -773,7 +773,7 @@ sub _barrier_for_shortcode_string {
     my ($self, $string) = @_;
 
     return $string if $self->supplied_barrier_type eq 'relative';
-    return 'S' . roundnear(1, $string / $self->pip_size) . 'P' if $self->supplied_barrier_type eq 'difference';
+    return 'S' . roundcommon(1, $string / $self->pip_size) . 'P' if $self->supplied_barrier_type eq 'difference';
 
     $string = $self->_pipsized_value($string);
     if ($self->bet_type !~ /^DIGIT/ && $self->absolute_barrier_multiplier) {
@@ -783,7 +783,7 @@ sub _barrier_for_shortcode_string {
     }
 
     # Make sure it's an integer
-    $string = roundnear(1, $string);
+    $string = roundcommon(1, $string);
 
     return $string;
 }
