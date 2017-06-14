@@ -222,3 +222,8 @@ LBHIGHLOW:
   pricing_code: LBHIGHLOW
 INVALID:
   category: invalid
+BINARYICO:
+  category: coinauction
+  payout_type: non-binary
+  payouttime: end
+  pricing_code: coinauction
