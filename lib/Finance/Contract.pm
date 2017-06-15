@@ -68,7 +68,6 @@ use List::Util qw(min max first);
 use Scalar::Util qw(looks_like_number);
 use Math::Util::CalculatedValue::Validatable;
 use Date::Utility;
-use Format::Util::Numbers qw(roundcommon);
 use POSIX qw( floor );
 use Time::Duration::Concise;
 
@@ -774,8 +773,8 @@ sub _barrier_for_shortcode_string {
 
     return $string if $self->supplied_barrier_type eq 'relative';
 
-    # better to use sprintf else roundcommon can return as 1e-1 which will be concatenated as it is
-    return 'S' . sprintf('%0.0f', roundcommon(1, $string / $self->pip_size)) . 'P' if $self->supplied_barrier_type eq 'difference';
+    # SOP, S5P, S-5P are legal forms, hence  we need to round to integer
+    return 'S' . int($string / $self->pip_size) . 'P' if $self->supplied_barrier_type eq 'difference';
 
     $string = $self->_pipsized_value($string);
     if ($self->bet_type !~ /^DIGIT/ && $self->absolute_barrier_multiplier) {
@@ -784,9 +783,8 @@ sub _barrier_for_shortcode_string {
         $string = floor($string);
     }
 
-    # Make sure it's rounded to an integer and returned as string
-    # as sub definition states generates a string
-    $string = sprintf('%0.0f', roundcommon(1, $string));
+    # Make sure it's rounded to an integer to remove decimal places
+    $string = int $string;
 
     return $string;
 }
