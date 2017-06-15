@@ -773,7 +773,9 @@ sub _barrier_for_shortcode_string {
     my ($self, $string) = @_;
 
     return $string if $self->supplied_barrier_type eq 'relative';
-    return 'S' . roundcommon(1, $string / $self->pip_size) . 'P' if $self->supplied_barrier_type eq 'difference';
+
+    # better to use sprintf else roundcommon can return as 1e-1 which will be concatenated as it is
+    return 'S' . sprintf('%0.0f', roundcommon(1, $string / $self->pip_size)) . 'P' if $self->supplied_barrier_type eq 'difference';
 
     $string = $self->_pipsized_value($string);
     if ($self->bet_type !~ /^DIGIT/ && $self->absolute_barrier_multiplier) {
@@ -782,8 +784,9 @@ sub _barrier_for_shortcode_string {
         $string = floor($string);
     }
 
-    # Make sure it's an integer
-    $string = roundcommon(1, $string);
+    # Make sure it's rounded to an integer and returned as string
+    # as sub definition states generates a string
+    $string = sprintf('%0.0f', roundcommon(1, $string));
 
     return $string;
 }
