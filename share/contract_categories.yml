@@ -83,6 +83,19 @@ vanilla:
       - VANILLA_CALL
       - VANILLA_PUT
     explanation: "Plain vanilla options"
+lookback:
+    display_order: 0
+    display_name: "Lookback Options"
+    supported_expiries:
+      - intraday
+      - daily
+    available_types:
+      - LBFIXEDCALL
+      - LBFIXEDPUT
+      - LBFLOATCALL
+      - LBFLOATPUT
+      - LBHIGHLOW
+    explanation: "Lookback options"
 coinauction:
     offer: 0
     display_name: "Binary ICO auction"
