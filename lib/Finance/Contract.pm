@@ -498,7 +498,6 @@ our $BARRIER_CATEGORIES = {
     staysinout   => ['american'],
     digits       => ['non_financial'],
     asian        => ['asian'],
-    lookback     => ['euro_atm', 'euro_non_atm'],
 };
 
 =head2 barrier_category
