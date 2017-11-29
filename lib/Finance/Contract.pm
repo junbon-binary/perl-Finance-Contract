@@ -628,7 +628,7 @@ reconstruct a contract, with the exception of L</currency>.
 sub shortcode {
     my $self = shift;
 
-    my $forward_starting = $self->is_forward_starting or $self->starts_as_forward_starting;
+    my $forward_starting = ($self->is_forward_starting or $self->starts_as_forward_starting);
 
     my $shortcode_date_start_suffix = $forward_starting ? 'F' : $self->is_parameters_predefined ? 'P' : undef;
     my $shortcode_date_start = $self->date_start->epoch;
