@@ -90,8 +90,6 @@ lookback:
       - intraday
       - daily
     available_types:
-      - LBFIXEDCALL
-      - LBFIXEDPUT
       - LBFLOATCALL
       - LBFLOATPUT
       - LBHIGHLOW

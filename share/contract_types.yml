@@ -195,18 +195,6 @@ VANILLA_PUT:
   payout_type: non-binary
   payouttime: end
   pricing_code: VANILLA_PUT
-LBFIXEDCALL:
-  category: lookback
-  payout_type: non-binary
-  payouttime: end
-  pricing_code: LBFIXEDCALL
-  other_side_code: LBFIXEDPUT
-LBFIXEDPUT:
-  category: lookback
-  payout_type: non-binary
-  payouttime: end
-  pricing_code: LBFIXEDPUT
-  other_side_code: LBFIXEDCALL
 LBFLOATCALL:
   category: lookback
   payout_type: non-binary
