@@ -3,7 +3,7 @@ package Finance::Contract;
 use strict;
 use warnings;
 
-our $VERSION = '0.009';
+our $VERSION = '0.010';
 
 =head1 NAME
 
@@ -68,7 +68,7 @@ use List::Util qw(min max first);
 use Scalar::Util qw(looks_like_number);
 use Math::Util::CalculatedValue::Validatable;
 use Date::Utility;
-use Format::Util::Numbers qw(roundnear);
+use Format::Util::Numbers qw(roundcommon);
 use POSIX qw( floor );
 use Time::Duration::Concise;
 
@@ -639,7 +639,7 @@ sub shortcode {
 
     # TODO We expect to have a valid bet_type, but there may be codepaths which don't set this correctly yet.
     my $contract_type = $self->bet_type // $self->code;
-    my @shortcode_elements = ($contract_type, $self->underlying->symbol, $self->payout, $shortcode_date_start, $shortcode_date_expiry);
+    my @shortcode_elements = ($contract_type, $self->underlying->symbol, $self->payout + 0, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
         push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
@@ -773,7 +773,9 @@ sub _barrier_for_shortcode_string {
     my ($self, $string) = @_;
 
     return $string if $self->supplied_barrier_type eq 'relative';
-    return 'S' . roundnear(1, $string / $self->pip_size) . 'P' if $self->supplied_barrier_type eq 'difference';
+
+    # better to use sprintf else roundcommon can return as 1e-1 which will be concatenated as it is
+    return 'S' . sprintf('%0.0f', roundcommon(1, $string / $self->pip_size)) . 'P' if $self->supplied_barrier_type eq 'difference';
 
     $string = $self->_pipsized_value($string);
     if ($self->bet_type !~ /^DIGIT/ && $self->absolute_barrier_multiplier) {
@@ -782,8 +784,9 @@ sub _barrier_for_shortcode_string {
         $string = floor($string);
     }
 
-    # Make sure it's an integer
-    $string = roundnear(1, $string);
+    # Make sure it's rounded to an integer and returned as string
+    # as sub definition states generates a string
+    $string = sprintf('%0.0f', roundcommon(1, $string));
 
     return $string;
 }
