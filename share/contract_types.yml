@@ -197,22 +197,28 @@ VANILLA_PUT:
   pricing_code: VANILLA_PUT
 LBFLOATCALL:
   category: lookback
+  display_name: high
   payout_type: non-binary
   payouttime: end
   pricing_code: LBFLOATCALL
   other_side_code: LBFLOATPUT
+  sentiment: up
 LBFLOATPUT:
   category: lookback
+  display_name: low
   payout_type: non-binary
   payouttime: end
   pricing_code: LBFLOATPUT
   other_side_code: LBFLOATCALL
+  sentiment: down
 LBHIGHLOW:
   category: lookback
+  display_name: highlow
   payout_type: non-binary
   payouttime: end
   pricing_code: LBHIGHLOW
   other_side_code: LBHIGHLOW
+  sentiment: updown
 INVALID:
   category: invalid
 BINARYICO:
