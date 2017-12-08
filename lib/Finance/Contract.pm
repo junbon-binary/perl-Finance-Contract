@@ -628,11 +628,10 @@ reconstruct a contract, with the exception of L</currency>.
 sub shortcode {
     my $self = shift;
 
-    my $forward_starting = ($self->is_forward_starting or $self->starts_as_forward_starting);
-
-    my $shortcode_date_start_suffix = $forward_starting ? 'F' : $self->is_parameters_predefined ? 'P' : undef;
-    my $shortcode_date_start = $self->date_start->epoch;
-    $shortcode_date_start .= $shortcode_date_start_suffix if $shortcode_date_start_suffix;
+    my $shortcode_date_start = (
+               $self->is_forward_starting
+            or $self->starts_as_forward_starting
+    ) ? $self->date_start->epoch . 'F' : $self->date_start->epoch;
     my $shortcode_date_expiry =
           ($self->tick_expiry)  ? $self->tick_count . 'T'
         : ($self->fixed_expiry) ? $self->date_expiry->epoch . 'F'
@@ -647,6 +646,9 @@ sub shortcode {
     } elsif (defined $self->supplied_barrier and $self->barrier_at_start) {
         push @shortcode_elements, ($self->_barrier_for_shortcode_string($self->supplied_barrier), 0);
     }
+
+    # we will store trading window start period for all predefined contracts
+    push @shortcode_elements, $self->trading_window_start if ($self->is_parameters_predefined);
 
     return uc join '_', @shortcode_elements;
 }
