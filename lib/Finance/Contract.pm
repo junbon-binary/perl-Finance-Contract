@@ -648,7 +648,7 @@ sub shortcode {
     }
 
     # we will store trading window start period for all predefined contracts
-    push @shortcode_elements, $self->trading_window_start if ($self->is_parameters_predefined);
+    push @shortcode_elements, $self->trading_period_start if ($self->is_parameters_predefined);
 
     return uc join '_', @shortcode_elements;
 }
