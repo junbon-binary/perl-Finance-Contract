@@ -40,7 +40,7 @@ endsinout:
 staysinout:
     display_order : 4
     two_barriers: 1
-    display_name: "Stays In/Goes Out"
+    display_name: "Stays In/Out"
     is_path_dependent: 1
     supported_expiries:
       - intraday
