@@ -94,11 +94,4 @@ lookback:
       - LBFLOATPUT
       - LBHIGHLOW
     explanation: "Lookback options"
-coinauction:
-    offer: 0
-    display_name: "Binary ICO auction"
-    supported_expiries:
-      - intraday
-    available_types:
-      - BINARYICO 
-    explanation: "Binary ICO auction"
+
