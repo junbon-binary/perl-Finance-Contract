@@ -648,6 +648,9 @@ sub shortcode {
         push @shortcode_elements, ($self->_barrier_for_shortcode_string($self->supplied_barrier), 0);
     }
 
+    # we will store trading window start period for all predefined contracts
+    push @shortcode_elements, 'P' . $self->trading_period_start if ($self->is_parameters_predefined);
+
     return uc join '_', @shortcode_elements;
 }
 
