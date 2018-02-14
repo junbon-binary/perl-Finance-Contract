@@ -648,6 +648,9 @@ sub shortcode {
         push @shortcode_elements, ($self->_barrier_for_shortcode_string($self->supplied_barrier), 0);
     }
 
+    # we will store trading window start period for all predefined contracts
+    push @shortcode_elements, 'P' . $self->trading_period_start if ($self->is_parameters_predefined);
+
     return uc join '_', @shortcode_elements;
 }
 
@@ -789,6 +792,23 @@ sub _barrier_for_shortcode_string {
 
     # better to use sprintf else roundcommon can return as 1e-1 which will be concatenated as it is
     return 'S' . sprintf('%0.0f', roundcommon(1, $string / $self->pip_size)) . 'P' if $self->supplied_barrier_type eq 'difference';
+
+    unless (looks_like_number($string)) {
+        my $message =
+            $self->two_barriers
+            ? "Trying to pip size non-number [$string] supplied_type["
+            . $self->supplied_barrier_type
+            . "] supplied_high_barrier["
+            . $self->supplied_high_barrier
+            . "] supplied_low_barrier["
+            . $self->supplied_low_barrier . "]"
+            : "Trying to pip size non-number [$string] supplied_type["
+            . $self->supplied_barrier_type
+            . "] supplied_barrier["
+            . $self->supplied_barrier . "]";
+
+        die $message;
+    }
 
     $string = $self->_pipsized_value($string);
     if ($self->bet_type !~ /^DIGIT/ && $self->absolute_barrier_multiplier) {
