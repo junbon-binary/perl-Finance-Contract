@@ -94,4 +94,3 @@ lookback:
       - LBFLOATPUT
       - LBHIGHLOW
     explanation: "Lookback options"
-
