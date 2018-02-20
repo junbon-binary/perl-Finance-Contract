@@ -197,7 +197,7 @@ VANILLA_PUT:
   pricing_code: VANILLA_PUT
 LBFLOATCALL:
   category: lookback
-  display_name: low
+  display_name: Close-Low
   payout_type: non-binary
   payouttime: end
   pricing_code: LBFLOATCALL
@@ -205,7 +205,7 @@ LBFLOATCALL:
   sentiment: up
 LBFLOATPUT:
   category: lookback
-  display_name: high
+  display_name: High-Close
   payout_type: non-binary
   payouttime: end
   pricing_code: LBFLOATPUT
@@ -213,7 +213,7 @@ LBFLOATPUT:
   sentiment: down
 LBHIGHLOW:
   category: lookback
-  display_name: highlow
+  display_name: High-Low
   payout_type: non-binary
   payouttime: end
   pricing_code: LBHIGHLOW

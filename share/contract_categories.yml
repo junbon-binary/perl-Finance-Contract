@@ -85,12 +85,11 @@ vanilla:
     explanation: "Plain vanilla options"
 lookback:
     display_order: 0
-    display_name: "Lookback Options"
+    display_name: "Lookbacks"
     supported_expiries:
       - intraday
-      - daily
     available_types:
       - LBFLOATCALL
       - LBFLOATPUT
       - LBHIGHLOW
-    explanation: "Lookback options"
+    explanation: "Lookbacks"
