@@ -213,36 +213,30 @@ VANILLA_PUT:
   payout_type: non-binary
   payouttime: end
   pricing_code: VANILLA_PUT
-LBFIXEDCALL:
-  category: lookback
-  payout_type: non-binary
-  payouttime: end
-  pricing_code: LBFIXEDCALL
-  other_side_code: LBFIXEDPUT
-LBFIXEDPUT:
-  category: lookback
-  payout_type: non-binary
-  payouttime: end
-  pricing_code: LBFIXEDPUT
-  other_side_code: LBFIXEDCALL
 LBFLOATCALL:
   category: lookback
+  display_name: Close-Low
   payout_type: non-binary
   payouttime: end
   pricing_code: LBFLOATCALL
   other_side_code: LBFLOATPUT
+  sentiment: up
 LBFLOATPUT:
   category: lookback
+  display_name: High-Close
   payout_type: non-binary
   payouttime: end
   pricing_code: LBFLOATPUT
   other_side_code: LBFLOATCALL
+  sentiment: down
 LBHIGHLOW:
   category: lookback
+  display_name: High-Low
   payout_type: non-binary
   payouttime: end
   pricing_code: LBHIGHLOW
   other_side_code: LBHIGHLOW
+  sentiment: updown
 INVALID:
   category: invalid
 BINARYICO:
