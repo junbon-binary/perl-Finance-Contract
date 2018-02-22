@@ -493,7 +493,7 @@ True if the contract has two barriers.
 
 our $BARRIER_CATEGORIES = {
     # different barrier category for callput equals because we want a different offerings. When the needs arises, where we have more and more offering differences in contract types under the same category, we should consider introducing a sub-category hierachi in our offerings definition.
-    callput      => ['euro_atm', 'euro_non_atm', 'euro_atm_equals', 'euro_non_atm_equals'],
+    callput      => ['euro_atm', 'euro_non_atm', 'euro_atm_equals'],
     endsinout    => ['euro_non_atm'],
     touchnotouch => ['american'],
     staysinout   => ['american'],
