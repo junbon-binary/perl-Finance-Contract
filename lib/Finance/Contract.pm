@@ -436,6 +436,19 @@ has category => (
     ],
 );
 
+has subcategory => (
+    is      => 'ro',
+    lazy    => 1,
+    builder => '_build_subcategory',
+);
+
+sub _build_subcategory {
+    my $self = shift;
+
+    # if there's no subcategory, then returns category code
+    return $self->category->code;
+}
+
 =head2 allow_forward_starting
 
 True if we allow forward starting for this contract type.
