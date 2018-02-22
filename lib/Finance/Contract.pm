@@ -436,19 +436,6 @@ has category => (
     ],
 );
 
-has subcategory => (
-    is      => 'ro',
-    lazy    => 1,
-    builder => '_build_subcategory',
-);
-
-sub _build_subcategory {
-    my $self = shift;
-
-    # if there's no subcategory, then returns category code
-    return $self->category->code;
-}
-
 =head2 allow_forward_starting
 
 True if we allow forward starting for this contract type.
@@ -505,7 +492,7 @@ True if the contract has two barriers.
 =cut
 
 our $BARRIER_CATEGORIES = {
-    callput      => ['euro_atm', 'euro_non_atm'],
+    callput      => ['euro_atm', 'euro_non_atm', 'euro_atm_equals', 'euro_non_atm_equals'],
     endsinout    => ['euro_non_atm'],
     touchnotouch => ['american'],
     staysinout   => ['american'],
@@ -541,7 +528,11 @@ sub barrier_category {
 
     my $barrier_category;
     if ($self->category->code eq 'callput') {
-        $barrier_category = ($self->is_atm_bet) ? 'euro_atm' : 'euro_non_atm';
+        if ($self->code =~ /^(?:CALL|PUT)E$/) {
+            $barrier_category = ($self->is_atm_bet) ? 'euro_atm_equals' : 'euro_non_atm_equals';
+        } else {
+            $barrier_category = ($self->is_atm_bet) ? 'euro_atm' : 'euro_non_atm';
+        }
     } else {
         $barrier_category = $BARRIER_CATEGORIES->{$self->category->code}->[0];
     }

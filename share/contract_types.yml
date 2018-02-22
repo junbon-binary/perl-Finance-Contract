@@ -35,7 +35,6 @@ CALLE:
   payouttime: end
   pricing_code: CALL
   sentiment: up
-  subcategory: callput_equals
 DIGITDIFF:
   id: 220
   category: digits
@@ -168,7 +167,6 @@ PUTE:
   payouttime: end
   pricing_code: PUT
   sentiment: down
-  subcategory: callput_equals
 RANGE:
   id: 150
   category: staysinout
