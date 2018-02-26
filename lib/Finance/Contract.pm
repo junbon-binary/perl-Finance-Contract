@@ -432,6 +432,7 @@ has category => (
             is_path_dependent
             supported_expiries
             two_barriers
+            is_binary
             )
     ],
 );
