@@ -614,7 +614,7 @@ sub is_atm_bet {
     my $self = shift;
 
     return 0 if $self->two_barriers;
-    # if not defined, it is non ATM
+    # if not defined, it is non ATM, for example asians and lookback
     return 0 if not defined $self->supplied_barrier;
     return 0 if $self->supplied_barrier ne 'S0P';
     return 1;
