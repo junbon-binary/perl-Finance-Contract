@@ -55,26 +55,26 @@ DIGITDIFF:
   pricing_code: DIGITDIFF
   sentiment: differ
   base_commission: 0.01
-DIGITHIGH:
+TICKHIGH:
   id: 230
-  category: digits
-  display_name: high
-  other_side_code: DIGITLOW
+  category: highlowticks
+  display_name: high-tick
+  other_side_code: TICKLOW
   payout_type: binary
   payouttime: end
-  pricing_code: DIGITHIGH
+  pricing_code: TICKHIGH
   sentiment: high
-  base_commission: 0.01
-DIGITLOW:
+  base_commission: 0.015
+TICKLOW:
   id: 240
-  category: digits
-  display_name: low
-  other_side_code: DIGITHIGH
+  category: highlowticks
+  display_name: low-tick
+  other_side_code: TICKHIGH
   payout_type: binary
   payouttime: end
-  pricing_code: DIGITLOW
+  pricing_code: TICKLOW
   sentiment: low
-  base_commission: 0.01  
+  base_commission: 0.015  
 DIGITODD:
   id: 250
   category: digits
