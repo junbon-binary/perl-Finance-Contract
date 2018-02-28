@@ -72,6 +72,15 @@ asian:
     available_types:
       - ASIANU
       - ASIAND
+highlowticks:
+    display_order : 7
+    display_name: "High/Low Ticks"
+    supported_expiries:
+      - tick
+    explanation: "Predict which tick is the highest/lowest at expiration."
+    available_types:
+      - TICKHIGH
+      - TICKLOW      
 vanilla:
     offer: 0
     display_order: 0
