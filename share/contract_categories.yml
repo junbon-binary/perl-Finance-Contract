@@ -92,4 +92,5 @@ lookback:
       - LBFLOATCALL
       - LBFLOATPUT
       - LBHIGHLOW
+    is_binary: 0
     explanation: "Lookbacks"
