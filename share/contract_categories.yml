@@ -92,6 +92,7 @@ lookback:
       - LBFLOATCALL
       - LBFLOATPUT
       - LBHIGHLOW
+    is_binary: 0
     explanation: "Lookbacks"
 coinauction:
     offer: 0
