@@ -29,7 +29,7 @@ CALL:
 CALLE:
   id: 290
   category: callput
-  display_name: Higher
+  display_name: Higher or equal
   other_side_code: PUT
   payout_type: binary
   payouttime: end
@@ -38,7 +38,7 @@ CALLE:
 DIGITDIFF:
   id: 220
   category: digits
-  display_name: Differs
+  display_name: Digit Differs
   other_side_code: DIGITMATCH
   payout_type: binary
   payouttime: end
@@ -48,7 +48,7 @@ DIGITDIFF:
 DIGITEVEN:
   id: 260
   category: digits
-  display_name: Even
+  display_name: Digit Even
   other_side_code: DIGITODD
   payout_type: binary
   payouttime: end
@@ -58,7 +58,7 @@ DIGITEVEN:
 DIGITMATCH:
   id: 210
   category: digits
-  display_name: Matches
+  display_name: Digit Matches
   other_side_code: DIGITDIFF
   payout_type: binary
   payouttime: end
@@ -68,7 +68,7 @@ DIGITMATCH:
 DIGITODD:
   id: 250
   category: digits
-  display_name: Odd
+  display_name: Digit Odd
   other_side_code: DIGITEVEN
   payout_type: binary
   payouttime: end
@@ -78,7 +78,7 @@ DIGITODD:
 DIGITOVER:
   id: 270
   category: digits
-  display_name: Over
+  display_name: Digit Over
   other_side_code: DIGITUNDER
   payout_type: binary
   payouttime: end
@@ -88,7 +88,7 @@ DIGITOVER:
 DIGITUNDER:
   id: 280
   category: digits
-  display_name: Under
+  display_name: Digit Under
   other_side_code: DIGITOVER
   payout_type: binary
   payouttime: end
@@ -107,7 +107,7 @@ EXPIRYMISS:
 EXPIRYMISSE:
   id: 310
   category: endsinout
-  display_name: Ends Outside
+  display_name: Ends Outside or equal
   other_side_code: EXPIRYRANGE
   payout_type: binary
   payouttime: end
@@ -125,7 +125,7 @@ EXPIRYRANGE:
 EXPIRYRANGEE:
   id: 320
   category: endsinout
-  display_name: Ends Between
+  display_name: Ends Between or equal
   other_side_code: EXPIRYMISS
   payout_type: binary
   payouttime: end
@@ -161,7 +161,7 @@ PUT:
 PUTE:
   id: 300
   category: callput
-  display_name: Lower
+  display_name: Lower or equal
   other_side_code: CALL
   payout_type: binary
   payouttime: end
