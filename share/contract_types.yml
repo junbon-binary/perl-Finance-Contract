@@ -2,7 +2,7 @@
 ASIAND:
   id: 240
   category: asian
-  display_name: asian down
+  display_name: Asian Down
   other_side_code: ASIANU
   payout_type: binary
   payouttime: end
@@ -11,7 +11,7 @@ ASIAND:
 ASIANU:
   id: 230
   category: asian
-  display_name: asian up
+  display_name: Asian Up
   other_side_code: ASIAND
   payout_type: binary
   payouttime: end
@@ -20,7 +20,7 @@ ASIANU:
 CALL:
   id: 10
   category: callput
-  display_name: higher
+  display_name: Higher
   other_side_code: PUTE
   payout_type: binary
   payouttime: end
@@ -29,7 +29,7 @@ CALL:
 CALLE:
   id: 290
   category: callput
-  display_name: higher
+  display_name: Higher or equal
   other_side_code: PUT
   payout_type: binary
   payouttime: end
@@ -38,7 +38,7 @@ CALLE:
 DIGITDIFF:
   id: 220
   category: digits
-  display_name: differs
+  display_name: Digit Differs
   other_side_code: DIGITMATCH
   payout_type: binary
   payouttime: end
@@ -48,7 +48,7 @@ DIGITDIFF:
 DIGITEVEN:
   id: 260
   category: digits
-  display_name: even
+  display_name: Digit Even
   other_side_code: DIGITODD
   payout_type: binary
   payouttime: end
@@ -58,7 +58,7 @@ DIGITEVEN:
 DIGITMATCH:
   id: 210
   category: digits
-  display_name: matches
+  display_name: Digit Matches
   other_side_code: DIGITDIFF
   payout_type: binary
   payouttime: end
@@ -68,7 +68,7 @@ DIGITMATCH:
 DIGITODD:
   id: 250
   category: digits
-  display_name: odd
+  display_name: Digit Odd
   other_side_code: DIGITEVEN
   payout_type: binary
   payouttime: end
@@ -78,7 +78,7 @@ DIGITODD:
 DIGITOVER:
   id: 270
   category: digits
-  display_name: over
+  display_name: Digit Over
   other_side_code: DIGITUNDER
   payout_type: binary
   payouttime: end
@@ -88,7 +88,7 @@ DIGITOVER:
 DIGITUNDER:
   id: 280
   category: digits
-  display_name: under
+  display_name: Digit Under
   other_side_code: DIGITOVER
   payout_type: binary
   payouttime: end
@@ -98,7 +98,7 @@ DIGITUNDER:
 EXPIRYMISS:
   id: 180
   category: endsinout
-  display_name: ends outside
+  display_name: Ends Outside
   other_side_code: EXPIRYRANGEE
   payout_type: binary
   payouttime: end
@@ -107,7 +107,7 @@ EXPIRYMISS:
 EXPIRYMISSE:
   id: 310
   category: endsinout
-  display_name: ends outside
+  display_name: Ends Outside or equal
   other_side_code: EXPIRYRANGE
   payout_type: binary
   payouttime: end
@@ -116,7 +116,7 @@ EXPIRYMISSE:
 EXPIRYRANGE:
   id: 170
   category: endsinout
-  display_name: ends between
+  display_name: Ends Between
   other_side_code: EXPIRYMISSE
   payout_type: binary
   payouttime: end
@@ -125,7 +125,7 @@ EXPIRYRANGE:
 EXPIRYRANGEE:
   id: 320
   category: endsinout
-  display_name: ends between
+  display_name: Ends Between or equal
   other_side_code: EXPIRYMISS
   payout_type: binary
   payouttime: end
@@ -134,7 +134,7 @@ EXPIRYRANGEE:
 NOTOUCH:
   id: 140
   category: touchnotouch
-  display_name: does not touch
+  display_name: Does Not Touch
   other_side_code: ONETOUCH
   payout_type: binary
   payouttime: end
@@ -143,7 +143,7 @@ NOTOUCH:
 ONETOUCH:
   id: 130
   category: touchnotouch
-  display_name: touches
+  display_name: Touches
   other_side_code: NOTOUCH
   payout_type: binary
   payouttime: hit
@@ -152,7 +152,7 @@ ONETOUCH:
 PUT:
   id: 20
   category: callput
-  display_name: lower
+  display_name: Lower
   other_side_code: CALLE
   payout_type: binary
   payouttime: end
@@ -161,7 +161,7 @@ PUT:
 PUTE:
   id: 300
   category: callput
-  display_name: lower
+  display_name: Lower or equal
   other_side_code: CALL
   payout_type: binary
   payouttime: end
@@ -170,7 +170,7 @@ PUTE:
 RANGE:
   id: 150
   category: staysinout
-  display_name: stays between
+  display_name: Stays Between
   other_side_code: UPORDOWN
   payout_type: binary
   payouttime: end
@@ -179,7 +179,7 @@ RANGE:
 UPORDOWN:
   id: 160
   category: staysinout
-  display_name: goes outside
+  display_name: Goes Outside
   other_side_code: RANGE
   payout_type: binary
   payouttime: hit
@@ -221,8 +221,3 @@ LBHIGHLOW:
   sentiment: updown
 INVALID:
   category: invalid
-BINARYICO:
-  category: coinauction
-  payout_type: non-binary
-  payouttime: end
-  pricing_code: coinauction
