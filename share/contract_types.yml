@@ -203,6 +203,7 @@ LBFLOATCALL:
   pricing_code: LBFLOATCALL
   other_side_code: LBFLOATPUT
   sentiment: up
+  has_user_defined_barrier: 0
 LBFLOATPUT:
   category: lookback
   display_name: High-Close
@@ -211,6 +212,7 @@ LBFLOATPUT:
   pricing_code: LBFLOATPUT
   other_side_code: LBFLOATCALL
   sentiment: down
+  has_user_defined_barrier: 0
 LBHIGHLOW:
   category: lookback
   display_name: High-Low
@@ -219,5 +221,6 @@ LBHIGHLOW:
   pricing_code: LBHIGHLOW
   other_side_code: LBHIGHLOW
   sentiment: updown
+  has_user_defined_barrier: 0
 INVALID:
   category: invalid

@@ -415,6 +415,11 @@ has [qw(id pricing_code display_name sentiment other_side_code payout_type payou
     default => undef,
 );
 
+has has_user_defined_barrier => (
+    is      => 'ro',
+    default => 1,
+);
+
 =head1 ATTRIBUTES - From contract_categories.yml
 
 =cut
