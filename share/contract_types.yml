@@ -35,26 +35,6 @@ CALLE:
   payouttime: end
   pricing_code: CALL
   sentiment: up
-DIGITDIFF:
-  id: 220
-  category: digits
-  display_name: Digit Differs
-  other_side_code: DIGITMATCH
-  payout_type: binary
-  payouttime: end
-  pricing_code: DIGITDIFF
-  sentiment: differ
-  base_commission: 0.01
-DIGITEVEN:
-  id: 260
-  category: digits
-  display_name: Digit Even
-  other_side_code: DIGITODD
-  payout_type: binary
-  payouttime: end
-  pricing_code: DIGITEVEN
-  sentiment: even
-  base_commission: 0.01
 DIGITMATCH:
   id: 210
   category: digits
