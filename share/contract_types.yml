@@ -99,7 +99,6 @@ TICKHIGH:
   id: 230
   category: highlowticks
   display_name: high-tick
-  other_side_code: TICKLOW
   payout_type: binary
   payouttime: end
   pricing_code: TICKHIGH
@@ -109,7 +108,6 @@ TICKLOW:
   id: 240
   category: highlowticks
   display_name: low-tick
-  other_side_code: TICKHIGH
   payout_type: binary
   payouttime: end
   pricing_code: TICKLOW
