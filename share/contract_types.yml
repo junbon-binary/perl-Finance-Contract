@@ -95,33 +95,6 @@ DIGITUNDER:
   pricing_code: DIGITUNDER
   sentiment: under
   base_commission: 0.01
-TICKHIGH:
-  id: 230
-  category: highlowticks
-  display_name: high-tick
-  payout_type: binary
-  payouttime: end
-  pricing_code: TICKHIGH
-  sentiment: high
-  base_commission: 0.015
-TICKLOW:
-  id: 240
-  category: highlowticks
-  display_name: low-tick
-  payout_type: binary
-  payouttime: end
-  pricing_code: TICKLOW
-  sentiment: low
-  base_commission: 0.015  
-EXPIRYMISS:
-  id: 180
-  category: endsinout
-  display_name: Ends Outside
-  other_side_code: EXPIRYRANGE
-  payout_type: binary
-  payouttime: end
-  pricing_code: EXPIRYMISS
-  sentiment: high_vol
 EXPIRYMISSE:
   id: 310
   category: endsinout
@@ -202,6 +175,33 @@ UPORDOWN:
   payout_type: binary
   payouttime: hit
   pricing_code: UPORDOWN
+  sentiment: high_vol
+TICKHIGH:
+  id: 400
+  category: highlowticks
+  display_name: high-tick
+  payout_type: binary
+  payouttime: end
+  pricing_code: TICKHIGH
+  sentiment: high
+  base_commission: 0.015
+TICKLOW:
+  id: 410
+  category: highlowticks
+  display_name: low-tick
+  payout_type: binary
+  payouttime: end
+  pricing_code: TICKLOW
+  sentiment: low
+  base_commission: 0.015  
+EXPIRYMISS:
+  id: 180
+  category: endsinout
+  display_name: Ends Outside
+  other_side_code: EXPIRYRANGE
+  payout_type: binary
+  payouttime: end
+  pricing_code: EXPIRYMISS
   sentiment: high_vol
 VANILLA_CALL:
   category: vanilla
