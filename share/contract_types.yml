@@ -48,7 +48,7 @@ DIGITMATCH:
 DIGITDIFF:
   id: 220
   category: digits
-  display_name: differs
+  display_name: Digit Differs
   other_side_code: DIGITMATCH
   payout_type: binary
   payouttime: end
@@ -68,7 +68,7 @@ DIGITODD:
 DIGITEVEN:
   id: 260
   category: digits
-  display_name: even
+  display_name: Digit Even
   other_side_code: DIGITODD
   payout_type: binary
   payouttime: end
@@ -179,7 +179,7 @@ UPORDOWN:
 TICKHIGH:
   id: 400
   category: highlowticks
-  display_name: high-tick
+  display_name: High-tick
   payout_type: binary
   payouttime: end
   pricing_code: TICKHIGH
@@ -188,7 +188,7 @@ TICKHIGH:
 TICKLOW:
   id: 410
   category: highlowticks
-  display_name: low-tick
+  display_name: Low-tick
   payout_type: binary
   payouttime: end
   pricing_code: TICKLOW
