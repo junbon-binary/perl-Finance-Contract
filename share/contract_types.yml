@@ -179,7 +179,7 @@ UPORDOWN:
 TICKHIGH:
   id: 400
   category: highlowticks
-  display_name: High-tick
+  display_name: High Tick
   payout_type: binary
   payouttime: end
   pricing_code: TICKHIGH
@@ -188,7 +188,7 @@ TICKHIGH:
 TICKLOW:
   id: 410
   category: highlowticks
-  display_name: Low-tick
+  display_name: Low Tick
   payout_type: binary
   payouttime: end
   pricing_code: TICKLOW
