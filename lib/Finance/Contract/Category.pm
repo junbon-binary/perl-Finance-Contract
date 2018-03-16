@@ -103,6 +103,11 @@ has is_path_dependent => (
     default => 0,
 );
 
+has is_binary => (
+    is      => 'ro',
+    default => 1,
+);
+
 =head1 METHODS
 
 =head2 barrier_at_start

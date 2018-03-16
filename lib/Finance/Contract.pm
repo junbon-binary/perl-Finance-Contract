@@ -415,6 +415,11 @@ has [qw(id pricing_code display_name sentiment other_side_code payout_type payou
     default => undef,
 );
 
+has has_user_defined_barrier => (
+    is      => 'ro',
+    default => 1,
+);
+
 =head1 ATTRIBUTES - From contract_categories.yml
 
 =cut
@@ -432,6 +437,7 @@ has category => (
             is_path_dependent
             supported_expiries
             two_barriers
+            is_binary
             )
     ],
 );
@@ -613,8 +619,8 @@ The status will not change throughout the lifetime of the contract due to differ
 sub is_atm_bet {
     my $self = shift;
 
-    return 0 if $self->two_barriers;
-    # if not defined, it is non ATM
+    return 0 if $self->two_barriers or not $self->is_binary;
+    # if not defined, it is non ATM, for example asians and lookback
     return 0 if not defined $self->supplied_barrier;
     return 0 if $self->supplied_barrier ne 'S0P';
     return 1;
