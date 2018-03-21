@@ -8,6 +8,7 @@ ASIAND:
   payouttime: end
   pricing_code: PUT
   sentiment: down
+  has_user_defined_barrier: 0
 ASIANU:
   id: 230
   category: asian
@@ -17,6 +18,7 @@ ASIANU:
   payouttime: end
   pricing_code: CALL
   sentiment: up
+  has_user_defined_barrier: 0
 CALL:
   id: 10
   category: callput
