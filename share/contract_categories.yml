@@ -74,7 +74,7 @@ asian:
       - ASIAND
 reset:
     display_order: 7
-    display_name: "ResetCall/ResetPut"
+    display_name: "Reset Call/Reset Put"
     supported_expiries:
       - intraday
       - tick
