@@ -505,6 +505,7 @@ our $BARRIER_CATEGORIES = {
     digits       => ['non_financial'],
     asian        => ['asian'],
     lookback     => ['lookback'],
+    highlowticks => ['american'],
 };
 
 =head2 barrier_category
