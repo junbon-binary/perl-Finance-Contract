@@ -188,7 +188,7 @@ UPORDOWN:
 RESETCALL:
   id: 330
   category: reset
-  display_name: Reset call
+  display_name: Reset Call
   other_side_code: RESETPUT
   payout_type: binary
   payouttime: end
@@ -197,7 +197,7 @@ RESETCALL:
 RESETPUT:
   id: 340
   category: reset
-  display_name: Reset put
+  display_name: Reset Put
   other_side_code: RESETCALL
   payout_type: binary
   payouttime: end
