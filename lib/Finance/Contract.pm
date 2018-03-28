@@ -797,6 +797,8 @@ sub _barrier_for_shortcode_string {
 
     return $string if $self->supplied_barrier_type eq 'relative';
 
+    return $string if $self->category_code eq 'reset' and $string eq 'S0P';
+
     # better to use sprintf else roundcommon can return as 1e-1 which will be concatenated as it is
     return 'S' . sprintf('%0.0f', roundcommon(1, $string / $self->pip_size)) . 'P' if $self->supplied_barrier_type eq 'difference';
 
