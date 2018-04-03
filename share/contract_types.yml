@@ -222,5 +222,23 @@ LBHIGHLOW:
   other_side_code: LBHIGHLOW
   sentiment: updown
   has_user_defined_barrier: 0
+CALLSPREAD:
+  id: 330
+  category: callput_spread
+  display_name: Higher
+  other_side_code: PUTSPREAD
+  payout_type: non-binary
+  payouttime: end
+  pricing_code: VANILLA_CALL
+  sentiment: up
+PUTSPREAD:
+  id: 340
+  category: callput_spread
+  display_name: Lower
+  other_side_code: CALLSPREAD
+  payout_type: non-binary
+  payouttime: end
+  pricing_code: VANILLA_PUT
+  sentiment: up
 INVALID:
   category: invalid

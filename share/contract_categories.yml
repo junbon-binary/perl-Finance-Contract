@@ -72,6 +72,16 @@ asian:
     available_types:
       - ASIANU
       - ASIAND
+callput_spread:
+    display_order: 7
+    display_name: "Spread Up/Down"
+    supported_expiries:
+      - intraday
+      - daily
+      - tick
+    available_types:
+      - CALLSPREAD
+      - PUTSPREAD
 vanilla:
     offer: 0
     display_order: 0
