@@ -224,7 +224,7 @@ LBHIGHLOW:
   has_user_defined_barrier: 0
 CALLSPREAD:
   id: 330
-  category: callput_spread
+  category: callputspread
   display_name: Higher
   other_side_code: PUTSPREAD
   payout_type: non-binary
@@ -233,7 +233,7 @@ CALLSPREAD:
   sentiment: up
 PUTSPREAD:
   id: 340
-  category: callput_spread
+  category: callputspread
   display_name: Lower
   other_side_code: CALLSPREAD
   payout_type: non-binary

@@ -72,7 +72,7 @@ asian:
     available_types:
       - ASIANU
       - ASIAND
-callput_spread:
+callputspread:
     display_order: 7
     display_name: "Spread Up/Down"
     supported_expiries:
