@@ -72,7 +72,7 @@ asian:
     available_types:
       - ASIANU
       - ASIAND
-bullspread:
+spreads:
     display_order: 7
     display_name: "Bull Up/Down"
     supported_expiries:
