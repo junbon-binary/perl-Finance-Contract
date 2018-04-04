@@ -72,9 +72,9 @@ asian:
     available_types:
       - ASIANU
       - ASIAND
-callputspread:
+bullspread:
     display_order: 7
-    display_name: "Spread Up/Down"
+    display_name: "Bull Up/Down"
     supported_expiries:
       - intraday
       - daily
