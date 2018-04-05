@@ -74,7 +74,8 @@ asian:
       - ASIAND
 spreads:
     display_order: 7
-    display_name: "Bull Up/Down"
+    display_name: "Spread Up/Down"
+    two_barriers: 1
     supported_expiries:
       - intraday
       - daily

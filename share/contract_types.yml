@@ -229,7 +229,7 @@ CALLSPREAD:
   other_side_code: PUTSPREAD
   payout_type: non-binary
   payouttime: end
-  pricing_code: VANILLA_CALL
+  pricing_code: CALLSPREAD
   sentiment: up
 PUTSPREAD:
   id: 340
@@ -238,7 +238,7 @@ PUTSPREAD:
   other_side_code: CALLSPREAD
   payout_type: non-binary
   payouttime: end
-  pricing_code: VANILLA_PUT
-  sentiment: up
+  pricing_code: PUTSPREAD
+  sentiment: down
 INVALID:
   category: invalid
