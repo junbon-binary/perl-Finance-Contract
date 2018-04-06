@@ -42,7 +42,7 @@ Returns a list of all available barrier categories
 =cut
 
 sub get_all_barrier_categories {
-    return qw(euro_atm euro_non_atm lookback american non_financial asian);
+    return qw(euro_atm euro_non_atm lookback american non_financial asian reset);
 }
 
 =head2 get_all_contract_categories
