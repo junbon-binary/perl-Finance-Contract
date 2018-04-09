@@ -73,7 +73,7 @@ asian:
       - ASIANU
       - ASIAND
 spreads:
-    display_order: 7
+    display_order: 8
     display_name: "Spread Up/Down"
     two_barriers: 1
     supported_expiries:
@@ -83,6 +83,16 @@ spreads:
     available_types:
       - CALLSPREAD
       - PUTSPREAD
+reset:
+    display_order: 7
+    display_name: "Reset Call/Reset Put"
+    supported_expiries:
+      - intraday
+      - tick
+    explanation: "Reset the barrier if contract is out of the money at half the option lifetime."
+    available_types:
+      - RESETCALL
+      - RESETPUT
 vanilla:
     offer: 0
     display_order: 0
