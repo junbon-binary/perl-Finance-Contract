@@ -81,7 +81,17 @@ highlowticks:
     is_path_dependent: 1
     available_types:
       - TICKHIGH
-      - TICKLOW      
+      - TICKLOW
+reset:
+    display_order: 7
+    display_name: "Reset Call/Reset Put"
+    supported_expiries:
+      - intraday
+      - tick
+    explanation: "Reset the barrier if contract is out of the money at half the option lifetime."
+    available_types:
+      - RESETCALL
+      - RESETPUT
 vanilla:
     offer: 0
     display_order: 0

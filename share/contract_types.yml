@@ -207,6 +207,24 @@ EXPIRYMISS:
   payouttime: end
   pricing_code: EXPIRYMISS
   sentiment: high_vol
+RESETCALL:
+  id: 330
+  category: reset
+  display_name: Reset Call
+  other_side_code: RESETPUT
+  payout_type: binary
+  payouttime: end
+  pricing_code: RESETCALL
+  sentiment: up
+RESETPUT:
+  id: 340
+  category: reset
+  display_name: Reset Put
+  other_side_code: RESETCALL
+  payout_type: binary
+  payouttime: end
+  pricing_code: RESETPUT
+  sentiment: down
 VANILLA_CALL:
   category: vanilla
   payout_type: non-binary
