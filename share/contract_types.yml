@@ -8,6 +8,7 @@ ASIAND:
   payouttime: end
   pricing_code: PUT
   sentiment: down
+  has_user_defined_barrier: 0
 ASIANU:
   id: 230
   category: asian
@@ -17,6 +18,7 @@ ASIANU:
   payouttime: end
   pricing_code: CALL
   sentiment: up
+  has_user_defined_barrier: 0
 CALL:
   id: 10
   category: callput
@@ -35,6 +37,16 @@ CALLE:
   payouttime: end
   pricing_code: CALL
   sentiment: up
+DIGITMATCH:
+  id: 210
+  category: digits
+  display_name: Digit Matches
+  other_side_code: DIGITDIFF
+  payout_type: binary
+  payouttime: end
+  pricing_code: DIGITMATCH
+  sentiment: match
+  base_commission: 0.01  
 DIGITDIFF:
   id: 220
   category: digits
@@ -45,26 +57,6 @@ DIGITDIFF:
   pricing_code: DIGITDIFF
   sentiment: differ
   base_commission: 0.01
-DIGITEVEN:
-  id: 260
-  category: digits
-  display_name: Digit Even
-  other_side_code: DIGITODD
-  payout_type: binary
-  payouttime: end
-  pricing_code: DIGITEVEN
-  sentiment: even
-  base_commission: 0.01
-DIGITMATCH:
-  id: 210
-  category: digits
-  display_name: Digit Matches
-  other_side_code: DIGITDIFF
-  payout_type: binary
-  payouttime: end
-  pricing_code: DIGITMATCH
-  sentiment: match
-  base_commission: 0.01
 DIGITODD:
   id: 250
   category: digits
@@ -74,6 +66,16 @@ DIGITODD:
   payouttime: end
   pricing_code: DIGITODD
   sentiment: odd
+  base_commission: 0.01  
+DIGITEVEN:
+  id: 260
+  category: digits
+  display_name: Digit Even
+  other_side_code: DIGITODD
+  payout_type: binary
+  payouttime: end
+  pricing_code: DIGITEVEN
+  sentiment: even
   base_commission: 0.01
 DIGITOVER:
   id: 270
@@ -95,15 +97,6 @@ DIGITUNDER:
   pricing_code: DIGITUNDER
   sentiment: under
   base_commission: 0.01
-EXPIRYMISS:
-  id: 180
-  category: endsinout
-  display_name: Ends Outside
-  other_side_code: EXPIRYRANGE
-  payout_type: binary
-  payouttime: end
-  pricing_code: EXPIRYMISS
-  sentiment: high_vol
 EXPIRYMISSE:
   id: 310
   category: endsinout
@@ -184,6 +177,35 @@ UPORDOWN:
   payout_type: binary
   payouttime: hit
   pricing_code: UPORDOWN
+  sentiment: high_vol
+TICKHIGH:
+  id: 400
+  category: highlowticks
+  display_name: High Tick
+  payout_type: binary
+  payouttime: end
+  pricing_code: TICKHIGH
+  sentiment: high
+  base_commission: 0.015
+  has_user_defined_barrier: 0
+TICKLOW:
+  id: 410
+  category: highlowticks
+  display_name: Low Tick
+  payout_type: binary
+  payouttime: end
+  pricing_code: TICKLOW
+  sentiment: low
+  base_commission: 0.015
+  has_user_defined_barrier: 0
+EXPIRYMISS:
+  id: 180
+  category: endsinout
+  display_name: Ends Outside
+  other_side_code: EXPIRYRANGE
+  payout_type: binary
+  payouttime: end
+  pricing_code: EXPIRYMISS
   sentiment: high_vol
 RESETCALL:
   id: 330

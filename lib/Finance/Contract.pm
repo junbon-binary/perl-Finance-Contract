@@ -506,6 +506,7 @@ our $BARRIER_CATEGORIES = {
     asian        => ['asian'],
     reset        => ['reset'],
     lookback     => ['lookback'],
+    highlowticks => ['american'],
 };
 
 =head2 barrier_category
