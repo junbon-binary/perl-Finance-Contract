@@ -72,16 +72,6 @@ asian:
     available_types:
       - ASIANU
       - ASIAND
-highlowticks:
-    display_order : 7
-    display_name: "High/Low Ticks"
-    supported_expiries:
-      - tick
-    explanation: "Predict which tick is the highest/lowest at expiration."
-    is_path_dependent: 1
-    available_types:
-      - TICKHIGH
-      - TICKLOW
 reset:
     display_order: 7
     display_name: "Reset Call/Reset Put"
@@ -92,6 +82,16 @@ reset:
     available_types:
       - RESETCALL
       - RESETPUT
+highlowticks:
+    display_order : 8
+    display_name: "High/Low Ticks"
+    supported_expiries:
+      - tick
+    explanation: "Predict which tick is the highest/lowest at expiration."
+    is_path_dependent: 1
+    available_types:
+      - TICKHIGH
+      - TICKLOW
 vanilla:
     offer: 0
     display_order: 0
