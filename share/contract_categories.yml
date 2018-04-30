@@ -74,12 +74,12 @@ asian:
       - ASIAND
 callputspread:
     display_order: 8
-    display_name: "Spread Up/Down"
+    display_name: "Call Spread/Put Spread"
     two_barriers: 1
+    is_binary: 1
     supported_expiries:
       - intraday
       - daily
-      - tick
     available_types:
       - CALLSPREAD
       - PUTSPREAD
