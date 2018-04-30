@@ -498,14 +498,15 @@ True if the contract has two barriers.
 =cut
 
 our $BARRIER_CATEGORIES = {
-    callput      => ['euro_atm', 'euro_non_atm'],
-    endsinout    => ['euro_non_atm'],
-    touchnotouch => ['american'],
-    staysinout   => ['american'],
-    digits       => ['non_financial'],
-    asian        => ['asian'],
-    reset        => ['reset'],
-    lookback     => ['lookback'],
+    callput       => ['euro_atm', 'euro_non_atm'],
+    endsinout     => ['euro_non_atm'],
+    touchnotouch  => ['american'],
+    staysinout    => ['american'],
+    digits        => ['non_financial'],
+    asian         => ['asian'],
+    reset         => ['reset'],
+    lookback      => ['lookback'],
+    callputspread => ['euro_non_atm'],
 };
 
 =head2 barrier_category
