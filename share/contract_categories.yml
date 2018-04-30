@@ -76,7 +76,7 @@ callputspread:
     display_order: 8
     display_name: "Call Spread/Put Spread"
     two_barriers: 1
-    is_binary: 1
+    is_binary: 0
     supported_expiries:
       - intraday
       - daily
