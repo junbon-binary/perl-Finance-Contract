@@ -92,7 +92,7 @@ highlowticks:
       - TICKLOW
 callputequal:
     display_order: 9
-    display_name: "Up/Down Equal"
+    display_name: "Rise/Fall Equal"
     allow_forward_starting: 1
     supported_expiries:
       - intraday
