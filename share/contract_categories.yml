@@ -11,8 +11,6 @@ callput:
     available_types:
       - CALL
       - PUT
-      - CALLE
-      - PUTE
 touchnotouch:
     display_order: 2
     display_name: "Touch/No Touch"
@@ -92,6 +90,18 @@ highlowticks:
     available_types:
       - TICKHIGH
       - TICKLOW
+callputequal:
+    display_order: 9
+    display_name: "Up/Down Equal"
+    allow_forward_starting: 1
+    supported_expiries:
+      - intraday
+      - daily
+      - tick
+    explanation: "Predict the ending market level relative to a chosen barrier."
+    available_types:
+      - CALLE
+      - PUTE
 vanilla:
     offer: 0
     display_order: 0

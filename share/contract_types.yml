@@ -30,7 +30,7 @@ CALL:
   sentiment: up
 CALLE:
   id: 290
-  category: callput
+  category: callputequal
   display_name: Higher or equal
   other_side_code: PUT
   payout_type: binary
@@ -153,7 +153,7 @@ PUT:
   sentiment: down
 PUTE:
   id: 300
-  category: callput
+  category: callputequal
   display_name: Lower or equal
   other_side_code: CALL
   payout_type: binary
