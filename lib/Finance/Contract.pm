@@ -507,7 +507,7 @@ our $BARRIER_CATEGORIES = {
     reset        => ['reset'],
     lookback     => ['lookback'],
     highlowticks => ['american'],
-    callputequal => ['euro_atm']
+    callputequal => ['euro_atm', 'euro_non_atm']
 };
 
 =head2 barrier_category
