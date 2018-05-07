@@ -20,6 +20,7 @@ touchnotouch:
     supported_expiries:
       - intraday
       - daily
+      - tick
     explanation: "Predict whether or not the market will touch a chosen level before expiration."
     available_types:
       - ONETOUCH
