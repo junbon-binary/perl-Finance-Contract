@@ -188,6 +188,7 @@ TICKHIGH:
   sentiment: high
   base_commission: 0.015
   has_user_defined_barrier: 0
+  other_side_code: TICKLOW
 TICKLOW:
   id: 410
   category: highlowticks
@@ -198,6 +199,7 @@ TICKLOW:
   sentiment: low
   base_commission: 0.015
   has_user_defined_barrier: 0
+  other_side_code: TICKHIGH
 EXPIRYMISS:
   id: 180
   category: endsinout
