@@ -536,7 +536,7 @@ sub barrier_category {
     my $self = shift;
 
     my $barrier_category;
-    if ($self->category->code eq 'callput') {
+    if ($self->category->code eq 'callput' or $self->category->code eq 'callputequal') {
         $barrier_category = ($self->is_atm_bet) ? 'euro_atm' : 'euro_non_atm';
     } else {
         $barrier_category = $BARRIER_CATEGORIES->{$self->category->code}->[0];
