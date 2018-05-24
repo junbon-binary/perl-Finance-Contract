@@ -498,15 +498,16 @@ True if the contract has two barriers.
 =cut
 
 our $BARRIER_CATEGORIES = {
-    callput      => ['euro_atm', 'euro_non_atm'],
-    endsinout    => ['euro_non_atm'],
-    touchnotouch => ['american'],
-    staysinout   => ['american'],
-    digits       => ['non_financial'],
-    asian        => ['asian'],
-    reset        => ['reset'],
-    lookback     => ['lookback'],
-    highlowticks => ['american'],
+    callput       => ['euro_atm', 'euro_non_atm'],
+    endsinout     => ['euro_non_atm'],
+    touchnotouch  => ['american'],
+    staysinout    => ['american'],
+    digits        => ['non_financial'],
+    asian         => ['asian'],
+    reset         => ['reset'],
+    lookback      => ['lookback'],
+    highlowticks  => ['american'],
+    callputspread => ['euro_non_atm'],
     callputequal => ['euro_atm', 'euro_non_atm']
 };
 
@@ -729,7 +730,7 @@ sub _build_timeindays {
     # Since we have fixed feed generation frequency for volatility indices, we will need to adjust the contract duration
     # to the actual number of ticks through the contract duration to prevent under-pricing ITM contracts. But we are only adjusting
     # for contracts less than 5 minutes.
-    if ($self->market->name eq 'volidx' and not ($self->is_atm_bet or $self->for_sale or $self->tick_expiry) and $time_to_expiry->minutes < 5) {
+    if ($self->market->name eq 'volidx' and not($self->is_atm_bet or $self->for_sale or $self->tick_expiry) and $time_to_expiry->minutes < 5) {
         my $date_start_adjustment  = $self->effective_start->epoch % 2 ? 1 : 2;
         my $date_expiry_adjustment = $self->date_expiry->epoch % 2     ? 1 : 0;
         my $actual_duration =
