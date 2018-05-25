@@ -114,8 +114,6 @@ callputequal:
     available_types:
       - CALLE
       - PUTE
-      - CALL
-      - PUT
 vanilla:
     offer: 0
     display_order: 0
