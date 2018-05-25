@@ -32,7 +32,7 @@ CALLE:
   id: 290
   category: callputequal
   display_name: Higher or equal
-  other_side_code: PUTE
+  other_side_code: PUT
   payout_type: binary
   payouttime: end
   pricing_code: CALL
@@ -155,7 +155,7 @@ PUTE:
   id: 300
   category: callputequal
   display_name: Lower or equal
-  other_side_code: CALLE
+  other_side_code: CALL
   payout_type: binary
   payouttime: end
   pricing_code: PUT
