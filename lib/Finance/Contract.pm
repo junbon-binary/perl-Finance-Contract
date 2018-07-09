@@ -650,7 +650,7 @@ sub shortcode {
 
     # TODO We expect to have a valid bet_type, but there may be codepaths which don't set this correctly yet.
     my $contract_type = $self->bet_type // $self->code;
-    my $payout = $with_currency ? $self->currency . $self->payout + 0 : $self->payout + 0;
+    my $payout = $with_currency ? $self->currency . ($self->payout + 0) : $self->payout + 0;
     my @shortcode_elements = ($contract_type, $self->underlying->symbol, $payout, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
