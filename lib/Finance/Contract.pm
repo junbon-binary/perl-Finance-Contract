@@ -638,7 +638,7 @@ reconstruct a contract, with the exception of L</currency>.
 sub shortcode {
     my ($self, $with_currency) = @_;
 
-    my $with_currency //= 0;
+    $with_currency //= 0;
     my $shortcode_date_start = (
                $self->is_forward_starting
             or $self->starts_as_forward_starting
