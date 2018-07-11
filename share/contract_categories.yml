@@ -130,6 +130,7 @@ lookback:
     display_name: "Lookbacks"
     supported_expiries:
       - intraday
+      - tick
     available_types:
       - LBFLOATCALL
       - LBFLOATPUT
