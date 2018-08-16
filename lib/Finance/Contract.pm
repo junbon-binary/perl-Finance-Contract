@@ -508,8 +508,7 @@ our $BARRIER_CATEGORIES = {
     lookback      => ['lookback'],
     highlowticks  => ['american'],
     callputspread => ['euro_non_atm'],
-    callputequal => ['euro_atm', 'euro_non_atm']
-};
+    callputequal  => ['euro_atm', 'euro_non_atm']};
 
 =head2 barrier_category
 
@@ -637,8 +636,9 @@ reconstruct a contract, with the exception of L</currency>.
 =cut
 
 sub shortcode {
-    my $self = shift;
+    my ($self, $with_currency) = @_;
 
+    $with_currency //= 0;
     my $shortcode_date_start = (
                $self->is_forward_starting
             or $self->starts_as_forward_starting
@@ -650,7 +650,8 @@ sub shortcode {
 
     # TODO We expect to have a valid bet_type, but there may be codepaths which don't set this correctly yet.
     my $contract_type = $self->bet_type // $self->code;
-    my @shortcode_elements = ($contract_type, $self->underlying->symbol, $self->payout + 0, $shortcode_date_start, $shortcode_date_expiry);
+    my $payout = $with_currency ? $self->currency . ($self->payout + 0) : $self->payout + 0;
+    my @shortcode_elements = ($contract_type, $self->underlying->symbol, $payout, $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
         push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
