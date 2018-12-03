@@ -285,5 +285,23 @@ PUTSPREAD:
   payouttime: end
   pricing_code: PUTSPREAD
   sentiment: down
+RUNHIGH:
+  id: 450
+  category: highlowticks
+  display_name: Run High
+  other_side_code: RUNLOW
+  payout_type: binary
+  payouttime: hit
+  pricing_code: RUNHIGH
+  sentiment: up
+RUNLOW:
+  id: 460
+  category: highlowticks
+  display_name: Run Low
+  other_side_code: RUNHIGH
+  payout_type: binary
+  payouttime: hit
+  pricing_code: RUNLOW
+  sentiment: down
 INVALID:
   category: invalid

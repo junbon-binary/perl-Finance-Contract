@@ -102,6 +102,8 @@ highlowticks:
     available_types:
       - TICKHIGH
       - TICKLOW
+      - RUNHIGH
+      - RUNLOW
 callputequal:
     display_order: 9
     display_name: "Rise/Fall Equal"
