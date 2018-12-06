@@ -11,8 +11,20 @@ callput:
     available_types:
       - CALL
       - PUT
-touchnotouch:
+callputequal:
     display_order: 2
+    display_name: "Rise/Fall Equal"
+    allow_forward_starting: 1
+    supported_expiries:
+      - intraday
+      - daily
+      - tick
+    explanation: "Predict the ending market level relative to a chosen barrier."
+    available_types:
+      - CALLE
+      - PUTE
+touchnotouch:
+    display_order: 3
     display_name: "Touch/No Touch"
     is_path_dependent: 1
     supported_expiries:
@@ -24,7 +36,7 @@ touchnotouch:
       - ONETOUCH
       - NOTOUCH
 endsinout:
-    display_order : 3
+    display_order : 4
     two_barriers: 1
     display_name: "Ends Between/Ends Outside"
     supported_expiries:
@@ -37,7 +49,7 @@ endsinout:
       - EXPIRYMISSE
       - EXPIRYRANGEE
 staysinout:
-    display_order : 4
+    display_order : 5
     two_barriers: 1
     display_name: "Stays Between/Goes Outside"
     is_path_dependent: 1
@@ -49,7 +61,7 @@ staysinout:
       - RANGE
       - UPORDOWN
 digits:
-    display_order : 5
+    display_order : 6
     display_name: "Digits"
     supported_expiries:
       - tick
@@ -62,7 +74,7 @@ digits:
       - DIGITOVER
       - DIGITUNDER
 asian:
-    display_order: 6
+    display_order: 7
     display_name: "Asians"
     supported_expiries:
       - tick
@@ -71,8 +83,18 @@ asian:
     available_types:
       - ASIANU
       - ASIAND
-callputspread:
+reset:
     display_order: 8
+    display_name: "Reset Call/Reset Put"
+    supported_expiries:
+      - intraday
+      - tick
+    explanation: "Reset the barrier if contract is out of the money at half the option lifetime."
+    available_types:
+      - RESETCALL
+      - RESETPUT
+callputspread:
+    display_order: 9
     display_name: "Call Spread/Put Spread"
     two_barriers: 1
     is_binary: 0
@@ -82,18 +104,8 @@ callputspread:
     available_types:
       - CALLSPREAD
       - PUTSPREAD
-reset:
-    display_order: 7
-    display_name: "Reset Call/Reset Put"
-    supported_expiries:
-      - intraday
-      - tick
-    explanation: "Reset the barrier if contract is out of the money at half the option lifetime."
-    available_types:
-      - RESETCALL
-      - RESETPUT
 highlowticks:
-    display_order : 8
+    display_order : 10
     display_name: "High/Low Ticks"
     supported_expiries:
       - tick
@@ -102,18 +114,17 @@ highlowticks:
     available_types:
       - TICKHIGH
       - TICKLOW
-callputequal:
-    display_order: 9
-    display_name: "Rise/Fall Equal"
-    allow_forward_starting: 1
+lookback:
+    display_order: 11
+    display_name: "Lookbacks"
     supported_expiries:
       - intraday
-      - daily
-      - tick
-    explanation: "Predict the ending market level relative to a chosen barrier."
     available_types:
-      - CALLE
-      - PUTE
+      - LBFLOATCALL
+      - LBFLOATPUT
+      - LBHIGHLOW
+    is_binary: 0
+    explanation: "Lookbacks"
 vanilla:
     offer: 0
     display_order: 0
@@ -125,14 +136,3 @@ vanilla:
       - VANILLA_CALL
       - VANILLA_PUT
     explanation: "Plain vanilla options"
-lookback:
-    display_order: 0
-    display_name: "Lookbacks"
-    supported_expiries:
-      - intraday
-    available_types:
-      - LBFLOATCALL
-      - LBFLOATPUT
-      - LBHIGHLOW
-    is_binary: 0
-    explanation: "Lookbacks"
