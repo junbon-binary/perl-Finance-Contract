@@ -102,8 +102,6 @@ highlowticks:
     available_types:
       - TICKHIGH
       - TICKLOW
-      - RUNHIGH
-      - RUNLOW
 callputequal:
     display_order: 9
     display_name: "Rise/Fall Equal"
@@ -116,6 +114,16 @@ callputequal:
     available_types:
       - CALLE
       - PUTE
+runs:
+    display_order : 10
+    display_name: "Runs"
+    supported_expiries:
+      - tick
+    explanation: "Predicts if the next n ticks will be consecutively higher or lower than the previous tick."
+    is_path_dependent: 1
+    available_types:
+      - RUNHIGH
+      - RUNLOW
 vanilla:
     offer: 0
     display_order: 0

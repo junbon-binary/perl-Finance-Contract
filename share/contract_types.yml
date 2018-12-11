@@ -287,7 +287,7 @@ PUTSPREAD:
   sentiment: down
 RUNHIGH:
   id: 450
-  category: highlowticks
+  category: runs
   display_name: Run High
   other_side_code: RUNLOW
   payout_type: binary
@@ -296,7 +296,7 @@ RUNHIGH:
   sentiment: up
 RUNLOW:
   id: 460
-  category: highlowticks
+  category: runs
   display_name: Run Low
   other_side_code: RUNHIGH
   payout_type: binary
