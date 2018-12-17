@@ -2,6 +2,7 @@ Revision history for Finance-Contract
 
 {{$NEXT}}
 
+    Changes display order of contract categories
 0.010     2017-06-16 07:27:19+00:00 UTC
     Introduce coinauction
 
