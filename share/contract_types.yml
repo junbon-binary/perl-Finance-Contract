@@ -288,7 +288,7 @@ PUTSPREAD:
 RUNHIGH:
   id: 450
   category: runs
-  display_name: Run High
+  display_name: Ups
   other_side_code: RUNLOW
   payout_type: binary
   payouttime: hit
@@ -298,7 +298,7 @@ RUNHIGH:
 RUNLOW:
   id: 460
   category: runs
-  display_name: Run Low
+  display_name: Downs
   other_side_code: RUNHIGH
   payout_type: binary
   payouttime: hit
