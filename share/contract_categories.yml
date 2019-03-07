@@ -127,7 +127,7 @@ lookback:
     explanation: "Lookbacks"
 runs:
     display_order : 12
-    display_name: "Run Ups/Run Downs"
+    display_name: "Only Ups/Only Downs"
     supported_expiries:
       - tick
     explanation: "Predicts if the next n ticks will be consecutively higher or lower than the previous tick."
