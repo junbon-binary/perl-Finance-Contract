@@ -67,6 +67,7 @@ DIGITODD:
   pricing_code: DIGITODD
   sentiment: odd
   base_commission: 0.01  
+  has_user_defined_barrier: 0
 DIGITEVEN:
   id: 260
   category: digits
@@ -77,6 +78,7 @@ DIGITEVEN:
   pricing_code: DIGITEVEN
   sentiment: even
   base_commission: 0.01
+  has_user_defined_barrier: 0
 DIGITOVER:
   id: 270
   category: digits
