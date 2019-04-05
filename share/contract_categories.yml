@@ -101,6 +101,8 @@ callputspread:
     supported_expiries:
       - intraday
       - daily
+    supported_amount_type:
+      - payout
     available_types:
       - CALLSPREAD
       - PUTSPREAD
@@ -119,6 +121,8 @@ lookback:
     display_name: "Lookbacks"
     supported_expiries:
       - intraday
+    supported_amount_type:
+      - multiplier
     available_types:
       - LBFLOATCALL
       - LBFLOATPUT
