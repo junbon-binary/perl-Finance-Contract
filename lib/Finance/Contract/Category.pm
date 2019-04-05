@@ -108,6 +108,11 @@ has is_binary => (
     default => 1,
 );
 
+has has_user_defined_expiry => (
+    is      => 'ro',
+    default => 1,
+);
+
 =head1 METHODS
 
 =head2 barrier_at_start
