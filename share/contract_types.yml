@@ -318,7 +318,6 @@ RUNHIGH:
   payouttime: hit
   pricing_code: RUNHIGH
   sentiment: up
-  has_user_defined_barrier: 0
 RUNLOW:
   id: 460
   category: runs
@@ -328,6 +327,5 @@ RUNLOW:
   payouttime: hit
   pricing_code: RUNLOW
   sentiment: down
-  has_user_defined_barrier: 0
 INVALID:
   category: invalid
