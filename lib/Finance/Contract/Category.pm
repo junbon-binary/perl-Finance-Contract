@@ -113,6 +113,11 @@ has has_user_defined_expiry => (
     default => 1,
 );
 
+has has_financial_barrier => (
+    is      => 'ro',
+    default => 1,
+);
+
 has supported_amount_type => (
     is      => 'ro',
     default => sub { ['payout', 'stake'] },
