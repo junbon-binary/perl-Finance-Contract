@@ -123,6 +123,11 @@ has supported_amount_type => (
     default => sub { ['payout', 'stake'] },
 );
 
+has allow_atm_barrier => (
+    is      => 'ro',
+    default => 0,
+);
+
 =head1 METHODS
 
 =head2 barrier_at_start
