@@ -121,6 +121,17 @@ has barrier_at_start => (
     default => 1,
 );
 
+=head2 has_financial_barrier
+
+A boolean to distinguish between financial and non-financial barrier
+
+=cut
+
+has has_financial_barrier => (
+    is      => 'ro',
+    default => 1,
+);
+
 around BUILDARGS => sub {
     my $orig  = shift;
     my $class = shift;

@@ -73,6 +73,7 @@ digits:
       - DIGITEVEN
       - DIGITOVER
       - DIGITUNDER
+    has_financial_barrier: 0
 asian:
     display_order: 7
     display_name: "Asians"
