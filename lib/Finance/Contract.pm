@@ -437,7 +437,7 @@ has category => (
     coerce  => 1,
     handles => [qw(
             allow_forward_starting
-            allw_atm_barrier
+            allow_atm_barrier
             barrier_at_start
             is_path_dependent
             supported_expiries
