@@ -135,6 +135,7 @@ lookback:
       - LBHIGHLOW
     is_binary: 0
     explanation: "Lookbacks"
+    has_minimum_multiplier: 1
 runs:
     display_order : 12
     display_name: "Only Ups/Only Downs"

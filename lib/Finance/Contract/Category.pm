@@ -108,6 +108,28 @@ has is_binary => (
     default => 1,
 );
 
+=head2 has_user_defined_expiry
+
+Does this contract expect user defined expiry at start? Returns boolean.
+
+=head2 has_financial_barrier
+
+Does this contract expect a financial barrier? Returns boolean.
+
+=head2 supported_amount_type
+
+Returns the supported amount type of this contract.
+
+=head2 allow_atm_barrier
+
+Some path dependent contract starts as ATM
+
+=head2 has_minimum_multiplier
+
+Does this contract have a minimum multiplier restriction in place? Returns boolean.
+
+=cut
+
 has has_user_defined_expiry => (
     is      => 'ro',
     default => 1,
@@ -124,6 +146,11 @@ has supported_amount_type => (
 );
 
 has allow_atm_barrier => (
+    is      => 'ro',
+    default => 0,
+);
+
+has has_minimum_multiplier => (
     is      => 'ro',
     default => 0,
 );
