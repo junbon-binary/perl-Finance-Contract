@@ -334,7 +334,7 @@ MULTUP:
   category: multiplier
   display_name: Multiply Up
   other_side_code: MULTDOWN
-  payout_type: non_binary
+  payout_type: non-binary
   payouttime: hit
   pricing_code: MULTUP
   sentiment: up
@@ -343,9 +343,21 @@ MULTDOWN:
   category: multiplier
   display_name: Multiply Down
   other_side_code: MULTUP
-  payout_type: non_binary
+  payout_type: non-binary
   payouttime: hit
   pricing_code: MULTDOWN
   sentiment: down
+INSUP:
+  category: insurance
+  payout_type: non-binary
+  payouttime: end
+  pricing_code: VANILLA_PUT
+  has_user_defined_barrier: 1
+INSDOWN:
+  category: insurance
+  payout_type: non-binary
+  payouttime: end
+  pricing_code: VANILLA_CALL
+  has_user_defined_barrier: 1
 INVALID:
   category: invalid

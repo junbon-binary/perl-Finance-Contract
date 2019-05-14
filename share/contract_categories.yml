@@ -152,11 +152,22 @@ multiplier:
     display_name: "Multiply Up/Multiply Down"
     supported_expiries:
       - daily
+    supported_amount_type: []
     explanation: "Predicts if the market is going to up or down."
     is_path_dependent: 1
     available_types:
       - MULTUP
       - MULTDOWN
+insurance:
+    offer: 0
+    display_order: 0
+    display_name: "Insurance"
+    supported_expiries:
+      - intraday
+    available_types:
+      - INSUP
+      - INSDOWN
+    explanation: "Insurance for multiplier contract."
 vanilla:
     offer: 0
     display_order: 0
