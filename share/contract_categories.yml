@@ -164,6 +164,7 @@ insurance:
     display_name: "Insurance"
     supported_expiries:
       - intraday
+    supported_amount_type: []
     available_types:
       - INSUP
       - INSDOWN
