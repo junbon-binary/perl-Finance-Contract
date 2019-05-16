@@ -153,12 +153,13 @@ multiplier:
     supported_expiries:
       - daily
     supported_amount_type:
-      - multiplier
+      - stake
     explanation: "Predicts if the market is going to up or down."
     is_path_dependent: 1
     available_types:
       - MULTUP
       - MULTDOWN
+    has_user_defined_expiry: 0
 insurance:
     offer: 0
     display_order: 0
@@ -166,7 +167,7 @@ insurance:
     supported_expiries:
       - intraday
     supported_amount_type:
-      - multiplier
+      - stake
     available_types:
       - INSUP
       - INSDOWN
