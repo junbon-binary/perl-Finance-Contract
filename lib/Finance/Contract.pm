@@ -400,6 +400,10 @@ Indicates whether we are speculating on market rise or fall.
 
 Opposite type for this contract - PUT for CALL, etc.
 
+=head2 insurance_code
+
+Some contracts can have insurance, E.g. MULTUP's insurance code is INSDOWN
+
 =head2 payout_type
 
 Either C< binary > or C< non-binary >.
@@ -414,7 +418,7 @@ Indicates if a contract requires barrier(s) as input parameter
 
 =cut
 
-has [qw(id pricing_code display_name sentiment other_side_code payout_type payouttime)] => (
+has [qw(id pricing_code display_name sentiment other_side_code payout_type payouttime insurance_code)] => (
     is      => 'ro',
     default => undef,
 );

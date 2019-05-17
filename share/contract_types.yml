@@ -337,6 +337,7 @@ MULTUP:
   payout_type: non-binary
   payouttime: hit
   pricing_code: MULTUP
+  insurance_code: INSDOWN
   sentiment: up
 MULTDOWN:
   id: 480
@@ -346,6 +347,7 @@ MULTDOWN:
   payout_type: non-binary
   payouttime: hit
   pricing_code: MULTDOWN
+  insurance_code: INSUP
   sentiment: down
 INSUP:
   category: insurance
