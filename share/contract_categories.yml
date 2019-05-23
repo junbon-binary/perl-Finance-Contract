@@ -3,6 +3,7 @@ callput:
     display_order: 1
     display_name: "Up/Down"
     allow_forward_starting: 1
+    allow_atm_barrier: 1
     supported_expiries:
       - intraday
       - daily
@@ -15,6 +16,7 @@ callputequal:
     display_order: 2
     display_name: "Rise/Fall Equal"
     allow_forward_starting: 1
+    allow_atm_barrier: 1
     supported_expiries:
       - intraday
       - daily
@@ -66,6 +68,7 @@ digits:
     supported_expiries:
       - tick
     explanation: "Predict the last digit of the market price at expiration."
+    has_financial_barrier: 0
     available_types:
       - DIGITMATCH
       - DIGITDIFF
@@ -83,6 +86,7 @@ asian:
     available_types:
       - ASIANU
       - ASIAND
+    allow_atm_barrier: 1
 reset:
     display_order: 8
     display_name: "Reset Call/Reset Put"
@@ -93,6 +97,7 @@ reset:
     available_types:
       - RESETCALL
       - RESETPUT
+    allow_atm_barrier: 1
 callputspread:
     display_order: 9
     display_name: "Call Spread/Put Spread"
@@ -101,6 +106,8 @@ callputspread:
     supported_expiries:
       - intraday
       - daily
+    supported_amount_type:
+      - payout
     available_types:
       - CALLSPREAD
       - PUTSPREAD
@@ -114,17 +121,21 @@ highlowticks:
     available_types:
       - TICKHIGH
       - TICKLOW
+    allow_atm_barrier: 1
 lookback:
     display_order: 11
     display_name: "Lookbacks"
     supported_expiries:
       - intraday
+    supported_amount_type:
+      - multiplier
     available_types:
       - LBFLOATCALL
       - LBFLOATPUT
       - LBHIGHLOW
     is_binary: 0
     explanation: "Lookbacks"
+    has_minimum_multiplier: 1
 runs:
     display_order : 12
     display_name: "Only Ups/Only Downs"
@@ -135,6 +146,7 @@ runs:
     available_types:
       - RUNHIGH
       - RUNLOW
+    allow_atm_barrier: 1
 vanilla:
     offer: 0
     display_order: 0

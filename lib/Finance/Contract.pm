@@ -408,6 +408,10 @@ Either C< binary > or C< non-binary >.
 
 Indicates when the contract pays out. Can be C< end > or C< hit >.
 
+=head2 has_user_defined_barrier
+
+Indicates if a contract requires barrier(s) as input parameter
+
 =cut
 
 has [qw(id pricing_code display_name sentiment other_side_code payout_type payouttime)] => (
@@ -433,6 +437,7 @@ has category => (
     coerce  => 1,
     handles => [qw(
             allow_forward_starting
+            allow_atm_barrier
             barrier_at_start
             is_path_dependent
             supported_expiries
