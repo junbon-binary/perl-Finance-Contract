@@ -447,6 +447,7 @@ has category => (
             supported_expiries
             two_barriers
             is_binary
+            has_user_defined_expiry
             )
     ],
 );
