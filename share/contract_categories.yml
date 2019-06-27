@@ -69,6 +69,7 @@ digits:
       - tick
     explanation: "Predict the last digit of the market price at expiration."
     has_financial_barrier: 0
+    require_entry_spot: 0
     available_types:
       - DIGITMATCH
       - DIGITDIFF
@@ -83,6 +84,7 @@ asian:
       - tick
     explanation: "Predict the ending market level relative to the average market prices throughout the course of the contract"
     barrier_at_start: 0
+    require_entry_spot: 0
     available_types:
       - ASIANU
       - ASIAND

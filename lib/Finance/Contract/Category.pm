@@ -168,6 +168,11 @@ has barrier_at_start => (
     default => 1,
 );
 
+has require_entry_spot => (
+    is      => 'ro',
+    default => 1,
+);
+
 around BUILDARGS => sub {
     my $orig  = shift;
     my $class = shift;
