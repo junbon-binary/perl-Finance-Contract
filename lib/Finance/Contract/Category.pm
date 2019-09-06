@@ -168,6 +168,16 @@ has barrier_at_start => (
     default => 1,
 );
 
+has require_basis => (
+    is      => 'ro',
+    default => 1,
+);
+
+has require_multiplier => (
+    is      => 'ro',
+    default => 0,
+);
+
 around BUILDARGS => sub {
     my $orig  = shift;
     my $class = shift;

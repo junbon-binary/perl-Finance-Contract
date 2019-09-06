@@ -135,6 +135,8 @@ lookback:
     is_binary: 0
     explanation: "Lookbacks"
     has_minimum_multiplier: 1
+    require_basis: 0
+    require_multiplier: 1
 runs:
     display_order : 12
     display_name: "Only Ups/Only Downs"
@@ -159,6 +161,7 @@ multiplier:
       - MULTUP
       - MULTDOWN
     has_user_defined_expiry: 0
+    require_multiplier: 1
 vanilla:
     offer: 0
     display_order: 0
