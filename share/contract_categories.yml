@@ -162,6 +162,7 @@ multiplier:
       - MULTDOWN
     has_user_defined_expiry: 0
     require_multiplier: 1
+    is_binary: 0
 vanilla:
     offer: 0
     display_order: 0
