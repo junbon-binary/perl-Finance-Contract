@@ -127,8 +127,7 @@ lookback:
     display_name: "Lookbacks"
     supported_expiries:
       - intraday
-    supported_amount_type:
-      - multiplier
+    supported_amount_type: []
     available_types:
       - LBFLOATCALL
       - LBFLOATPUT
@@ -136,6 +135,8 @@ lookback:
     is_binary: 0
     explanation: "Lookbacks"
     has_minimum_multiplier: 1
+    require_basis: 0
+    require_multiplier: 1
 runs:
     display_order : 12
     display_name: "Only Ups/Only Downs"
