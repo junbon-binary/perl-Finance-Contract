@@ -333,7 +333,6 @@ MULTUP:
   id: 470
   category: multiplier
   display_name: Multiply Up
-  other_side_code: MULTDOWN
   payout_type: non-binary
   payouttime: hit
   pricing_code: MULTUP
@@ -342,7 +341,6 @@ MULTDOWN:
   id: 480
   category: multiplier
   display_name: Multiply Down
-  other_side_code: MULTUP
   payout_type: non-binary
   payouttime: hit
   pricing_code: MULTDOWN
