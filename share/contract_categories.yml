@@ -163,6 +163,8 @@ multiplier:
     has_user_defined_expiry: 0
     require_multiplier: 1
     is_binary: 0
+    allowed_update:
+      - take_profit
 vanilla:
     offer: 0
     display_order: 0

@@ -178,6 +178,11 @@ has require_multiplier => (
     default => 0,
 );
 
+has allowed_update => (
+    is      => 'ro',
+    default => sub { [] },
+);
+
 around BUILDARGS => sub {
     my $orig  = shift;
     my $class = shift;
