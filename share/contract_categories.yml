@@ -155,7 +155,7 @@ multiplier:
       - daily
     supported_amount_type:
       - stake
-    explanation: "Predicts if the market is going to up or down."
+    explanation: "Predicts if the market is going up or down."
     is_path_dependent: 1
     available_types:
       - MULTUP
