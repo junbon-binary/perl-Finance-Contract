@@ -165,6 +165,7 @@ multiplier:
     is_binary: 0
     allowed_update:
       - take_profit
+      - stop_loss
 vanilla:
     offer: 0
     display_order: 0
