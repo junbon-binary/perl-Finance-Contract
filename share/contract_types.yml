@@ -329,5 +329,21 @@ RUNLOW:
   pricing_code: RUNLOW
   sentiment: down
   has_user_defined_barrier: 1
+MULTUP:
+  id: 470
+  category: multiplier
+  display_name: Multiply Up
+  payout_type: non-binary
+  payouttime: hit
+  pricing_code: MULTUP
+  sentiment: up
+MULTDOWN:
+  id: 480
+  category: multiplier
+  display_name: Multiply Down
+  payout_type: non-binary
+  payouttime: hit
+  pricing_code: MULTDOWN
+  sentiment: down
 INVALID:
   category: invalid

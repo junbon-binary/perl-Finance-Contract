@@ -148,6 +148,24 @@ runs:
       - RUNHIGH
       - RUNLOW
     allow_atm_barrier: 1
+multiplier:
+    display_order : 13
+    display_name: "Multiply Up/Multiply Down"
+    supported_expiries:
+      - daily
+    supported_amount_type:
+      - stake
+    explanation: "Predicts if the market is going to up or down."
+    is_path_dependent: 1
+    available_types:
+      - MULTUP
+      - MULTDOWN
+    has_user_defined_expiry: 0
+    require_multiplier: 1
+    is_binary: 0
+    allowed_update:
+      - take_profit
+      - stop_loss
 vanilla:
     offer: 0
     display_order: 0

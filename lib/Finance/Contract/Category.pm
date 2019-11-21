@@ -168,6 +168,20 @@ has barrier_at_start => (
     default => 1,
 );
 
+=head2 require_basis
+
+A boolean that determines if a contract category requires basis as input.
+
+=head2 require_multiplier
+
+A boolean that determines if a contract category requires multiplier as input.
+
+=head2 allowed_update
+
+An array reference that contains the updatable attributes of a contract category.
+
+=cut
+
 has require_basis => (
     is      => 'ro',
     default => 1,
@@ -178,6 +192,10 @@ has require_multiplier => (
     default => 0,
 );
 
+has allowed_update => (
+    is      => 'ro',
+    default => sub { [] },
+);
 
 around BUILDARGS => sub {
     my $orig  = shift;
