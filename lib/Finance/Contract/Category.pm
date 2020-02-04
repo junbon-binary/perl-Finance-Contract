@@ -199,7 +199,7 @@ has allowed_update => (
 
 has minimum_stake => (
     is      => 'ro',
-    default => 0,
+    default => 0.01,
 );
 
 around BUILDARGS => sub {
