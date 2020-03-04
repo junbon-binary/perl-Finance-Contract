@@ -204,7 +204,6 @@ TICKHIGH:
   payouttime: end
   pricing_code: TICKHIGH
   sentiment: high
-  base_commission: 0.015
   has_user_defined_barrier: 0
 TICKLOW:
   id: 410
@@ -215,7 +214,6 @@ TICKLOW:
   payouttime: end
   pricing_code: TICKLOW
   sentiment: low
-  base_commission: 0.015
   has_user_defined_barrier: 0
 EXPIRYMISS:
   id: 180
