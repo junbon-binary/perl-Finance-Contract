@@ -25,6 +25,23 @@ my $category_config = LoadFile(File::ShareDir::dist_file('Finance-Contract', 'co
 
 my $contract_type_config = LoadFile(File::ShareDir::dist_file('Finance-Contract', 'contract_types.yml'));
 
+=head2 get_category_for_contract_type
+
+Retuns L<Finance::Contract::Category> object for the given contract type.
+
+Returns undef if contract type is not found.
+
+=cut
+
+sub get_category_for_contract_type {
+    my $contract_type = shift;
+
+    my $config = $contract_type_config->{$contract_type};
+
+    return Finance::Contract::Category->new($config->{category}) if $config and $config->{category};
+    return undef;
+}
+
 =head2 get_all_contract_types
 
 Returns a list of all loaded contract types
