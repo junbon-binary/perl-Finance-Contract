@@ -42,6 +42,20 @@ sub get_category_for_contract_type {
     return undef;
 }
 
+=head2 get_config_for_contract_type
+
+Returns a hash reference containing config for the given contract type.
+
+Returns undef if contract type is not found.
+
+=cut
+
+sub get_config_for_contract_type {
+    my $contract_type = shift;
+
+    return $contract_type_config->{$contract_type};
+}
+
 =head2 get_all_contract_types
 
 Returns a list of all loaded contract types
