@@ -166,6 +166,7 @@ multiplier:
     allowed_update:
       - take_profit
       - stop_loss
+    minimum_stake: 1
 vanilla:
     offer: 0
     display_order: 0

@@ -197,6 +197,11 @@ has allowed_update => (
     default => sub { [] },
 );
 
+has minimum_stake => (
+    is      => 'ro',
+    default => 0.01,
+);
+
 around BUILDARGS => sub {
     my $orig  = shift;
     my $class = shift;
