@@ -227,7 +227,7 @@ Returns the mimimum amount for a given currency and currency type.
 sub get_minimum_stake {
     my ($self, $currency, $currency_type) = @_;
 
-    my $precision = Format::Util::Numbers::get_precision_config()->{amount}->{$currency} // die 'precision not defined';
+    my $precision = Format::Util::Numbers::get_precision_config()->{amount}->{$currency} // die 'precision not defined for ' . $currency;
     my $minimum_stake = 1 / 10**$precision;
 
     # go with minimum for crypto since we can't get the equivalent to a 0.01 dollar/euro or other fiat.
