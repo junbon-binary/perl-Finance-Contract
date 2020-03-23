@@ -200,7 +200,7 @@ has allowed_update => (
 
 has custom_minimum_stake => (
     is      => 'ro',
-    default => undef,
+    default => sub { {} },
 );
 
 around BUILDARGS => sub {
@@ -230,12 +230,7 @@ sub get_minimum_stake {
     my $precision = Format::Util::Numbers::get_precision_config()->{amount}->{$currency} // die 'precision not defined for ' . $currency;
     my $minimum_stake = 1 / 10**$precision;
 
-    # go with minimum for crypto since we can't get the equivalent to a 0.01 dollar/euro or other fiat.
-    if ($currency_type eq 'crypto') {
-        return $minimum_stake;
-    }
-
-    return $self->custom_minimum_stake if $self->custom_minimum_stake;
+    return $self->custom_minimum_stake->{$currency_type} if defined $currency_type and $self->custom_minimum_stake->{$currency_type};
     return $minimum_stake;
 }
 
