@@ -218,6 +218,12 @@ around BUILDARGS => sub {
     return $class->$orig(%args, %$wanted);
 };
 
+=head2 get_minimum_stake
+
+Returns the mimimum amount for a given currency and currency type.
+
+=cut
+
 sub get_minimum_stake {
     my ($self, $currency, $currency_type) = @_;
 
