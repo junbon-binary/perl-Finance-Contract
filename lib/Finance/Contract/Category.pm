@@ -20,6 +20,7 @@ use Moose;
 use namespace::autoclean;
 use File::ShareDir ();
 use YAML qw(LoadFile);
+use Format::Util::Numbers;
 
 my $category_config = LoadFile(File::ShareDir::dist_file('Finance-Contract', 'contract_categories.yml'));
 
@@ -197,9 +198,9 @@ has allowed_update => (
     default => sub { [] },
 );
 
-has minimum_stake => (
+has custom_minimum_stake => (
     is      => 'ro',
-    default => 0.01,
+    default => sub { {} },
 );
 
 around BUILDARGS => sub {
@@ -216,6 +217,24 @@ around BUILDARGS => sub {
     return $class->$orig(%args) unless $wanted;
     return $class->$orig(%args, %$wanted);
 };
+
+=head2 get_minimum_stake
+
+Returns the mimimum amount for a given currency and currency type.
+
+=cut
+
+sub get_minimum_stake {
+    my ($self, $currency, $currency_type) = @_;
+
+    my $precision = Format::Util::Numbers::get_precision_config()->{amount}->{$currency} // die 'precision not defined for ' . $currency;
+    my $minimum_stake = 1 / 10**$precision;
+
+    # Currently, it is hard to defined a minimum stake for crypto due to exchange rate. Hence, we will rely on the minimum allowable movement for
+    # each crypto-currency
+    return $self->custom_minimum_stake->{$currency_type} if defined $currency_type and $self->custom_minimum_stake->{$currency_type};
+    return $minimum_stake;
+}
 
 __PACKAGE__->meta->make_immutable;
 
