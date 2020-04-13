@@ -68,7 +68,7 @@ use List::Util qw(min max first);
 use Scalar::Util qw(looks_like_number);
 use Math::Util::CalculatedValue::Validatable;
 use Date::Utility;
-use Format::Util::Numbers qw(roundcommon);
+use Format::Util::Numbers qw(roundcommon formatnumber);
 use POSIX qw( floor );
 use Time::Duration::Concise;
 
@@ -660,7 +660,8 @@ sub shortcode {
     # TODO We expect to have a valid bet_type, but there may be codepaths which don't set this correctly yet.
     my $contract_type = $self->bet_type // $self->code;
     my $payout = $with_currency ? $self->currency . ($self->payout + 0) : $self->payout + 0;
-    my @shortcode_elements = ($contract_type, $self->underlying->symbol, $payout, $shortcode_date_start, $shortcode_date_expiry);
+    my @shortcode_elements =
+        ($contract_type, $self->underlying->symbol, formatnumber('price', $self->currency, $payout), $shortcode_date_start, $shortcode_date_expiry);
 
     if ($self->two_barriers) {
         push @shortcode_elements, map { $self->_barrier_for_shortcode_string($_) } ($self->supplied_high_barrier, $self->supplied_low_barrier);
