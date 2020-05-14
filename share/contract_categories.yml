@@ -166,8 +166,6 @@ multiplier:
     allowed_update:
       - take_profit
       - stop_loss
-    custom_minimum_stake:
-      fiat: 1
 vanilla:
     offer: 0
     display_order: 0
