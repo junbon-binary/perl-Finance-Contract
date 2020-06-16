@@ -424,6 +424,11 @@ has has_user_defined_barrier => (
     default => 1,
 );
 
+has allowed_addons => (
+    is      => 'ro',
+    default => sub { [] },
+);
+
 =head1 ATTRIBUTES - From contract_categories.yml
 
 =cut
