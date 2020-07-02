@@ -377,9 +377,30 @@ has _date_pricing_milliseconds => (
     is => 'rw',
 );
 
+=head2 pricing_new
+
+Is this a new contract?
+
+Returns a boolean.
+
+=head2 for_sale
+
+Is this contract for sale? Default to 0.
+
+Returns a boolean.
+
+=cut
+
 has pricing_new => (
     is         => 'ro',
+    isa        => 'Bool',
     lazy_build => 1,
+);
+
+has for_sale => (
+    is      => 'ro',
+    isa     => 'Bool',
+    default => 0,
 );
 
 =head1 ATTRIBUTES - From contract_types.yml
