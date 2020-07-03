@@ -148,6 +148,22 @@ Current types include:
 
 =item * UPORDOWN
 
+=item * CALLSPREAD
+
+=item * PUTSPREAD
+
+=item * TICKHIGH
+
+=item * TICKLOW
+
+=item * RUNHIGH
+
+=item * RUNLOW
+
+=item * MULTUP
+
+=item * MULTDOWN
+
 =back
 
 =cut
