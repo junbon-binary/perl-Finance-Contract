@@ -365,6 +365,32 @@ has _date_pricing_milliseconds => (
     is => 'rw',
 );
 
+=head2 pricing_new
+
+Is this a new contract?
+
+Returns a boolean.
+
+=head2 for_sale
+
+Is this contract for sale? Default to 0.
+
+Returns a boolean.
+
+=cut
+
+has pricing_new => (
+    is         => 'ro',
+    isa        => 'Bool',
+    lazy_build => 1,
+);
+
+has for_sale => (
+    is      => 'ro',
+    isa     => 'Bool',
+    default => 0,
+);
+
 =head1 ATTRIBUTES - From contract_types.yml
 
 =head2 id
@@ -774,6 +800,25 @@ sub _get_time_to_end {
 
 sub _build_date_pricing {
     return Date::Utility->new;
+    my $self = shift;
+
+    my $time = Time::HiRes::time();
+    $self->_date_pricing_milliseconds($time);
+    my $now = Date::Utility->new($time);
+    return ($self->has_pricing_new and $self->pricing_new)
+        ? $self->date_start
+        : $now;
+}
+
+sub _build_pricing_new {
+    my $self = shift;
+
+    $self->date_pricing;
+    # do not use $self->date_pricing here because milliseconds matters!
+    # _date_pricing_milliseconds will not be set if date_pricing is not built.
+    my $time = $self->_date_pricing_milliseconds // $self->date_pricing->epoch;
+    return 0 if $time > $self->date_start->epoch;
+    return 1;
 }
 
 sub _build_is_forward_starting {
