@@ -827,7 +827,6 @@ sub _get_time_to_end {
 #== BUILDERS =====================
 
 sub _build_date_pricing {
-    return Date::Utility->new;
     my $self = shift;
 
     my $time = Time::HiRes::time();
