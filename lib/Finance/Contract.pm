@@ -282,6 +282,18 @@ has starts_as_forward_starting => (
     default => 0,
 );
 
+=head2 pip_size
+
+Barrier pip size the minimum fluctuation amount for type of market. It is normally fraction.
+
+=cut
+
+has pip_size => (
+    is         => 'ro',
+    isa        => 'Num',
+    lazy_build => 1
+);
+
 =head2 absolute_barrier_multiplier
 
 True if barrier multiplier should be applied for absolute barrier(s) on this market
