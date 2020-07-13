@@ -831,10 +831,9 @@ sub _build_date_pricing {
 
     my $time = Time::HiRes::time();
     $self->_date_pricing_milliseconds($time);
-    my $now = Date::Utility->new($time);
     return ($self->has_pricing_new and $self->pricing_new)
         ? $self->date_start
-        : $now;
+        : Date::Utility->new($time);
 }
 
 sub _build_pricing_new {
