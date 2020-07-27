@@ -829,7 +829,8 @@ sub _get_time_to_end {
 sub _build_date_pricing {
     my $self = shift;
 
-    my $time = Time::HiRes::time();
+    my $time = [Time::HiRes::gettimeofday()];
+    $self->_date_pricing_milliseconds($time->[1]);
     $self->_date_pricing_milliseconds($time);
     return ($self->has_pricing_new and $self->pricing_new)
         ? $self->date_start
