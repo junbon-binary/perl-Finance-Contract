@@ -199,7 +199,7 @@ has require_multiplier => (
 
 has allowed_update => (
     is      => 'ro',
-    default => sub { [] },
+    default => sub { {} },
 );
 
 has is_addon_allowed => (
