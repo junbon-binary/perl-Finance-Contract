@@ -875,8 +875,7 @@ sub _barrier_for_shortcode_string {
 
     return $string if defined $self->category and $self->category->code eq 'reset' and $string eq 'S0P';
 
-    # better to use sprintf else roundcommon can return as 1e-1 which will be concatenated as it is
-    return 'S' . sprintf('%0.0f', roundcommon(1, $string / $self->pip_size)) . 'P' if $self->supplied_barrier_type eq 'difference';
+    return 'S' . roundcommon(1, $string / $self->pip_size) . 'P' if $self->supplied_barrier_type eq 'difference';
 
     unless (looks_like_number($string)) {
         my $message =
