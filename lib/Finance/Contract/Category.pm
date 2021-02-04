@@ -181,6 +181,10 @@ A boolean that determines if a contract category requires multiplier as input.
 
 An array reference that contains the updatable attributes of a contract category.
 
+=head2 is_addon_allowed
+
+A boolean that determines if addon to contract is allowed?
+
 =cut
 
 has require_basis => (
@@ -195,7 +199,12 @@ has require_multiplier => (
 
 has allowed_update => (
     is      => 'ro',
-    default => sub { [] },
+    default => sub { {} },
+);
+
+has is_addon_allowed => (
+    is      => 'ro',
+    default => 0
 );
 
 around BUILDARGS => sub {

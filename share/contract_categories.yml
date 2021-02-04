@@ -164,8 +164,12 @@ multiplier:
     require_multiplier: 1
     is_binary: 0
     allowed_update:
-      - take_profit
-      - stop_loss
+      limit_order:
+        - take_profit
+        - stop_loss
+      addon:
+        - protection
+    is_addon_allowed: 1
 vanilla:
     offer: 0
     display_order: 0

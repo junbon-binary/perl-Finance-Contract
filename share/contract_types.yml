@@ -335,6 +335,12 @@ MULTUP:
   payouttime: hit
   pricing_code: MULTUP
   sentiment: up
+  allowed_addons:
+    - PROTECTDOWN
+  supported_orders:
+    - stop_loss
+    - take_profit
+    - stop_out
 MULTDOWN:
   id: 480
   category: multiplier
@@ -343,5 +349,11 @@ MULTDOWN:
   payouttime: hit
   pricing_code: MULTDOWN
   sentiment: down
+  allowed_addons:
+    - PROTECTUP
+  supported_orders:
+    - stop_loss
+    - take_profit
+    - stop_out
 INVALID:
   category: invalid
